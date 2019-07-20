@@ -36,12 +36,22 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3>
-						<form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
+						<form class="row login_form" action="/login" method="post" id="contactForm" role="form">
+							<div class="col-md-12 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+								@if ($errors->has('name'))
+									<span class="help-block">
+											<strong>{{ $errors->first('name') }}</strong>
+									</span>
+								@endif
 							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							<div class="col-md-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+								<input type="text" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+								@if ($errors->has('password'))
+									<span class="help-block">
+											<strong>{{ $errors->first('password') }}</strong>
+									</span>
+								@endif
 							</div>
 							<div class="col-md-12 form-group">
 								<div class="creat_account">

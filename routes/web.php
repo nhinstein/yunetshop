@@ -20,3 +20,29 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('account/registration');
 });
+Route::post('/register', 'Auth\RegisterController@store');
+
+Route::get('/category', function () {
+    return view('category');
+});
+Route::get('/cart', function () {
+    return view('cart');
+});
+Route::get('/checkout', function () {
+    return view('checkout');
+});
+Route::get('/confirmation', function () {
+    return view('confirmation');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::get('/single-product', function () {
+    return view('single_product');
+});
+Route::get('/tracking', function () {
+    return view('tracking');
+});
+Route::get('/element', function () {
+    return view('element');
+});
