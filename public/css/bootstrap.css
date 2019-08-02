@@ -512,7 +512,8 @@ mark {
 
 .img-fluid {
     max-width: 100%;
-    height: auto
+    height: 200px;
+    object-fit: contain;
 }
 
 .img-thumbnail {
@@ -9310,5 +9311,3 @@ a.text-dark:hover {
         border-color: #dee2e6
     }
 }
-
-/*# sourceMappingURL=bootstrap.min.css.map */

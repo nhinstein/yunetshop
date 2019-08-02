@@ -36,12 +36,18 @@
 				<div class="col-lg-6">
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3>
+								 @if(session()->has('alert'))
+								 <div class="alert alert-success">
+									 {{session()->get('alert')}}
+								 </div>
+								 @endif
 						<form class="row login_form" action="/login" method="post" id="contactForm" role="form">
-							<div class="col-md-12 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-								@if ($errors->has('name'))
+							{{ csrf_field() }}
+							<div class="col-md-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+								@if ($errors->has('email'))
 									<span class="help-block">
-											<strong>{{ $errors->first('name') }}</strong>
+											<strong>{{ $errors->first('email') }}</strong>
 									</span>
 								@endif
 							</div>
