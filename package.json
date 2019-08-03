@@ -34,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/nhinstein/yunetshop/issues"
   },
-  "homepage": "https://github.com/nhinstein/yunetshop#readme"
+  "homepage": "https://github.com/nhinstein/yunetshop#readme",
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  }
 }

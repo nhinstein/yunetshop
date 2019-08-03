@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Province;
+use App\City;
 
 class CheckoutController extends Controller
 {
@@ -45,16 +47,22 @@ class CheckoutController extends Controller
        if ($err) {
        echo "cURL Error #:" . $err;
        } else {
-       return json_decode($response, true)['rajaongkir']['results'];
+       $data = json_decode($response, true)['rajaongkir']['results'];
+       for($i=0; $i < count($data); $i++){
+         Province::create([
+           'id' => $data[$i]['province_id'],
+           'name' => $data[$i]['province'],
+         ]);
+       };
        }
      }
 
-     public function getCity($province_id)
+     public function getCity()
      {
        $curl = curl_init();
 
        curl_setopt_array($curl, array(
-       CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=$province_id",
+       CURLOPT_URL => "https://api.rajaongkir.com/starter/city",
        CURLOPT_RETURNTRANSFER => true,
        CURLOPT_ENCODING => "",
        CURLOPT_MAXREDIRS => 10,
@@ -76,7 +84,14 @@ class CheckoutController extends Controller
        if ($err) {
        echo "cURL Error #:" . $err;
        } else {
-       return json_decode($response, true)['rajaongkir']['results'];
+         $data = json_decode($response, true)['rajaongkir']['results'];
+         for($i=0; $i < count($data); $i++){
+           City::create([
+             'id' => $data[$i]['city_id'],
+             'name' => $data[$i]['city_name'],
+             'province_id' => $data[$i]['province_id'],
+           ]);
+         };
        }
      }
 
@@ -92,7 +107,7 @@ class CheckoutController extends Controller
          CURLOPT_TIMEOUT => 30,
          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
          CURLOPT_CUSTOMREQUEST => "POST",
-         CURLOPT_POSTFIELDS => "origin=501&destination=$destination&weight=1000&courier=$courir",
+         CURLOPT_POSTFIELDS => "origin=22&destination=$destination&weight=1000&courier=$courir",
          CURLOPT_FOLLOWLOCATION => TRUE,
          CURLOPT_SSL_VERIFYPEER => false,
          CURLOPT_HTTPHEADER => array(
@@ -119,15 +134,24 @@ class CheckoutController extends Controller
      // }
     public function index()
     {
-        $provinces = self::getProvince();
+        $provinces = Province::all();
         $courierlist = $this->courierList;
         return view('checkout')->with(['provinces'=> $provinces,
         'courierlist' => $courierlist]);
     }
 
+    public function get_province(Request $request)
+    {
+        $cities = self::getProvince();
+        return response()->json(['success' => true, 'cities' => $cities]);
+    }
+
     public function get_city(Request $request)
     {
-        $cities = self::getCity($request->province);
+        // $cities = self::getCity();
+        // dd($request->province);
+        $cities = City::where('province_id', '=', $request->province)->get();
+        // $cities = City::all();
         return response()->json(['success' => true, 'cities' => $cities]);
     }
 

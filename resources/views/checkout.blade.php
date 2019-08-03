@@ -22,58 +22,23 @@
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
         <div class="container">
-            <!-- <div class="returning_customer">
-                <div class="check_title">
-                    <h2>Returning Customer? <a href="#">Click here to login</a></h2>
-                </div>
-                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
-                    customer, please proceed to the Billing & Shipping section.</p>
-                <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <input type="text" class="form-control" id="name" name="name">
-                        <span class="placeholder" data-placeholder="Username or Email"></span>
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <input type="password" class="form-control" id="password" name="password">
-                        <span class="placeholder" data-placeholder="Password"></span>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <button type="submit" value="submit" class="primary-btn">login</button>
-                        <div class="creat_account">
-                            <input type="checkbox" id="f-option" name="selector">
-                            <label for="f-option">Remember me</label>
-                        </div>
-                        <a class="lost_pass" href="#">Lost your password?</a>
-                    </div>
-                </form>
-            </div> -->
-            <!-- <div class="cupon_area">
-                <div class="check_title">
-                    <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
-                </div>
-                <input type="text" placeholder="Enter coupon code">
-                <a class="tp_btn" href="#">Apply Coupon</a>
-            </div> -->
             <div class="billing_details">
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
-                        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="name">
-                                <span class="placeholder" data-placeholder="First name"></span>
+                        <form class="row contact_form" action="#" method="post">
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap">
                             </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name">
-                                <span class="placeholder" data-placeholder="Last name"></span>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="number" placeholder="No Hp">
                             </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number">
-                                <span class="placeholder" data-placeholder="Phone number"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="compemailany">
-                                <span class="placeholder" data-placeholder="Email Address"></span>
+													  <div class="col-md-12 form-group p_star">
+															@if(Auth::user())
+                                <input type="text" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
+																@else
+																<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+																@endif
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <select class="courir_select country_select">
@@ -84,8 +49,9 @@
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <select class="province_select country_select">
+																	<option value="">---------</option>
 																	@foreach($provinces as $province)
-																	<option value="{{$province['province_id']}}">{{$province['province']}}</option>
+																	<option value="{{$province->id}}">{{$province->name}}</option>
 																		@endforeach
                                 </select>
                             </div>
@@ -100,20 +66,6 @@
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
                             </div>
-                            <!-- <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Create an account?</label>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <h3>Shipping Details</h3>
-                                    <input type="checkbox" id="f-option3" name="selector">
-                                    <label for="f-option3">Ship to a different address?</label>
-                                </div>
-                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
-                            </div> -->
                         </form>
                     </div>
                     <div class="col-lg-4">
@@ -134,7 +86,7 @@
                                 <li><a href="#">Ongkir <span id='ongkir'></span></a></li>
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Total <span>{{$item->model->formatCart($item->total)}}</span></a></li>
+                                <li><a href="#">Total <span id=total>{{$item->model->formatCart($item->total)}}</span></a></li>
                             </ul>
                             <a class="primary-btn" href="#">Proses Order</a>
                         </div>
@@ -146,26 +98,40 @@
 	@endsection
 
 	@section('extrajs')
+	<!-- <script src="{{ URL::asset('js/main.js') }}"></script> -->
 	<script>
 	(function(){
 		const classname = document.querySelectorAll('.province_select')
 		Array.from(classname).forEach(function(element){
 			element.addEventListener('change', function(){
-				axios.post('/checkout/get_city', {
-					province : this.value
-				})
-				.then(function(response){
-					$('.city_select').empty();
-					var cities = response.data.cities;
-					$.each(cities, function(key, value) {
-     		$('.city_select')
-         .append($("<option></option>")
-                    .attr("value", value.city_id)
-                    .text(value.city_name));
-					});
-				})
-				.catch(function(error){
-					console.log(error);
+				$province = this.value
+				var url = '{{ route("checkout.get_city") }}';
+				var url_cek = '{{ route("checkout.get_ongkir") }}';
+				console.log(url);
+				$.ajax({
+				    type: 'GET',
+				    url: url,
+				    data: {
+				        province : this.value
+				    },
+				    success: function(data){
+				        console.log(data.data);
+								$('.city_select').empty();
+								var cities = data.cities;
+								$('.city_select')
+								 .append($("<option></option>")
+														.attr("value", "")
+														.text("---------"));
+								$.each(cities, function(key, value) {
+							$('.city_select')
+							 .append($("<option></option>")
+													.attr("value", value.id)
+													.text(value.name));
+								});
+				    },
+				    error: function(xhr){
+				        console.log(xhr.responseText);
+				    }
 				});
 			})
 		})
@@ -173,25 +139,55 @@
 	</script>
 	<script>
 	(function(){
-		const cityname = document.querySelectorAll('.city_select')
-		Array.from(cityname).forEach(function(el2){
-			el2.addEventListener('change', function(){
-				var courir = $('.courir_select option:selected').val()
-				console.log(courir, this.value)
-				axios.post('/checkout/get_ongkir', {
-					destination : this.value,
-					courir : courir
-				})
-				.then(function(response){
-					var ongkir = response.data.ongkir[0].costs[1].cost[0].value;
-						document.getElementById("ongkir").innerHTML = ongkir;
-						console.log(ongkir);
-				})
-				.catch(function(error){
-					console.log(error);
+		const classname = document.querySelectorAll('.city_select')
+		Array.from(classname).forEach(function(element){
+			element.addEventListener('change', function(){
+				var courir = $('.courir_select option:selected').val();
+				var city = this.value;
+				var url_cek = '{{ route("checkout.get_ongkir") }}';
+				$.ajax({
+						type: 'GET',
+						url: url_cek,
+						data: {
+							destination : city,
+							courir : courir
+						},
+						success: function(data){
+							var ongkir = data.ongkir[0].costs[1].cost[0].value;
+								document.getElementById("ongkir").innerHTML = ongkir;
+								$total_order = $item->model->formatCart(($item->total + ongkir));
+								document.getElementById("total").innerHTML = $total_order;
+								console.log(ongkir);
+						},
+						error: function(xhr){
+								console.log(xhr.responseText);
+						}
 				});
 			})
 		})
 	})();
 	</script>
-	@endsection
+		<!-- <script>
+		(function(){
+			const cityname = document.querySelectorAll('.city_select')
+			Array.from(cityname).forEach(function(el2){
+				el2.addEventListener('change', function(){
+					var courir = $('.courir_select option:selected').val()
+					console.log(courir, this.value)
+					axios.post('/checkout/get_ongkir', {
+						destination : this.value,
+						courir : courir
+					})
+					.then(function(response){
+						var ongkir = response.data.ongkir[0].costs[1].cost[0].value;
+							document.getElementById("ongkir").innerHTML = ongkir;
+							console.log(ongkir);
+					})
+					.catch(function(error){
+						console.log(error);
+					});
+				})
+			})
+		})();
+		</script> -->
+		@endsection
