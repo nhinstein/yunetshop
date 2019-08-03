@@ -29,7 +29,7 @@
 						<form class="row login_form" action="/register" method="post" id="contactForm" role="form">
 							{{ csrf_field() }}
               {{ method_field('post') }}
-							<div class="col-md-12 form-group{{ $errors->has('name') ? ' has-error' : '' }}">>
+							<div class="col-md-12 form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 								@if ($errors->has('name'))
 									<span class="help-block">

@@ -12,14 +12,14 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-  public function index(){
-    return view('account/registration');
+  public function showRegistrationForm(){
+    return view('auth/register');
   }
-  public function store()
+  public function register()
   {
       $this->validate(request(), [
           'name' => 'required',
-          'email' => 'required|email',
+          'email' => 'required|email|unique:users',
           'password' => 'required'
       ]);
 
@@ -28,8 +28,8 @@ class RegisterController extends Controller
       $user->save();
 
       auth()->login($user);
-      Session::put('name',$data->name);
-      Session::put('email',$data->email);
+      Session::put('name',$user->name);
+      Session::put('email',$user->email);
       Session::put('login',TRUE);
 
       return redirect()->to('/');

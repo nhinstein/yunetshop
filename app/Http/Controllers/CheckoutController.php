@@ -7,6 +7,8 @@ use App\Province;
 use App\City;
 use App\Order;
 use App\OrderProduct;
+use Mail;
+use App\Mail\EmailOrder;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
@@ -16,12 +18,19 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     private $api_key = "89f02b9ef4ec9bf5da2eb3167f69ba0a";
+     // private $api_key = Config::get('services.raja_ongkir.key');
+     // private $api_key = config('services.raja_ongkir.key');
      protected $courierList = [
     'jne'       => 'Jalur Nugraha Ekakurir (JNE)',
     'pos'       => 'POS Indonesia (POS)',
     'tiki'      => 'Citra Van Titipan Kilat (TIKI)',
-  ];
+    ];
+      protected $api_key;
+
+      public function __construct()
+      {
+        $this->api_key = config('services.raja_ongkir.key');
+      }
 
      public function getProvince()
      {
@@ -219,6 +228,8 @@ class CheckoutController extends Controller
             'quantity'=>$item->qty
           ]);
         }
+
+        Mail::send(new EmailOrder($order));
 
         Cart::instance('default')->destroy();
 

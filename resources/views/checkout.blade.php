@@ -23,6 +23,7 @@
 
     <section class="checkout_area section_gap">
         <div class="container">
+					@if(Cart::count()>0)
             <div class="billing_details">
 							<form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="contactForm" role="form">
                 <div class="row">
@@ -52,7 +53,6 @@
                             </div>
                             <div class="col-md-12 form-group p_star">
                                 <select class="province_select country_select" name="province">
-																	<option value="">---------</option>
 																	@foreach($provinces as $province)
 																	<option value="{{$province->id}}">{{$province->name}}</option>
 																		@endforeach
@@ -97,6 +97,9 @@
 
 								</form>
             </div>
+						@else
+						<h5 class="center">Your Cart is Empty</h5>
+						@endif
         </div>
     </section>
 
@@ -123,10 +126,6 @@
 				        console.log(data.data);
 								$('.city_select').empty();
 								var cities = data.cities;
-								$('.city_select')
-								 .append($("<option></option>")
-														.attr("value", "")
-														.text("---------"));
 								$.each(cities, function(key, value) {
 							$('.city_select')
 							 .append($("<option></option>")

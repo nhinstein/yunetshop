@@ -33,6 +33,10 @@ return [
         'model' => App\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
-    ],
+        ],
+
+      'raja_ongkir' => [
+      'key' => env('RAJA_ONGKIR_API'),
+      ],
 
 ];
