@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Province;
 use App\City;
+use App\Order;
+use App\OrderProduct;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
@@ -124,7 +127,7 @@ class CheckoutController extends Controller
        if ($err) {
        echo "cURL Error #:" . $err;
        } else {
-       return json_decode($response, true)['rajaongkir']['results'];
+       return json_decode($response, true)['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
        }
      }
 
@@ -157,8 +160,14 @@ class CheckoutController extends Controller
 
     public function get_ongkir(Request $request)
     {
-        $ongkir = self::getOngkir($request->destination, $request->courir);
-        return response()->json(['success' => true, 'ongkir' => $ongkir]);
+        $data_ongkir = self::getOngkir($request->destination, $request->courir);
+        // $rep = number_format($ongkir,0,',','.');
+        $sum = Cart::total() + $data_ongkir;
+        $ongkir = "Rp. " . number_format($data_ongkir,0,',','.');
+        $total = "Rp. " . number_format($sum,0,',','.');
+        return response()->json(['success' => true, 'ongkir' => $ongkir,
+        'sum'=>$total]);
+
     }
 
 
@@ -181,7 +190,38 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contents = Cart::content()->map(function($item){
+          return $item->model->slug.','.$item->qty;
+        })->values()->toJson();
+        $data_ongkir = self::getOngkir($request->city, $request->courir);
+
+        $order = Order::create([
+          'user_id'=> auth()->user() ? auth()->user()->id : null,
+          'billing_email'=> $request->email,
+          'billing_name'=> $request->name,
+          'billing_city'=> $request->city,
+          'billing_province'=> $request->province,
+          'billing_courier' => $request->courir,
+          'billing_ongkir'=> $data_ongkir,
+          'billing_phone' => $request->number,
+          'billing_postalcode' => $request->zip,
+          'billing_subtotal' => Cart::subtotal(),
+          'billing_total' => Cart::total(),
+          'billing_shipped' => false,
+          'alamat' => $request->alamat,
+          'error' => null,
+        ]);
+
+        foreach(Cart::content() as $item){
+          OrderProduct::create([
+            'order_id'=>$order->id,
+            'product_id'=>$item->model->id,
+            'quantity'=>$item->qty
+          ]);
+        }
+
+        Cart::instance('default')->destroy();
+
     }
 
     /**

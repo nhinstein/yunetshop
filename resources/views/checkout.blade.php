@@ -20,35 +20,38 @@
     <!-- End Banner Area -->
 
     <!--================Checkout Area =================-->
+
     <section class="checkout_area section_gap">
         <div class="container">
             <div class="billing_details">
+							<form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="contactForm" role="form">
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
-                        <form class="row contact_form" action="#" method="post">
+
+													{{ csrf_field() }}
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap">
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number" placeholder="No Hp">
+                                <input type="number" class="form-control" id="number" name="number" placeholder="No Hp">
                             </div>
 													  <div class="col-md-12 form-group p_star">
 															@if(Auth::user())
-                                <input type="text" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
+                                <input type="email" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
 																@else
-																<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+																<input type="email" class="form-control" id="email" name="email" placeholder="Email">
 																@endif
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="courir_select country_select">
+                                <select class="courir_select country_select" name="courir">
 																	@foreach($courierlist as $key => $courir)
 																	<option value="{{$key}}">{{$courir}}</option>
 																		@endforeach
                                 </select>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="province_select country_select">
+                                <select class="province_select country_select" name="province">
 																	<option value="">---------</option>
 																	@foreach($provinces as $province)
 																	<option value="{{$province->id}}">{{$province->name}}</option>
@@ -56,20 +59,19 @@
                                 </select>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="city_select country_select">
+                                <select class="city_select country_select" name="city">
                                 </select>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1">
-                                <span class="placeholder" data-placeholder="Alamat"></span>
+                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat">
                             </div>
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
                             </div>
-                        </form>
                     </div>
                     <div class="col-lg-4">
                         <div class="order_box">
+													{{Cart::total()}}
                             <h2>Your Order</h2>
                             <ul class="list">
                                 <li><a href="#">Product <span>Subtotal</span></a></li>
@@ -88,13 +90,16 @@
                             <ul class="list list_2">
                                 <li><a href="#">Total <span id=total>{{$item->model->formatCart($item->total)}}</span></a></li>
                             </ul>
-                            <a class="primary-btn" href="#">Proses Order</a>
+														<button type="submit" class="primary-btn">Proses Order</button>
                         </div>
                     </div>
                 </div>
+
+								</form>
             </div>
         </div>
     </section>
+
 	@endsection
 
 	@section('extrajs')
@@ -153,11 +158,11 @@
 							courir : courir
 						},
 						success: function(data){
-							var ongkir = data.ongkir[0].costs[1].cost[0].value;
+							var ongkir = data.ongkir;
+							var sum = data.sum;
 								document.getElementById("ongkir").innerHTML = ongkir;
-								$total_order = $item->model->formatCart(($item->total + ongkir));
-								document.getElementById("total").innerHTML = $total_order;
-								console.log(ongkir);
+								 $('#total').empty();
+								$('#total').append('<p>' + sum + '</p>');
 						},
 						error: function(xhr){
 								console.log(xhr.responseText);

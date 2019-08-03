@@ -51,8 +51,10 @@ Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::post('/cart', 'CartController@store')->name('cart.store');
 Route::delete('/cart/{item}', 'CartController@destroy')->name('cart.destroy');
 Route::patch('/cart/{item}', 'CartController@update')->name('cart.update');
+// Route::get('/confirmation', 'CartController@update')->name('cart.update');
 
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
+Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/shipping', 'ShippingController@index')->name('shipping.index');
 Route::post('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
