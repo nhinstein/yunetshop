@@ -160,9 +160,9 @@ class CheckoutController extends Controller
 
     public function get_city(Request $request)
     {
-        // $cities = self::getCity();
+        $cities = self::getCity();
         // dd($request->province);
-        $cities = City::where('province_id', '=', $request->province)->get();
+        // $cities = City::where('province_id', '=', $request->province)->get();
         // $cities = City::all();
         return response()->json(['success' => true, 'cities' => $cities]);
     }

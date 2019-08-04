@@ -57,7 +57,7 @@ Route::patch('/cart/{item}', 'CartController@update')->name('cart.update');
 Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
 Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
 Route::get('/shipping', 'ShippingController@index')->name('shipping.index');
-Route::post('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
+Route::get('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
 Route::get('/checkout/get_ongkir', 'CheckoutController@get_ongkir')->name('checkout.get_ongkir');
 Route::get('/empty', function(){Cart::destroy();});
