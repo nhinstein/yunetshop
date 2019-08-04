@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->decimal('weight', 6, 2);
             $table->decimal('price', 8, 0);
+            $table->string('slug')->unique();
+            $table->string('image_src')->nullable();
 
         });
     }
