@@ -14,9 +14,16 @@ class User extends Authenticatable
      *
      * @var array
      */
+    public $timestamps = true;
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    const ADMIN_TYPE = 'admin';
+    const CUSTOMER_TYPE = 'customer';
+    public function isAdmin(){
+    return $this->role === self::ADMIN_TYPE;
+    }
 
     /**
      * The attributes that should be hidden for arrays.

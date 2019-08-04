@@ -41,8 +41,9 @@ Route::get('/element', function () {
 });
 
 
-Route::get('import', 'ExcelController@importExportView')->middleware('cekstatus');;
-Route::post('import', 'ExcelController@import')->name('import')->middleware('cekstatus');;
+Route::get('import', 'ExcelController@importExportView')->middleware('is_admin')
+            ->name('import.show');
+Route::post('import', 'ExcelController@import')->name('import')->middleware('is_admin')  ;
 
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
@@ -65,3 +66,7 @@ Route::get('/akun-saya', 'UsersController@edit')->name('users.edit');
 Auth::routes();
 
 Route::get('/shop', 'ShopController@index')->name('shop.index');
+
+Route::get('/admin', 'AdminController@admin')
+    ->middleware('is_admin')
+    ->name('admin');

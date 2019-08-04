@@ -16,11 +16,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-      dd(Auth::user());
-      dd($request->user());
-      if ($request->user() && $request->user()->role != "admin"){
-        return new Response(view("shop"));
+      if(auth()->user()->isAdmin()) {
+          return $next($request);
       }
-        return $next($request);
+      return redirect('shop');
     }
 }

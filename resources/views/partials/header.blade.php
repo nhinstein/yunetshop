@@ -25,6 +25,9 @@
             </li>
             <li class="nav-item"><a class="nav-link" href="{{url('/contact')}}">Contact</a></li>
             @if(Auth::user())
+            @if(auth()->user()->isAdmin())
+            <li class="nav-item"><a class="nav-link" href="{{route('import.show')}}">Import</a></li>
+            @endif
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false">{{Auth::user()->name}}</a>
