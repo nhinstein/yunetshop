@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCityTable extends Migration
+class OderAddRelation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateCityTable extends Migration
      */
     public function up()
     {
-        Schema::create('city', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::table('orders', function (Blueprint $table) {
             $table->integer('city_id')->unsigned();
-            $table->string('name', 100);
+            $table->foreign('city_id')->references('id')->on('city');
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')->references('id')->on('province');
-            $table->timestamps();
         });
     }
 
@@ -30,6 +28,8 @@ class CreateCityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('city');
+        Schema::table('orders', function (Blueprint $table) {
+            //
+        });
     }
 }

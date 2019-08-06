@@ -13,7 +13,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="{{route('shop.index')}}">Home</a></li>
+            @if(auth()->user())
+            <li class="nav-item"><a class="nav-link" href="{{route('order.index')}}">Order</a></li>
+            @endif
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false">Pages</a>

@@ -21,17 +21,16 @@ class CreateOrdersTable extends Migration
                   ->onUpdate('cascade')->onDelete('set null');
             $table->string('billing_email');
             $table->string('billing_name');
-            $table->string('billing_city');
-            $table->string('billing_province');
-            $table->string('billing_courier');
-            $table->string('billing_ongkir');
+            $table->string('courier');
+            $table->string('ongkir');
             $table->string('billing_phone');
-            $table->string('billing_postalcode');
-            $table->integer('billing_subtotal');
-            $table->integer('billing_total');
-            $table->boolean('billing_shipped')->default(false);
-            $table->string('alamat', 200);
+            $table->string('postalcode');
+            $table->integer('subtotal');
+            $table->integer('total');
+            $table->boolean('shipped')->default(false);
+            $table->string('address', 200);
             $table->string('error')->nullable();
+            $table->string('invoice');
         });
     }
 

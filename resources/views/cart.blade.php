@@ -5,17 +5,6 @@
 
 	<!-- Start Banner Area -->
      <section class="banner-area organic-breadcrumb">
-         <div class="container">
-             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-                 <div class="col-first">
-                     <h1>Shopping Cart</h1>
-                     <nav class="d-flex align-items-center">
-                         <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                         <a href="category.html">Cart</a>
-                     </nav>
-                 </div>
-             </div>
-         </div>
      </section>
      <!-- End Banner Area -->
 
@@ -58,6 +47,7 @@
                                  </td>
                                  <td>
                                      <select class="qty" data-id="{{$item->rowId}}">
+
 																			 <option {{$item->qty == 1 ? 'selected' : ''}}>1</option>
 																			 <option {{$item->qty == 2 ? 'selected' : ''}}>2</option>
 																			 <option {{$item->qty == 3 ? 'selected' : ''}}>3</option>

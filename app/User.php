@@ -24,6 +24,9 @@ class User extends Authenticatable
     public function isAdmin(){
     return $this->role === self::ADMIN_TYPE;
     }
+    public function isCustomer(){
+    return $this->role === self::CUSTOMER_TYPE;
+    }
 
     /**
      * The attributes that should be hidden for arrays.

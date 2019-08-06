@@ -26,7 +26,7 @@ Route::get('/category', function () {
 // });
 Route::get('/confirmation', function () {
     return view('confirmation');
-});
+})->name('confirmation');
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -43,7 +43,7 @@ Route::get('/element', function () {
 
 Route::get('import', 'ExcelController@importExportView')->middleware('is_admin')
             ->name('import.show');
-Route::post('import', 'ExcelController@import')->name('import')->middleware('is_admin')  ;
+Route::post('import', 'ExcelController@import')->name('import')->middleware('is_admin');
 
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
@@ -70,3 +70,10 @@ Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/admin', 'AdminController@admin')
     ->middleware('is_admin')
     ->name('admin');
+Route::get('/order', 'OrderController@index')->middleware('auth')
+            ->name('order.index');
+Route::get('/order/{order}', 'OrderController@show')->middleware('auth')
+            ->name('order.show');
+// Route::group(['middleware' => ['is_admin', 'is_customer']], function() {
+    
+//     });

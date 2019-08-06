@@ -199,39 +199,53 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        $contents = Cart::content()->map(function($item){
-          return $item->model->slug.','.$item->qty;
-        })->values()->toJson();
-        $data_ongkir = self::getOngkir($request->city, $request->courir);
-
-        $order = Order::create([
-          'user_id'=> auth()->user() ? auth()->user()->id : null,
-          'billing_email'=> $request->email,
-          'billing_name'=> $request->name,
-          'billing_city'=> $request->city,
-          'billing_province'=> $request->province,
-          'billing_courier' => $request->courir,
-          'billing_ongkir'=> $data_ongkir,
-          'billing_phone' => $request->number,
-          'billing_postalcode' => $request->zip,
-          'billing_subtotal' => Cart::subtotal(),
-          'billing_total' => Cart::total(),
-          'billing_shipped' => false,
-          'alamat' => $request->alamat,
-          'error' => null,
-        ]);
-
-        foreach(Cart::content() as $item){
-          OrderProduct::create([
-            'order_id'=>$order->id,
-            'product_id'=>$item->model->id,
-            'quantity'=>$item->qty
-          ]);
-        }
-
+        
+        $order = $this->addOrderTable($request);
         Mail::send(new EmailOrder($order));
-
         Cart::instance('default')->destroy();
+        return redirect()->route('confirmation');
+
+    }
+
+    public function addOrderTable($request){
+
+      $contents = Cart::content()->map(function($item){
+        return $item->model->slug.','.$item->qty;
+      })->values()->toJson();
+      $data_ongkir = self::getOngkir($request->city, $request->courir);
+
+      $order = Order::create([
+        'user_id'=> auth()->user() ? auth()->user()->id : null,
+        'billing_email'=> $request->email,
+        'billing_name'=> $request->name,
+        'city_id'=> $request->city,
+        'province_id'=> $request->province,
+        'courier' => $request->courir,
+        'ongkir'=> $data_ongkir,
+        'billing_phone' => $request->number,
+        'postalcode' => $request->zip,
+        'subtotal' => Cart::subtotal(),
+        'total' => Cart::total(),
+        'shipped' => false,
+        'address' => $request->alamat,
+        'error' => null,
+        'invoice' => 'INV-{str_random(20)}',
+        
+      ]);
+
+      foreach(Cart::content() as $item){
+        // OrderProduct::create([
+        //   'order_id'=>$order->id,
+        //   'product_id'=>$item->model->id,
+        //   'quantity'=>$item->qty
+        // ]);
+        
+      $order->products()->attach([
+        $item->model->id => ['quantity' => $item->qty]
+    ]);
+      }
+
+      return $order;
 
     }
 
