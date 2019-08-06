@@ -5,13 +5,16 @@ use Illuminate\Http\Request;
 use App\Imports\ProductsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+use App\Product;
+
 class ExcelController extends Controller
 {
     //
     public function importExportView()
 
     {
-      return view('import');
+      $products = Product::all();
+      return view('import')->with(['products'=>$products]);
     }
 
     public function import()

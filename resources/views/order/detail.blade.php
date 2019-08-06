@@ -59,7 +59,7 @@
                                 <a href="{{route('shop.show', $product->slug)}}"><p>{{$product->name}}</p></a>
 							    </td>
 								<td>
-									<h5>{{$order->quantity}}</h5>
+									<h5>{{$product->pivot->quantity}}</h5>
 								</td>
 								<td>
 									<p>{{$product->formatPrice()}}</p>

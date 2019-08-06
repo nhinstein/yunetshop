@@ -95,45 +95,37 @@
 	@endsection
 
 	@section('extrajs')
-	<!-- <script src="{{ URL::asset('js/main.js') }}"></script> -->
+	<script src="{{ URL::asset('js/main.js') }}"></script>
 	<script>
-	(function(){
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		const classname = document.querySelectorAll('.province_select')
-		Array.from(classname).forEach(function(element){
-			element.addEventListener('change', function(){
-				$province = this.value
-				var url = '{{ route("checkout.get_city") }}';
-				var url_cek = '{{ route("checkout.get_ongkir") }}';
-				console.log(url);
-				$.ajax({
-				    type: 'GET',
-				    url: url,
-				    data: {
-				        province : this.value
-				    },
-				    success: function(data){
-				        console.log(data.data);
-								$('.city_select').empty();
-								var cities = data.cities;
-								$.each(cities, function(key, value) {
-							$('.city_select')
-							 .append($("<option></option>")
-													.attr("value", value.id)
-													.text(value.name));
-								});
-				    },
-				    error: function(xhr){
-				        console.log(xhr.responseText);
-				    }
-				});
+	$(function() {
+		$('.province_select').on('change', function(){
+			$province = this.value
+			var url = '{{ route("checkout.get_city") }}';
+			var url_cek = '{{ route("checkout.get_ongkir") }}';
+			console.log(url);
+			$.ajax({
+				type: 'GET',
+				url: url,
+				data: {
+					province : this.value
+				},
+				success: function(data){
+							$('.city_select').empty();
+							var cities = data.cities;
+							$.each(cities, function(key, value) {
+						$('.city_select')
+							.append($("<option></option>")
+												.attr("value", value.id)
+												.text(value.name));
+							});
+							$('select').niceSelect();
+				},
+				error: function(xhr){
+					console.log(xhr.responseText);
+				}
+			});
 			})
-		})
-	})();
+	});
 	</script>
 	<script>
 	(function(){
