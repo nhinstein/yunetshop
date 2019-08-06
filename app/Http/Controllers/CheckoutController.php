@@ -229,7 +229,7 @@ class CheckoutController extends Controller
         'shipped' => false,
         'address' => $request->alamat,
         'error' => null,
-        'invoice' => 'INV-{str_random(20)}',
+        'invoice' => 'INV-'.str_random(20),
         
       ]);
 

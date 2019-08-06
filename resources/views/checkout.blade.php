@@ -98,6 +98,11 @@
 	<!-- <script src="{{ URL::asset('js/main.js') }}"></script> -->
 	<script>
 	(function(){
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 		const classname = document.querySelectorAll('.province_select')
 		Array.from(classname).forEach(function(element){
 			element.addEventListener('change', function(){

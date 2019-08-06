@@ -29,4 +29,8 @@ class Order extends Model
     public function province(){
       return $this->belongsTo(Province::class);
     }
+
+    public function formatPrice($nilai){
+      return "Rp. " . number_format($nilai,0,',','.');
+    }
 }

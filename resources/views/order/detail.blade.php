@@ -22,7 +22,7 @@
 					<div class="details_item">
 						<h4>Order Info</h4>
 						<ul class="list">
-							<li><a href="#"><span>No. Order</span> : {{$order->id}}</a></li>
+							<li><a href="#"><span>No. Invoice</span> : {{$order->invoice}}</a></li>
 							<li><a href="#"><span>Tanggal</span> : {{$order->created_at}}</a></li>
 							<li><a href="#"><span>Total</span> : {{$order->total}}</a></li>
 							<li><a href="#"><span>Pengiriman</span> : {{$order->courier}}</a></li>
@@ -56,13 +56,13 @@
 						@foreach($order->products as $product)
 							<tr>
 								<td>
-									<p>{{$product->name}}</p>
-								</td>
+                                <a href="{{route('shop.show', $product->slug)}}"><p>{{$product->name}}</p></a>
+							    </td>
 								<td>
 									<h5>{{$order->quantity}}</h5>
 								</td>
 								<td>
-									<p>{{$product->price}}</p>
+									<p>{{$product->formatPrice()}}</p>
 								</td>
 							</tr>
 						@endforeach
@@ -74,7 +74,7 @@
 									<h5></h5>
 								</td>
 								<td>
-									<p>{{$order->total}}</p>
+									<p>{{$order->formatPrice($order->total)}}</p>
 								</td>
 							</tr>
 							<tr>
@@ -85,7 +85,7 @@
 									<h5></h5>
 								</td>
 								<td>
-									<p>{{$order->ongkir}}</p>
+									<p>{{$order->formatPrice($order->ongkir)}}</p>
 								</td>
 							</tr>
 							<!-- <tr>

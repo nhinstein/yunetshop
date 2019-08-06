@@ -16,6 +16,7 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title>Yunet Shop</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<!--
 		CSS
