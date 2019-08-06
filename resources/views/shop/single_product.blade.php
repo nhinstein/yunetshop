@@ -25,12 +25,11 @@
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
+						@foreach($product->images as $image)
 						<div class="single-prd-item">
-							<img width="700" height="700" class="img-fluid" src="../img/img/{{$product->image_src}}" alt="">
+							<img width="700" height="700" class="img-fluid" src="../{{$image->src}}" alt="">
 						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
+						@endforeach
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
@@ -84,7 +83,7 @@
 						@foreach ($dealsofweek as $item)
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img width=70 height=70 src="../img/img/{{$item->image_src}}" alt=""></a>
+								<a href="#"><img width=70 height=70 src="../img/img/{{$item->cover}}" alt=""></a>
 								<div class="desc">
 									<a href="{{ route('shop.show', $item->slug )}}" class="title">{{$item->name}}</a>
 									<div class="price">
@@ -113,6 +112,6 @@
 	<script src="{{ URL::asset('js/jquery.magnific-popup.min.js') }}"></script>
 	<script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-<script src="{{ URL::asset('js/gmaps.min.js') }}"></script>
+{{-- <script src="{{ URL::asset('js/gmaps.min.js') }}"></script> --}}
 <script src="{{ URL::asset('js/main.js') }}"></script>
 	@endsection

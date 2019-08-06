@@ -66,11 +66,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="{{ URL::asset('js/vendor/jquery-2.2.4.min.js') }}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
- 	<!-- <script src="{{ URL::asset('js/vendor/bootstrap.min.js') }}"></script> -->
+ 	<script src="{{ URL::asset('js/vendor/bootstrap.min.js') }}"></script>
 	<script src="{{ URL::asset('js/app.js')}}"></script>
 	<script src="{{ URL::asset('js/jquery.nice-select.min.js') }}"></script>
 	<script src="{{ URL::asset('js/jquery.magnific-popup.min.js') }}"></script>
- <!-- <script src="{{ URL::asset('js/bootstrap.js') }}"></script>
+ <script src="{{ URL::asset('js/bootstrap.js') }}"></script>
    <script src="{{ URL::asset('js/jquery.ajaxchimp.min.js') }}"></script>
 
   <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
@@ -78,7 +78,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
   <script src="{{ URL::asset('js/owl.carousel.min.js') }}"></script>
   <script src="{{ URL::asset('js/gmaps.min.js') }}"></script>
-  <script src="{{ URL::asset('js/main.js') }}"></script> -->
+  <script src="{{ URL::asset('js/main.js') }}"></script>
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	@yield('extrajs')

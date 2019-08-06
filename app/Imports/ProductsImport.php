@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Product;
 use App\Imports\Image;
 use App\ProductImage;
+use App\Category;
 use DB;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Collection;
@@ -27,23 +28,42 @@ class ProductsImport implements ToCollection
             )
         );
         foreach($rows as $row){
+            $category = Category::where('name', $row[9])->first();
+            if(!$category){
+                $category=Category::create([
+                    'slug' =>'YS-'.str_random(15),
+                    'name' => $row[9]
+                ]);
+            }
+
+            $slug = 'YS-'.str_random(15);
             $product = Product::create([
              'name' => $row[0],
              'description' => $row[3],
              'price' => $row[1],
              'weight' => $row[2],
-             'slug' => $row[5],
-             'image_src' => $row[4],
+             'slug' => $slug,
+             'stock'=> $row[10],
+             'category_id' => $category->id
          ]);
          $product->save();
-        $extension = pathinfo($row[6], PATHINFO_EXTENSION);
-        $filename = $row[4];
-        $path = 'img/img/'.$filename;
-        $file = file_get_contents($row[6], false, stream_context_create($opts));
-        $save = file_put_contents($path, $file);
-        $image = ProductImage::create(['product_id' => $product->id, 'src'=>$path]);
-        $product->images()->save($image);
-        //  Image::make('http://f2b9x.s87.it/images/1/FR_laura-kithorizontal.gif')->save(public_path(`img/{$row[4]}`));
+
+         for($i=4; $i<9; $i++){
+            $count = $i-3;
+            if(trim($row[$i]) != ''){
+                $extension = pathinfo($row[$i], PATHINFO_EXTENSION);
+                $filename = "{$slug}-{$count}.".$extension;
+                $path = 'img/img/'.$filename;
+                $file = file_get_contents($row[$i], false, stream_context_create($opts));
+                $save = file_put_contents($path, $file);
+                $image = ProductImage::create(['product_id' => $product->id, 'src'=>$path]);
+                if($count===1){
+                    $product->cover=$filename;
+                    $product->save();
+                }
+                $product->images()->save($image);
+            }
+         }
         }
         return $rows;
     }

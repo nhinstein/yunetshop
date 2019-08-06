@@ -12,8 +12,10 @@ class Product extends Model
     'description',
     'price',
     'weight',
-    'image_src',
-    'slug'
+    'cover',
+    'slug',
+    'category_id',
+    'stock'
   ];
 
     public function formatPrice(){

@@ -13,7 +13,7 @@ class ExcelController extends Controller
     public function importExportView()
 
     {
-      $products = Product::all();
+      $products = Product::inRandomOrder()->take(12)->paginate(12);
       return view('import')->with(['products'=>$products]);
     }
 

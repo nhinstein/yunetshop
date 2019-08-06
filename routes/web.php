@@ -43,7 +43,7 @@ Route::get('/element', function () {
 
 Route::get('import', 'ExcelController@importExportView')->middleware('is_admin')
             ->name('import.show');
-Route::post('import', 'ExcelController@import')->name('import')->middleware('is_admin');
+Route::post('import', 'ExcelController@import')->name('import');
 
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');

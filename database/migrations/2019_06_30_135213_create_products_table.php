@@ -21,7 +21,10 @@ class CreateProductsTable extends Migration
             $table->decimal('weight', 6, 2);
             $table->decimal('price', 8, 0);
             $table->string('slug')->unique();
-            $table->string('image_src')->nullable();
+            $table->string('cover')->nullable();
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->integer('stock')->unsigned();
 
         });
     }

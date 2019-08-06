@@ -2,6 +2,27 @@
 
 
 @section('content')
+
+<section class="features-area section_gap">
+      </section>
+<div class="container">
+        <div class="card bg-light mt-3">
+            <div class="card-header">
+                Excel Import
+            </div>
+    
+            <div class="card-body">
+    
+                <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                  {{ csrf_field() }}
+                  {{ method_field('post') }}
+                    <input type="file" name="file" class="form-control">
+                    <br>
+                    <button class="btn btn-success">Import Products</button>
+                </form>
+            </div>
+        </div>
+    </div>
 <section class="cart_area">
          <div class="container">
 					 @if($products->count()>0)
@@ -23,7 +44,7 @@
                                    
                                     <div class="media">
                                          <div class="d-flex">
-                                             <img width=100 hegight=100 src="img/img/{{$product->image_src}}" alt="">
+                                             <img width=100 hegight=100 src="img/img/{{$product->cover}}" alt="">
                                          </div>
                                          <div class="media-body">
                                             <a href="#"><p>{{$product->name}}</p></a>
@@ -37,12 +58,23 @@
                                  <!-- <td>
                                  </td> -->
                                  <td>
-                                     <h5>{{$product->quantity}}</h5>
+                                    <p>{{$product->stock}}</p>
                                  </td>
                              </tr>
-														 @endforeach
+                                                         @endforeach
                          </tbody>
                      </table>
+                                                         
+                     <div class="pagination">
+                             {{$products->links()}}
+                             <!-- <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+                             <a href="#" class="active">1</a>
+                             <a href="#">2</a>
+                             <a href="#">3</a>
+                             <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                             <a href="#">6</a>
+                             <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> -->
+                         </div>
                  </div>
              </div>
             @else
@@ -50,42 +82,4 @@
             @endif
          </div>
      </section>
-<section class="features-area section_gap">
-  <div class="container">
-  </div>
-</section>
-<div class="container">
-
-    <div class="card bg-light mt-3">
-
-        <div class="card-header">
-
-            Excel Import
-
-        </div>
-
-        <div class="card-body">
-
-            <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
-
-              {{ csrf_field() }}
-              {{ method_field('post') }}
-
-                <input type="file" name="file" class="form-control">
-
-                <br>
-
-                <button class="btn btn-success">Import Products</button>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</div>
-<section class="features-area section_gap">
-  <div class="container">
-  </div>
-</section>
 @endsection

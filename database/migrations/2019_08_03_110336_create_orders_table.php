@@ -25,12 +25,19 @@ class CreateOrdersTable extends Migration
             $table->string('ongkir');
             $table->string('billing_phone');
             $table->string('postalcode');
-            $table->integer('subtotal');
-            $table->integer('total');
-            $table->boolean('shipped')->default(false);
+            $table->integer('subtotal')->unsigned();
+            $table->integer('total')->unsigned();
             $table->string('address', 200);
             $table->string('error')->nullable();
             $table->string('invoice');
+            $table->integer('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('city');
+            $table->integer('province_id')->unsigned();
+            $table->foreign('province_id')->references('id')->on('province');
+            $table->integer('total_order')->unsigned();
+            $table->integer('no_resi')->unsigned();
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status_order');
         });
     }
 

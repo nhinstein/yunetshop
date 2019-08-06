@@ -196,7 +196,7 @@
 					@foreach($products as $product)
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="img/img/{{$product->image_src}}" alt="">
+							<img class="img-fluid" src="img/img/{{$product->cover}}" alt="">
 							<div class="product-details">
 								<h6>{{$product->name}}</h6>
 								<div class="price">

@@ -35,7 +35,7 @@
                                  <td>
                                      <div class="media">
                                          <div class="d-flex">
-                                             <img width=100 hegight=100 src="img/img/{{$item->model->image_src}}" alt="">
+                                             <img width=100 hegight=100 src="img/img/{{$item->model->cover}}" alt="">
                                          </div>
                                          <div class="media-body">
                                              <a href="{{route('shop.show', $item->model->slug)}}"><p>{{$item->model->name}}</p></a>

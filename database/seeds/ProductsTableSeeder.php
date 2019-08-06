@@ -19,9 +19,9 @@ class ProductsTableSeeder extends Seeder
         \DB::table('products')->insert(array (
             0 => 
             array (
-                'id' => 1,
-                'created_at' => '2019-08-04 04:22:59',
-                'updated_at' => '2019-08-04 04:22:59',
+                'id' => 21,
+                'created_at' => '2019-08-06 13:46:32',
+                'updated_at' => '2019-08-06 13:46:32',
                 'name' => ' 3D Bowknot Smile Lucky Cat Cartoon Silicone Cases Cover ',
                 'description' => '
 Deskripsi Produk
@@ -53,14 +53,16 @@ Features:
 Fast Response WA : 08980085967',
                 'weight' => '60.00',
                 'price' => '57000',
-                'slug' => 'TP169849484',
-                'image_src' => 'TP169849484-1.jpg',
+                'slug' => 'YS-1IwodpFluzT3qCT',
+                'cover' => 'YS-1IwodpFluzT3qCT-1.jpg',
+                'category_id' => 1,
+                'stock' => 100,
             ),
             1 => 
             array (
-                'id' => 2,
-                'created_at' => '2019-08-04 04:22:59',
-                'updated_at' => '2019-08-04 04:22:59',
+                'id' => 22,
+                'created_at' => '2019-08-06 13:46:33',
+                'updated_at' => '2019-08-06 13:46:34',
                 'name' => ' Asus Zenfone 2 5.5 ZE550MLZE551ML Aluminum Bumper Mirror Hardback Case ',
                 'description' => '
 warna Tersedia :
@@ -86,14 +88,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '80.00',
                 'price' => '25000',
-                'slug' => 'TP43713645',
-                'image_src' => 'TP43713645-1.jpg',
+                'slug' => 'YS-zLSArjCtMIoaQTB',
+                'cover' => 'YS-zLSArjCtMIoaQTB-1.jpg',
+                'category_id' => 2,
+                'stock' => 100,
             ),
             2 => 
             array (
-                'id' => 3,
-                'created_at' => '2019-08-04 04:22:59',
-                'updated_at' => '2019-08-04 04:22:59',
+                'id' => 23,
+                'created_at' => '2019-08-06 13:46:35',
+                'updated_at' => '2019-08-06 13:46:35',
                 'name' => ' Asus ZENFONE Indoscreen Hikaru Tempered Glass - Clear ',
                 'description' => '
 100% ORIGINAL TEMPERED GLASS INDOSCREEN HIKARU
@@ -128,14 +132,16 @@ Jika paket datang kondisi kaca pecah , akan kami ganti dengan yg baru dengan men
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP142250063',
-                'image_src' => 'TP142250063-1.jpg',
+                'slug' => 'YS-gYnUp9aOeBZQ35e',
+                'cover' => 'YS-gYnUp9aOeBZQ35e-1.jpg',
+                'category_id' => 3,
+                'stock' => 100,
             ),
             3 => 
             array (
-                'id' => 4,
-                'created_at' => '2019-08-04 04:23:00',
-                'updated_at' => '2019-08-04 04:23:00',
+                'id' => 24,
+                'created_at' => '2019-08-06 13:46:35',
+                'updated_at' => '2019-08-06 13:46:36',
                 'name' => ' Asus Zenfone Selfie ZD551KL Aluminum Bumper Mirror Hard back Case ',
                 'description' => '
 item Description
@@ -161,14 +167,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '80.00',
                 'price' => '25000',
-                'slug' => 'TP43713277',
-                'image_src' => 'TP43713277-1.jpg',
+                'slug' => 'YS-pvqTsUr6nAw30R4',
+                'cover' => 'YS-pvqTsUr6nAw30R4-1.jpg',
+                'category_id' => 4,
+                'stock' => 100,
             ),
             4 => 
             array (
-                'id' => 5,
-                'created_at' => '2019-08-04 04:23:00',
-                'updated_at' => '2019-08-04 04:23:00',
+                'id' => 25,
+                'created_at' => '2019-08-06 13:46:38',
+                'updated_at' => '2019-08-06 13:46:39',
                 'name' => ' ASUS ZENFONE TEMPERED GLASS 0.26 mm / 2.5D 9H ',
                 'description' => '
 Tempered Glass 0,26 mm / 2.5D 9H
@@ -205,14 +213,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP40209157',
-                'image_src' => 'TP40209157-1.jpg',
+                'slug' => 'YS-6ydb0gJrjIfTuWv',
+                'cover' => 'YS-6ydb0gJrjIfTuWv-1.jpg',
+                'category_id' => 3,
+                'stock' => 100,
             ),
             5 => 
             array (
-                'id' => 6,
-                'created_at' => '2019-08-04 04:23:00',
-                'updated_at' => '2019-08-04 04:23:00',
+                'id' => 26,
+                'created_at' => '2019-08-06 13:46:39',
+                'updated_at' => '2019-08-06 13:46:40',
                 'name' => ' GALAXY A3 2016 A310 3D Cute Cartoon Sulley Case Soft Silicon Case ',
                 'description' => '
 Ready :
@@ -226,14 +236,16 @@ Features:
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '57000',
-                'slug' => 'TP100410286',
-                'image_src' => 'TP100410286-1.jpg',
+                'slug' => 'YS-XvevG2Qwy3hbGFB',
+                'cover' => 'YS-XvevG2Qwy3hbGFB-1.jpg',
+                'category_id' => 5,
+                'stock' => 100,
             ),
             6 => 
             array (
-                'id' => 7,
-                'created_at' => '2019-08-04 04:23:01',
-                'updated_at' => '2019-08-04 04:23:01',
+                'id' => 27,
+                'created_at' => '2019-08-06 13:46:40',
+                'updated_at' => '2019-08-06 13:46:41',
                 'name' => ' Galaxy A3 2016 A310 Aluminum Metal Bumper Mirror Hard Back Case ',
                 'description' => '
 Item Description
@@ -257,14 +269,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP37964482',
-                'image_src' => 'TP37964482-1.jpg',
+                'slug' => 'YS-Drb9jFhBKtcFAXl',
+                'cover' => 'YS-Drb9jFhBKtcFAXl-1.jpg',
+                'category_id' => 5,
+                'stock' => 100,
             ),
             7 => 
             array (
-                'id' => 8,
-                'created_at' => '2019-08-04 04:23:01',
-                'updated_at' => '2019-08-04 04:23:01',
+                'id' => 28,
+                'created_at' => '2019-08-06 13:46:42',
+                'updated_at' => '2019-08-06 13:46:42',
                 'name' => ' Galaxy A3 A300 Aluminum Metal Bumper Mirror Plating Hard Back Case ',
                 'description' => '
 Item Description
@@ -288,14 +302,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP35999959',
-                'image_src' => 'TP35999959-1.jpg',
+                'slug' => 'YS-W87CQkWABnXVjiU',
+                'cover' => 'YS-W87CQkWABnXVjiU-1.jpg',
+                'category_id' => 5,
+                'stock' => 100,
             ),
             8 => 
             array (
-                'id' => 9,
-                'created_at' => '2019-08-04 04:23:01',
-                'updated_at' => '2019-08-04 04:23:01',
+                'id' => 29,
+                'created_at' => '2019-08-06 13:46:45',
+                'updated_at' => '2019-08-06 13:46:45',
                 'name' => ' Galaxy A310 2016 Smart Flip Slim View Electroplating Mirror Hard Case ',
                 'description' => '
 Material: PU+PC
@@ -325,14 +341,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '130.00',
                 'price' => '57000',
-                'slug' => 'TP85839241',
-                'image_src' => 'TP85839241-1.jpg',
+                'slug' => 'YS-BLzohpqw9qIBvhK',
+                'cover' => 'YS-BLzohpqw9qIBvhK-1.jpg',
+                'category_id' => 5,
+                'stock' => 100,
             ),
             9 => 
             array (
-                'id' => 10,
-                'created_at' => '2019-08-04 04:23:02',
-                'updated_at' => '2019-08-04 04:23:02',
+                'id' => 30,
+                'created_at' => '2019-08-06 13:46:47',
+                'updated_at' => '2019-08-06 13:46:47',
                 'name' => ' GALAXY A5 2016 A510 3D Cute Cartoon Sulley Case Soft Silicon Case ',
                 'description' => '
 Ready :
@@ -346,14 +364,16 @@ Features:
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '57000',
-                'slug' => 'TP100410610',
-                'image_src' => 'TP100410610-1.jpg',
+                'slug' => 'YS-ul7hLcLCJdO897X',
+                'cover' => 'YS-ul7hLcLCJdO897X-1.jpg',
+                'category_id' => 6,
+                'stock' => 100,
             ),
             10 => 
             array (
-                'id' => 11,
-                'created_at' => '2019-08-04 04:23:02',
-                'updated_at' => '2019-08-04 04:23:02',
+                'id' => 31,
+                'created_at' => '2019-08-06 13:46:47',
+                'updated_at' => '2019-08-06 13:46:50',
                 'name' => ' Galaxy A7 2016 A710 Colorful Tempered glass gold ',
                 'description' => '
 Ready only GOLD
@@ -384,14 +404,16 @@ Tetapi bila mengunakan ASURANSI mohon langsung dibuka didepan petugas kurir peng
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '40000',
-                'slug' => 'TP48639524',
-                'image_src' => 'TP48639524-1.jpg',
+                'slug' => 'YS-RVGiIcTylZI1EVM',
+                'cover' => 'YS-RVGiIcTylZI1EVM-1.jpg',
+                'category_id' => 7,
+                'stock' => 100,
             ),
             11 => 
             array (
-                'id' => 12,
-                'created_at' => '2019-08-04 04:23:03',
-                'updated_at' => '2019-08-04 04:23:03',
+                'id' => 32,
+                'created_at' => '2019-08-06 13:46:53',
+                'updated_at' => '2019-08-06 13:46:53',
                 'name' => ' Galaxy A7 A710 Aluminum Metal Bumper Mirror Plating Hard Back Case ',
                 'description' => '
 Item Description
@@ -416,14 +438,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP36000964',
-                'image_src' => 'TP36000964-1.jpg',
+                'slug' => 'YS-AeL7HosoVXAP5Pk',
+                'cover' => 'YS-AeL7HosoVXAP5Pk-1.jpg',
+                'category_id' => 7,
+                'stock' => 100,
             ),
             12 => 
             array (
-                'id' => 13,
-                'created_at' => '2019-08-04 04:23:03',
-                'updated_at' => '2019-08-04 04:23:03',
+                'id' => 33,
+                'created_at' => '2019-08-06 13:46:55',
+                'updated_at' => '2019-08-06 13:46:55',
                 'name' => ' Galaxy A8 Aluminum Metal Bumper Mirror Plating Hard Back Case ',
                 'description' => '
 Item Description
@@ -447,14 +471,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '80.00',
                 'price' => '25000',
-                'slug' => 'TP34065088',
-                'image_src' => 'TP34065088-1.jpg',
+                'slug' => 'YS-PYENWil40nj9HnT',
+                'cover' => 'YS-PYENWil40nj9HnT-1.jpg',
+                'category_id' => 8,
+                'stock' => 100,
             ),
             13 => 
             array (
-                'id' => 14,
-                'created_at' => '2019-08-04 04:23:04',
-                'updated_at' => '2019-08-04 04:23:04',
+                'id' => 34,
+                'created_at' => '2019-08-06 13:46:56',
+                'updated_at' => '2019-08-06 13:46:57',
                 'name' => ' Galaxy A9 PRO Smart Flip Slim View Electroplating Mirror Hard Case ',
                 'description' => '
 Material: PU+PC
@@ -486,14 +512,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '67000',
-                'slug' => 'TP109053512',
-                'image_src' => 'TP109053512-1.jpg',
+                'slug' => 'YS-ZR5ZuddCpPdXpu9',
+                'cover' => 'YS-ZR5ZuddCpPdXpu9-1.jpg',
+                'category_id' => 9,
+                'stock' => 100,
             ),
             14 => 
             array (
-                'id' => 15,
-                'created_at' => '2019-08-04 04:23:04',
-                'updated_at' => '2019-08-04 04:23:04',
+                'id' => 35,
+                'created_at' => '2019-08-06 13:46:58',
+                'updated_at' => '2019-08-06 13:46:58',
                 'name' => ' Galaxy E5 E500 Aluminum Bumper Mirror Hard Back Case ',
                 'description' => '
 item Description
@@ -516,14 +544,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP39681981',
-                'image_src' => 'TP39681981-1.jpg',
+                'slug' => 'YS-ylMA6FZzyAfGGC0',
+                'cover' => 'YS-ylMA6FZzyAfGGC0-1.jpg',
+                'category_id' => 10,
+                'stock' => 100,
             ),
             15 => 
             array (
-                'id' => 16,
-                'created_at' => '2019-08-04 04:23:04',
-                'updated_at' => '2019-08-04 04:23:04',
+                'id' => 36,
+                'created_at' => '2019-08-06 13:47:00',
+                'updated_at' => '2019-08-06 13:47:00',
                 'name' => ' Galaxy E7 Aluminum Bumper Mirror Hard Back Case ',
                 'description' => '
 item Description
@@ -548,14 +578,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP39682340',
-                'image_src' => 'TP39682340-1.jpg',
+                'slug' => 'YS-VqkdWEVlSFFnxbr',
+                'cover' => 'YS-VqkdWEVlSFFnxbr-1.jpg',
+                'category_id' => 11,
+                'stock' => 100,
             ),
             16 => 
             array (
-                'id' => 17,
-                'created_at' => '2019-08-04 04:23:05',
-                'updated_at' => '2019-08-04 04:23:05',
+                'id' => 37,
+                'created_at' => '2019-08-06 13:47:01',
+                'updated_at' => '2019-08-06 13:47:02',
                 'name' => ' GALAXY GRAND 2 G7102 G7106 TEMPERED GLASS 0.26 mm / 2.5D 9H ',
                 'description' => '
 Tempered Glass 0,26 mm / 2.5D 9H
@@ -582,14 +614,16 @@ Barang tidak garansi , bila terjadi rusak/penyok kami tidak bertanggung jawab ka
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '25000',
-                'slug' => 'TP35523793',
-                'image_src' => 'TP35523793-1.jpg',
+                'slug' => 'YS-z6DsldpRHdFNAI3',
+                'cover' => 'YS-z6DsldpRHdFNAI3-1.jpg',
+                'category_id' => 12,
+                'stock' => 100,
             ),
             17 => 
             array (
-                'id' => 18,
-                'created_at' => '2019-08-04 04:23:05',
-                'updated_at' => '2019-08-04 04:23:05',
+                'id' => 38,
+                'created_at' => '2019-08-06 13:47:02',
+                'updated_at' => '2019-08-06 13:47:09',
                 'name' => ' Galaxy Grand Prime G530 / G531 Colorful Tempered glass gold ',
                 'description' => '
 Ready only GOLD
@@ -620,14 +654,16 @@ Tetapi bila mengunakan ASURANSI mohon langsung dibuka didepan petugas kurir peng
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '45000',
-                'slug' => 'TP48639176',
-                'image_src' => 'TP48639176-1.jpg',
+                'slug' => 'YS-ocwjJHdfHLhnM1W',
+                'cover' => 'YS-ocwjJHdfHLhnM1W-1.jpg',
+                'category_id' => 13,
+                'stock' => 100,
             ),
             18 => 
             array (
-                'id' => 19,
-                'created_at' => '2019-08-04 04:23:07',
-                'updated_at' => '2019-08-04 04:23:07',
+                'id' => 39,
+                'created_at' => '2019-08-06 13:47:11',
+                'updated_at' => '2019-08-06 13:47:12',
                 'name' => ' Galaxy Grand Prime G530 Silicone 3D Sulley Case Cover ',
                 'description' => '
 Ready :
@@ -640,8 +676,10 @@ Ready :
 Fast Response WA : 08980085967',
                 'weight' => '100.00',
                 'price' => '57000',
-                'slug' => 'TP88978946',
-                'image_src' => 'TP88978946-1.jpg',
+                'slug' => 'YS-tbcXzv38RAVslJ3',
+                'cover' => 'YS-tbcXzv38RAVslJ3-1.jpg',
+                'category_id' => 13,
+                'stock' => 100,
             ),
         ));
         
