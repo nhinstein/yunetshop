@@ -4,14 +4,14 @@
         @if ($paginator->onFirstPage())
             <a class="disabled"><span>&laquo;</span></a>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+            <a href="{{ $paginator->previousPageUrl() }}" rel="prev">&laquo;</a>
         @endif
 
         {{-- Pagination Elements --}}
         @foreach ($elements as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
-                <li class="disabled"><span>{{ $element }}</span></li>
+                <a class="disabled"><span>{{ $element }}</span></a>
             @endif
 
             {{-- Array Of Links --}}
@@ -28,9 +28,9 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a></li>
+            <a href="{{ $paginator->nextPageUrl() }}" rel="next">&raquo;</a>
         @else
-            <li class="disabled"><span>&raquo;</span></li>
+            <a class="disabled"><span>&raquo;</span></a>
         @endif
     </ul>
 @endif
