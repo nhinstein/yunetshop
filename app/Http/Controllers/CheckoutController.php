@@ -10,6 +10,7 @@ use App\OrderProduct;
 use Mail;
 use App\Mail\EmailOrder;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Notifications\OrderAccept;
 
 class CheckoutController extends Controller
 {
@@ -201,7 +202,8 @@ class CheckoutController extends Controller
     {
         
         $order = $this->addOrderTable($request);
-        Mail::send(new EmailOrder($order));
+        auth()->user()->notify(new OrderAccept($order));
+        // Mail::send(new EmailOrder($order));
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
 

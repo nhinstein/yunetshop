@@ -36,8 +36,8 @@
                                     @foreach($status_list as $status)
                                     <option {{$status->id == $order->status_id ? 'selected' : ''}} value="{{$status->id}}">{{$status->name}}</option>
                                         @endforeach
-                                </select></li>
-							<li><button type="submit" class="" action="{{route('order.update', $order->id)}}">Simpan</button></li>
+                                </select></li><br>
+							<li><button type="submit" class="genric-btn primary small" action="{{route('order.update', $order->id)}}">Simpan</button></li>
 	
               				  </form>
 							@else
