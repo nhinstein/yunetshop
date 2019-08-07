@@ -202,8 +202,8 @@ class CheckoutController extends Controller
     {
         
         $order = $this->addOrderTable($request);
-        auth()->user()->notify(new OrderAccept($order));
-        // Mail::send(new EmailOrder($order));
+        // auth()->user()->notify(new OrderAccept($order));
+        Mail::send(new EmailOrder($order));
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
 

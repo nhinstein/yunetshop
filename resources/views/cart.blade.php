@@ -47,25 +47,12 @@
                                  </td>
                                  <td>
                                      <select class="qty" data-id="{{$item->rowId}}">
+                                        @for($i=1; $i<21; $i++)
+                                        <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>
+                                        @endfor
 
-																			 <option {{$item->qty == 1 ? 'selected' : ''}}>1</option>
-																			 <option {{$item->qty == 2 ? 'selected' : ''}}>2</option>
-																			 <option {{$item->qty == 3 ? 'selected' : ''}}>3</option>
-																			 <option {{$item->qty == 4 ? 'selected' : ''}}>4</option>
-																			 <option {{$item->qty == 5 ? 'selected' : ''}}>5</option>
-																				 <option {{$item->qty == 6 ? 'selected' : ''}}>6</option>
-																				 <option {{$item->qty == 7 ? 'selected' : ''}}>7</option>
-																				 <option {{$item->qty == 8 ? 'selected' : ''}}>8</option>
-																				 <option {{$item->qty == 9 ? 'selected' : ''}}>9</option>
-																				 <option {{$item->qty == 10 ? 'selected' : ''}}>10</option>
-																					 <option {{$item->qty == 11 ? 'selected' : ''}}>11</option>
-																					 <option {{$item->qty == 12 ? 'selected' : ''}}>12</option>
-																					 <option {{$item->qty == 13 ? 'selected' : ''}}>13</option>
-																					 <option {{$item->qty == 14 ? 'selected' : ''}}>14</option>
-																					 <option {{$item->qty == 15 ? 'selected' : ''}}>15</option>
-																					 <option {{$item->qty == 16 ? 'selected' : ''}}>16</option>
-																					 <option {{$item->qty == 17 ? 'selected' : ''}}>17</option>
-																					 <option {{$item->qty == 19 ? 'selected' : ''}}>18</option>
+																			
+								
 																		 </select>
                                  </td>
                                  <td>
