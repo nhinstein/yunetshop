@@ -11,8 +11,8 @@ class Order extends Model
     protected $fillable = ['user_id', 'billing_email',
     'billing_name', 'city_id', 'province_id',
     'courier', 'ongkir','billing_phone',
-    'postalcode', 'subtotal', 'total',
-    'shipped', 'error', 'address', 'invoice'];
+    'postalcode', 'subtotal', 'total', 'no_resi',
+    'status_id', 'error', 'address', 'invoice', 'total_order'];
 
     public function user(){
       return $this->belongsTo(User::class);
@@ -32,5 +32,9 @@ class Order extends Model
 
     public function formatPrice($nilai){
       return "Rp. " . number_format($nilai,0,',','.');
+    }
+
+    public function status(){
+      return $this->belongsTo(StatusOrder::class);
     }
 }

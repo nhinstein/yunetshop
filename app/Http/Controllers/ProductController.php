@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Order;
-use App\StatusOrder;
+use View;
+use App\Product;
+use App\Category;
 
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->isAdmin()){
-            $orders = Order::all();
-        }
-        else if(auth()->user()->isCustomer()){
-            $orders = Order::where('user_id', auth()->user()->id)->get();
-        }
-        return view('order\index')->with(['orders'=> $orders]);
+        //
     }
 
     /**
@@ -51,13 +46,13 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $order = Order::where('id', $id)->firstOrFail();
-        $status_list = StatusOrder::all();
-        return view('order\detail')->with([
-            'order'=> $order,
-            'status_list'=> $status_list]);
+        $categories = Category::all();
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('product/admin_single_product')->with([
+            'product'=> $product,
+            'categories'=> $categories]);
     }
 
     /**
@@ -68,7 +63,6 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -80,13 +74,13 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
-        $order->update($request->all());
-        $success_message="Berhasil Update Order";
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+        $products = Product::inRandomOrder()->take(12)->paginate(12);
+        $success_message="Berhasil Merubah Produk";
         
-        $orders = Order::all();
-        
-        return redirect()->route('order.index')->with([
+        return redirect()->route('import.show')->with([
+            'products'=>$products,
             'success_message'=>$success_message,
         ]);
     }

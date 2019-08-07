@@ -39,7 +39,7 @@
                                     <p>{{$order->created_at}}</p>
                                  </td>
                                  <td>
-                                     <h5>{{$order->shipped}}</h5>
+                                     <p>{{$order->status->name}}</p>
                                  </td>
                                  <td>
                                      <h5>{{$order->total}}</h5>

@@ -118,7 +118,7 @@
 												.attr("value", value.id)
 												.text(value.name));
 							});
-							$('select').niceSelect();
+							// $('select').niceSelect();
 				},
 				error: function(xhr){
 					console.log(xhr.responseText);

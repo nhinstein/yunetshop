@@ -517,7 +517,9 @@ h1, h2, h3, h4, h5, h6 {
   background: #f9f9ff;
   padding: 0 20px;
   height: 100px;
-  resize: none; }
+  resize: none;
+  word-wrap: break-word; 
+}
   .single-textarea:focus {
     outline: none; }
 

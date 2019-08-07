@@ -12,11 +12,9 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        
-        \DB::table('products')->delete();
         \DB::table('product_images')->delete();
+        \DB::table('products')->delete();
         \DB::table('categories')->delete();
-        
         \DB::table('categories')->insert(array (
             0 => 
             array (

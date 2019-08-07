@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 use App\Product;
 use App\ProductImage;
 use Illuminate\Database\Eloquent\Model;
@@ -15,8 +16,10 @@ class ShopController extends Controller
       // code...
       $products = Product::inRandomOrder()->take(12)->paginate(12);
       $dealsofweek = Product::dealsOfWeek()->get();
+      $categories = Category::all();
       return view('shop/index')->with(['products'=> $products,
-                                                'dealsofweek'=>$dealsofweek]);
+                                      'dealsofweek'=>$dealsofweek,
+                                      'categories'=>$categories]);
     }
 
     public function show($slug){

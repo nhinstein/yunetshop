@@ -35,7 +35,7 @@ class CreateOrdersTable extends Migration
             $table->integer('province_id')->unsigned();
             $table->foreign('province_id')->references('id')->on('province');
             $table->integer('total_order')->unsigned();
-            $table->integer('no_resi')->unsigned();
+            $table->integer('no_resi')->unsigned()->nullable();
             $table->integer('status_id')->unsigned();
             $table->foreign('status_id')->references('id')->on('status_order');
         });

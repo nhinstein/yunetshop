@@ -226,10 +226,11 @@ class CheckoutController extends Controller
         'postalcode' => $request->zip,
         'subtotal' => Cart::subtotal(),
         'total' => Cart::total(),
-        'shipped' => false,
         'address' => $request->alamat,
         'error' => null,
         'invoice' => 'INV-'.str_random(20),
+        'status_id' => 1,
+        'total_order' => Cart::total()+$data_ongkir,
         
       ]);
 

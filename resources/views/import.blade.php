@@ -5,6 +5,13 @@
 
 <section class="features-area section_gap">
       </section>
+      
+
+@if(session()->has('success_message'))
+<div class="alert alert-success">
+    {{session()->get('success_message')}}
+</div>
+@endif
 <div class="container">
         <div class="card bg-light mt-3">
             <div class="card-header">
@@ -47,7 +54,7 @@
                                              <img width=100 hegight=100 src="img/img/{{$product->cover}}" alt="">
                                          </div>
                                          <div class="media-body">
-                                            <a href="#"><p>{{$product->name}}</p></a>
+                                            <a href="{{route('product.show',$product->slug)}}"><p>{{$product->name}}</p></a>
                                          </div>
                                      </div>
                                     

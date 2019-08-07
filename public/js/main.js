@@ -20,7 +20,7 @@ $(document).ready(function(){
 
   //------- Active Nice Select --------//
 
-    $('select').niceSelect();
+    // $('select').niceSelect();
 
 
     $('.navbar-nav li.dropdown').hover(function() {

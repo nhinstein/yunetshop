@@ -74,6 +74,19 @@ Route::get('/order', 'OrderController@index')->middleware('auth')
             ->name('order.index');
 Route::get('/order/{order}', 'OrderController@show')->middleware('auth')
             ->name('order.show');
+
+Route::get('/product/{product}', 'ProductController@show')
+->middleware('is_admin')
+->name('product.show');
+
+Route::post('/product/{product}', 'ProductController@update')
+->middleware('is_admin')
+->name('product.update');
+
+Route::post('/order/{product}', 'OrderController@update')
+->middleware('is_admin')
+->name('order.update');
+
 // Route::group(['middleware' => ['is_admin', 'is_customer']], function() {
     
 //     });
