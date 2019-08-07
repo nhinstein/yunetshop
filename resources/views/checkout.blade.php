@@ -95,7 +95,13 @@
 	@endsection
 
 	@section('extrajs')
-	<script src="{{ URL::asset('js/main.js') }}"></script>
+	{{-- <script src="{{ URL::asset('js/main.js') }}"></script> --}}
+	<script src="{{ URL::asset('js/checkout.js') }}"></script>
+	<script>
+	var url = "{{ route("checkout.get_city") }}"
+	var url_cek = "{{ route("checkout.get_ongkir") }}"
+	</script>
+	{{-- <script src="{{ URL::asset('js/main.js') }}"></script>
 	<script>
 	$(function() {
 		$('.province_select').on('change', function(){
@@ -156,7 +162,7 @@
 			})
 		})
 	})();
-	</script>
+	</script> --}}
 		<!-- <script>
 		(function(){
 			const cityname = document.querySelectorAll('.city_select')
