@@ -87,6 +87,10 @@ Route::post('/order/{product}', 'OrderController@update')
 ->middleware('is_admin')
 ->name('order.update');
 
+Route::get('/invoice/{order}', 'InvoiceController@showPdf')
+->middleware('auth')
+->name('invoice.showPdf');
+
 // Route::group(['middleware' => ['is_admin', 'is_customer']], function() {
     
 //     });

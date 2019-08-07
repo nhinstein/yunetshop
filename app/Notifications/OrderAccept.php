@@ -44,7 +44,7 @@ class OrderAccept extends Notification
         $url = url('/order/'.$this->order->id);
         return (new MailMessage)
                     ->line('Terimakasih, Order Anda sudah kami terima')
-                    ->action('Lihat Detail Order', url($url))
+                    ->action('Lihat Detail Order', url($url));
     }
 
     /**

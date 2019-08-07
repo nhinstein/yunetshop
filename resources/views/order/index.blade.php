@@ -27,6 +27,7 @@
                                  <th scope="col">Tanggal</th>
                                  <th scope="col">Status</th>
                                  <th scope="col">Total</th>
+                                 <th scope="col">Aksi</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -43,6 +44,9 @@
                                  </td>
                                  <td>
                                      <h5>{{$order->total}}</h5>
+                                 </td>
+                                 <td>
+                                     <a href="{{route('invoice.showPdf', $order->id)}}">Lihat Invoice</a>
                                  </td>
                              </tr>
 														 @endforeach
