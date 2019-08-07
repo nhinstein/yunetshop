@@ -46,12 +46,13 @@
                                      <h5>{{$order->total}}</h5>
                                  </td>
                                  <td>
-                                     <a href="{{route('invoice.showPdf', $order->id)}}">Lihat Invoice</a>
+                                     <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a>
                                  </td>
                              </tr>
-														 @endforeach
+                                                         @endforeach
                          </tbody>
                      </table>
+                     {{$orders->render()}}
                  </div>
              </div>
             @else

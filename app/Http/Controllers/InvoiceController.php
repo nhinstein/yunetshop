@@ -15,7 +15,6 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -36,7 +35,6 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -47,7 +45,10 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::where('id', $id)->firstOrFail();
+        return view('invoice')->with([
+            'order'=> $order]);
+       
     }
 
     public function showPdf($id)

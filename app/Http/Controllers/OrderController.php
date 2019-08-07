@@ -16,10 +16,10 @@ class OrderController extends Controller
     public function index()
     {
         if(auth()->user()->isAdmin()){
-            $orders = Order::all();
+            $orders = Order::take(10)->paginate(10);
         }
         else if(auth()->user()->isCustomer()){
-            $orders = Order::where('user_id', auth()->user()->id)->get();
+            $orders = Order::where('user_id', auth()->user()->id)->take(10)->paginate(10);
         }
         return view('order\index')->with(['orders'=> $orders]);
     }

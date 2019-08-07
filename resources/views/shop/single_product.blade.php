@@ -37,15 +37,15 @@
 						<h3>{{ $product->name }}</h3>
 						<h2>{{ $product->formatPrice() }}</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							<li><a class="active" href="#"><span>Kategori</span> : {{$product->category->name}}</a></li>
+							<li><a href="#"><span>Stok</span> : {{$product->stock}}</a></li>
 						</ul>
 						<p>{{ $product->description }}</p>
 
 						<form action="{{route('cart.store')}}" method="POST">
 							{{ csrf_field() }}
 						<div class="product_count">
-							<label for="qty">Quantity:</label>
+							<label for="qty">Jumlah:</label>
 							<input type="number" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>

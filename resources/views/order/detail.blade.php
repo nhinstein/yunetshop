@@ -24,9 +24,8 @@
 						<ul class="list">
 							<li><a href=""><span>No. Invoice</span> : {{$order->invoice}}</a></li>
 							<li><a href=""><span>Tanggal</span> : {{$order->created_at}}</a></li>
-							<li><a href=""><span>Total</span> : {{$order->total_order}}</a></li>
+							<li><a href=""><span>Total</span> : {{$order->formatPrice($order->total_order)}}</a></li>
 							<li><a href=""><span>Pengiriman</span> : {{$order->courier}}</a></li>
-							<li><a href=""><span>Status</span> : {{$order->courier}}</a></li>
 							@if(auth()->user()->isAdmin())
 							<form class="row contact_form" method="POST" id="contactForm" role="form">
 							{{ csrf_field() }}

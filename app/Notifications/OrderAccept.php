@@ -41,10 +41,10 @@ class OrderAccept extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = url('/order/'.$this->order->id);
+        $url = url('/invoice/'.$this->order->id);
         return (new MailMessage)
                     ->line('Terimakasih, Order Anda sudah kami terima')
-                    ->action('Lihat Detail Order', url($url));
+                    ->action('Lihat Invoice', url($url));
     }
 
     /**

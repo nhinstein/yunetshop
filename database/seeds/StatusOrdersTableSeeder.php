@@ -13,7 +13,7 @@ class StatusOrdersTableSeeder extends Seeder
     public function run()
     {
         
-    $list_status = ['Menunggu Konfirmasi', 'Sadang Konfirmasi', 'Sudah Dikirim', 
+    $list_status = ['Menunggu Konfirmasi', 'Sedang Diproses', 'Sudah Dikirim', 
     'Sudah Diterima'];
 
     foreach($list_status as $status){

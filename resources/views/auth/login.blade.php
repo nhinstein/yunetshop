@@ -30,7 +30,7 @@
 									 {{session()->get('alert')}}
 								 </div>
 								 @endif
-						<form class="row login_form" action="/login" method="post" id="contactForm" role="form">
+						<form class="row login_form" action="{{ route('login') }}" method="post" id="contactForm" role="form">
 							{{ csrf_field() }}
 							<div class="col-md-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">

@@ -37,17 +37,4 @@ class Order extends Model
     public function status(){
       return $this->belongsTo(StatusOrder::class);
     }
-
-    public function getPdf($type = 'stream')
-      {
-          $pdf = app('dompdf.wrapper')->loadView('invoice', ['order' => $this]);
-
-          if ($type == 'stream') {
-              return $pdf->stream('invoice.pdf');
-          }
-
-          if ($type == 'download') {
-              return $pdf->download('invoice.pdf');
-          }
-      }
 }
