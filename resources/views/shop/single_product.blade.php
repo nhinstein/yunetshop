@@ -41,7 +41,8 @@
 							<li><a href="#"><span>Stok</span> : {{$product->stock}}</a></li>
 						</ul>
 						<p>{{ $product->description }}</p>
-
+						@if(auth()->user() and auth()->user()->isAdmin())
+						@else
 						<form action="{{route('cart.store')}}" method="POST">
 							{{ csrf_field() }}
 						<div class="product_count">
@@ -60,6 +61,7 @@
 								<button type="submit" class="primary-btn">Add to Cart</button>
 						</div>
 						</form>
+						@endif
 					</div>
 				</div>
 			</div>

@@ -46,14 +46,16 @@
                                      <h5>{{$item->model->formatPrice()}}</h5>
                                  </td>
                                  <td>
-                                     <select class="qty" data-id="{{$item->rowId}}">
+                                        <div class="wrapper">
+                                     <select id="qty" class="qty" data-id="{{$item->rowId}}">
                                         @for($i=1; $i<11; $i++)
                                         <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>
                                         @endfor
 
 																			
 								
-																		 </select>
+                                                                         </select>
+                                                                         </div
                                  </td>
                                  <td>
                                      <h5>{{$item->model->formatCart($item->subtotal)}}</h5>
@@ -115,8 +117,11 @@
      <!--================End Cart Area =================-->
 	@endsection
 
-	@section('extrajs')
-	<script>
+    @section('extrajs')
+    <script>
+    var url_cart = "{{route('cart.index')}}"</script>
+    <script src="{{ URL::asset('js/cart_add.js') }}"></script>
+	{{-- <script>
 	(function(){
 		const classname = document.querySelectorAll('.qty')
 		Array.from(classname).forEach(function(element){
@@ -135,5 +140,5 @@
 			})
 		})
 	})();
-	</script>
+	</script> --}}
 	@endsection
