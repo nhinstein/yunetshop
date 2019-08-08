@@ -51,12 +51,6 @@ class InvoiceController extends Controller
        
     }
 
-    public function showPdf($id)
-    {
-        $order = Order::where('id', $id)->firstOrFail();
-        return $order->getPdf();
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

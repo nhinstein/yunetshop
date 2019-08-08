@@ -25,7 +25,7 @@ function getCity(){
                                         .text(value.name));
                     });
                     getOngkir();
-                    // $('select').niceSelect();
+                    $('select').niceSelect('update');
         },
         error: function(xhr){
             console.log(xhr.responseText);
@@ -42,7 +42,8 @@ $(function() {
 var getOngkir = function(){
     var courir = $('.courir_select option:selected').val();
     var city = $('.city_select option:selected').val();
-    $.ajax({
+    if(city != null){
+        $.ajax({
             type: 'GET',
             url: url_cek,
             data: {
@@ -60,11 +61,26 @@ var getOngkir = function(){
                     console.log(xhr.responseText);
             }
     });
+
+    }
+
 }
     
 $(function() {
     $('.city_select').on('change', getOngkir())
 });
+
+$(".wrapper1").on('change', 'select', function() {
+    var sortBy = $("#province").val();
+    getCity();
+    getOngkir();
+  });
+
+  
+$(".wrapper2").on('change', 'select', function() {
+    var sortBy = $("#city").val();
+    getOngkir();
+  });
 
 });
 

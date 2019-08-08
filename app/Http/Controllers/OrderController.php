@@ -15,13 +15,15 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $status_list = StatusOrder::all();
         if(auth()->user()->isAdmin()){
             $orders = Order::take(10)->paginate(10);
         }
         else if(auth()->user()->isCustomer()){
             $orders = Order::where('user_id', auth()->user()->id)->take(10)->paginate(10);
         }
-        return view('order\index')->with(['orders'=> $orders]);
+        return view('order\index')->with(['orders'=> $orders,
+        'status_list'=>$status_list]);
     }
 
     /**

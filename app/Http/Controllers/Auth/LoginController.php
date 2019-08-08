@@ -46,6 +46,10 @@ class LoginController extends Controller
     }
 
     public function loginPost(Request $request){
+        $this->validate($request, [
+            'email'           => 'required|max:255|email',
+            'password'           => 'required|number',
+        ]);
 
         $email = $request->email;
         $password = $request->password;

@@ -12,11 +12,11 @@
 */
 
 Route::get('/', 'ShopController@index')->name('shop.index');
-Route::get('/login', 'Auth\LoginController@index' )->name('login.form');
-Route::post('/login', 'Auth\LoginController@loginPost')->name('login');
+// Route::get('/login', 'Auth\LoginController@index' )->name('login.form');
+// Route::post('/login', 'Auth\LoginController@loginPost')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/register', 'Auth\RegisterController@index');
-Route::post('/register', 'Auth\RegisterController@store');
+// Route::get('/register', 'Auth\RegisterController@index');
+// Route::post('/register', 'Auth\RegisterController@store');
 
 Route::get('/category', function () {
     return view('category');
@@ -48,14 +48,26 @@ Route::post('import', 'ExcelController@import')->name('import');
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{product}', 'ShopController@show')->name('shop.show');
 
-Route::get('/cart', 'CartController@index')->name('cart.index');
-Route::post('/cart', 'CartController@store')->name('cart.store');
-Route::delete('/cart/{item}', 'CartController@destroy')->name('cart.destroy');
-Route::patch('/cart/{item}', 'CartController@update')->name('cart.update');
+Route::get('/cart', 'CartController@index')
+->middleware('not_admin')
+->name('cart.index');
+Route::post('/cart', 'CartController@store')
+->middleware('not_admin')
+->name('cart.store');
+Route::delete('/cart/{item}', 'CartController@destroy')
+->middleware('not_admin')
+->name('cart.destroy');
+Route::patch('/cart/{item}', 'CartController@update')
+->middleware('not_admin')
+->name('cart.update');
 // Route::get('/confirmation', 'CartController@update')->name('cart.update');
 
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
-Route::post('/checkout', 'CheckoutController@store')->name('checkout.store');
+Route::get('/checkout', 'CheckoutController@index')
+->middleware('not_admin')
+->name('checkout.index');
+Route::post('/checkout', 'CheckoutController@store')
+->middleware('not_admin')
+->name('checkout.store');
 Route::get('/shipping', 'ShippingController@index')->name('shipping.index');
 Route::get('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
@@ -91,13 +103,7 @@ Route::get('/invoice/{order}', 'InvoiceController@show')
 ->middleware('auth')
 ->name('invoice.show');
 
-
-
 Route::get('/mailable', function(){
     $order = App\Order::find(1);
     return new App\Mail\EmailOrder($order);
 });
-
-// Route::group(['middleware' => ['is_admin', 'is_customer']], function() {
-    
-//     });

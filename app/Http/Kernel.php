@@ -19,8 +19,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
-        \App\Http\Middleware\EncryptCookies::class,
-        \Illuminate\Session\Middleware\StartSession::class
+        \App\Http\Middleware\EncryptCookies::class
+        // \Illuminate\Session\Middleware\StartSession::class
     ];
 
     /**
@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'is_admin' => \App\Http\Middleware\AdminMiddleware::class,
         'is_customer' => \App\Http\Middleware\CustomerMiddleware::class,
         'is_auth' => \App\Http\Middleware\AuthMiddleware::class,
+        'not_admin' => \App\Http\Middleware\NotAdminMiddleware::class,
     ];
 }

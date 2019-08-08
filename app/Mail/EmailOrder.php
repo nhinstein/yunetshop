@@ -33,6 +33,5 @@ class EmailOrder extends Mailable
         return $this->to($this->order->billing_email, $this->order->billing_name)
                     ->subject('Konfirmasi Pesanan')
                     ->markdown('mail.order', ['order'=>$this->order]);
-                    // ->view('email_order')->with(['order'=>$this->order]);
     }
 }

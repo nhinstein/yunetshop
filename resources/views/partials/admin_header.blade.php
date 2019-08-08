@@ -13,23 +13,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
-            @if(auth()->user())
             <li class="nav-item"><a class="nav-link" href="{{route('order.index')}}">Order</a></li>
-            @endif
-            <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Pages</a>
-              <ul class="dropdown-menu">
-                <li class="nav-item active"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/tracking') }}">Tracking</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/element') }}">Elements</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{url('/contact')}}">Contact</a></li>
-            @if(Auth::user())
-            @if(auth()->user()->isAdmin())
             <li class="nav-item"><a class="nav-link" href="{{route('import.show')}}">Produk</a></li>
-            @endif
             <li class="nav-item submenu dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false">{{Auth::user()->name}}</a>
@@ -37,15 +22,14 @@
                 <li class="nav-item active"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
               </ul>
             </li>
-            @else
-              <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-            @endif
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a href="{{route('cart.index')}}" class="cart">
-              <span class="ti-bag"></span><span>{{Cart::instance('default')->count()}}</span></a></li>
+            <li class="nav-item"><a href="" class="cart">
+              <span class="ti-search"></span><span></span></a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
   </div>
+</header>

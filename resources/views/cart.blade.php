@@ -47,7 +47,7 @@
                                  </td>
                                  <td>
                                      <select class="qty" data-id="{{$item->rowId}}">
-                                        @for($i=1; $i<21; $i++)
+                                        @for($i=1; $i<11; $i++)
                                         <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>
                                         @endfor
 

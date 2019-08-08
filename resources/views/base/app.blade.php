@@ -5,7 +5,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
+	<!-- <link rel="shortcut icon" href="img/fav.png"> -->
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -35,18 +35,17 @@
 <body>
 
 	<!-- Start Header Area -->
-	@include('partials.header')
-		<!-- <div class="search_input" id="search_input_box">
-			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-				</form>
-			</div>
-		</div> -->
-	</header>
-	<!-- End Header Area -->
+	@if(auth()->user())
+	@if(auth()->user()->isAdmin())
+	@include('partials.admin_header')
+	@elseif(auth()->user()->isCustomer())
+	@include('partials.customer_header')
+	@endif
+	@else
+	@include('partials.other_header')
+	@endif
+	
+
 
   @yield('content')
 

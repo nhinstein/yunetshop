@@ -232,8 +232,7 @@ class CheckoutController extends Controller
         'error' => null,
         'invoice' => 'INV-'.str_random(20),
         'status_id' => 1,
-        'total_order' => Cart::total()+$data_ongkir,
-        
+        'total_order' => Cart::total()+$data_ongkir,   
       ]);
 
       foreach(Cart::content() as $item){

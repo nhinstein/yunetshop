@@ -4182,8 +4182,8 @@ label {
   color: #777777;
   border-bottom: 0px !important; }
 .cart_inner .table tbody tr td {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   vertical-align: middle;
   align-self: center; }
   .cart_inner .table tbody tr td .media .d-flex {

@@ -21,41 +21,47 @@
 
 													{{ csrf_field() }}
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap">
+                                <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="number" class="form-control" id="number" name="number" placeholder="No Hp">
+                                <input type="number" class="form-control" id="number" name="number" placeholder="No Hp" required>
                             </div>
 													  <div class="col-md-12 form-group p_star">
 															@if(Auth::user())
                                 <input type="email" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
 																@else
-																<input type="email" class="form-control" id="email" name="email" placeholder="Email">
+																<input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
 																@endif
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="courir_select country_select" name="courir">
+                                <select class="courir_select country_select" name="courir" required> 
 																	@foreach($courierlist as $key => $courir)
 																	<option value="{{$key}}">{{$courir}}</option>
 																		@endforeach
                                 </select>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="province_select country_select" name="province">
+							<div class="wrapper1">
+								<select id="province" class="province_select country_select" name="province" required>
 																	@foreach($provinces as $province)
 																	<option value="{{$province->id}}">{{$province->name}}</option>
 																		@endforeach
                                 </select>
+							</div>
+                                
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <select class="city_select country_select" name="city">
+								
+							<div class="wrapper2">
+                                <select id="city" class="city_select country_select" name="city">
                                 </select>
+							</div>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat">
+                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required>
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
+                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>
                             </div>
                     </div>
                     <div class="col-lg-4">
@@ -95,14 +101,13 @@
 	@endsection
 
 	@section('extrajs')
-	{{-- <script src="{{ URL::asset('js/main.js') }}"></script> --}}
-	{{-- <script src="{{ URL::asset('js/checkout.js') }}"></script> --}}
+	<!-- {{-- <script src="{{ URL::asset('js/main.js') }}"></script> --}} -->
 	<script>
 	var url = "{{ route("checkout.get_city") }}"
 	var url_cek = "{{ route("checkout.get_ongkir") }}"
 	</script>
-	<script src="{{ URL::asset('js/main.js') }}"></script>
-	<script>
+	<script src="{{ URL::asset('js/checkout.js') }}"></script>
+	<!-- <script>
 	$(function() {
 		$('.province_select').on('change', function(){
 			$province = this.value
@@ -123,8 +128,10 @@
 							.append($("<option></option>")
 												.attr("value", value.id)
 												.text(value.name));
+												
+							
 							});
-							// $('select').niceSelect();
+							$('select').niceSelect('update');
 				},
 				error: function(xhr){
 					console.log(xhr.responseText);
@@ -184,6 +191,6 @@
 					});
 				})
 			})
-		})();
-		</script>
+		})();	
+		</script> -->
 		@endsection
