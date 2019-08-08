@@ -16,10 +16,10 @@ class NotAdminMiddleware
     public function handle($request, Closure $next)
     {
         
-        
-      if(auth()->user()->isAdmin()) {
+    
+      if(auth()->user() and auth()->user()->isAdmin()) {
         return redirect('order');
-        }   
+        }
         return $next($request);
     }
 }

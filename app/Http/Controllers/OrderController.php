@@ -17,13 +17,23 @@ class OrderController extends Controller
     {
         $status_list = StatusOrder::all();
         if(auth()->user()->isAdmin()){
-            $orders = Order::take(10)->paginate(10);
+            $array = ['All'=>Order::take(10)->paginate(10), ];
+            foreach($status_list as $status){
+                $array[$status->name] = Order::where('status_id', $status->id)->
+                take(10)->paginate(10);
+            }
         }
         else if(auth()->user()->isCustomer()){
-            $orders = Order::where('user_id', auth()->user()->id)->take(10)->paginate(10);
+            $orders = Order::where('user_id', auth()->user()->id);
+            $array = ['All'=>$orders->take(10)->paginate(10), ];
+            foreach($status_list as $status){
+                $array[$status->name] = $orders->where('status_id', $status->id)->
+                take(10)->paginate(10);
+            }
         }
-        return view('order\index')->with(['orders'=> $orders,
-        'status_list'=>$status_list]);
+        // dd($array);
+        return view('order\index')->with([
+        'status_list'=>$status_list, 'array'=>$array]);
     }
 
     /**

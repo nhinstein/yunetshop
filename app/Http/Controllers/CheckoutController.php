@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\RegisterController;
+use App\User;
 use App\Province;
 use App\City;
 use App\Order;
 use App\OrderProduct;
 use Mail;
 use App\Mail\EmailOrder;
+use App\Mail\RegisterGuestMail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Notifications\OrderAccept;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
@@ -215,9 +220,24 @@ class CheckoutController extends Controller
         return $item->model->slug.','.$item->qty;
       })->values()->toJson();
       $data_ongkir = self::getOngkir($request->city, $request->courir);
+      
+      if(!auth()->user()){
+        $data = self::registerGuest($request);
+        $user = $data['user'];
+        $password = $data['password'];
+        Mail::send(new RegisterGuestMail($user, $password));
+      }
+      else{
+        $user = auth()->user();
+      }
+      
+      // auth()->login($user);
+      // Session::put('name',$user->email);
+      // Session::put('email',$user->email);
+      // Session::put('login',TRUE);
 
       $order = Order::create([
-        'user_id'=> auth()->user() ? auth()->user()->id : null,
+        'user_id'=>$user->id,
         'billing_email'=> $request->email,
         'billing_name'=> $request->name,
         'city_id'=> $request->city,
@@ -295,4 +315,25 @@ class CheckoutController extends Controller
     {
         //
     }
+    
+  public function registerGuest($request)
+  {
+      $this->validate(request(), [
+          'email' => 'required|email|unique:users',
+          'name' => 'required|',
+      ]);
+      $password = str_random(5);
+      $name = $request->name;
+      $email = $request->email;
+
+      $user = User::create([
+        'name'=> $name, 
+        'email'=>$email, 
+        'password'=>$password]);
+      $user->role ='customer';
+      $user->save();
+
+      return ['user' =>$user,
+        'password'=>$password];
+  }
 }
