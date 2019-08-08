@@ -91,6 +91,13 @@ Route::get('/invoice/{order}', 'InvoiceController@show')
 ->middleware('auth')
 ->name('invoice.show');
 
+
+
+Route::get('/mailable', function(){
+    $order = App\Order::find(1);
+    return new App\Mail\EmailOrder($order);
+});
+
 // Route::group(['middleware' => ['is_admin', 'is_customer']], function() {
     
 //     });
