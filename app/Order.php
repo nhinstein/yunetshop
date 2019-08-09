@@ -2,20 +2,30 @@
 
 namespace App;
 use App\City;
+use App\Invoice;
 use App\Province;
+use App\Transaction;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'billing_email',
+    protected $fillable = ['order_code', 'user_id', 'billing_email',
     'billing_name', 'city_id', 'province_id',
     'courier', 'ongkir','billing_phone',
     'postalcode', 'subtotal', 'total', 'no_resi',
-    'status_id', 'error', 'address', 'invoice', 'total_order'];
+    'status_id', 'error', 'address', 'total_order'];
 
     public function user(){
       return $this->belongsTo(User::class);
+    }
+
+    public function invoice(){
+      return $this->hasOne(Invoice::class);
+    }
+
+    public function transaction(){
+      return $this->belongsTo(Transaction::class);
     }
 
     public function products(){

@@ -29,14 +29,14 @@
 							@if(auth()->user()->isAdmin())
 							<form class="row contact_form" method="POST" id="contactForm" role="form">
 							{{ csrf_field() }}
-							<li><a href=""><span>No Resi</span> : </a><input type="text" class="" id="no_resi" name="no_resi" value="{{$order->no_resi}}"></li>
-							<li><a href=""><span>Status</span> : </a>
-                                <select class="country_select" name="status_id">
+							<!-- <li><a href=""><span>No Resi</span> : </a><input type="text" class="form-control" id="no_resi" name="no_resi" value="{{$order->no_resi}}"></li> -->
+							<!-- <li><a href=""><span>Status</span> : </a> -->
+                                <!-- <select class="country_select" name="status_id">
                                     @foreach($status_list as $status)
                                     <option {{$status->id == $order->status_id ? 'selected' : ''}} value="{{$status->id}}">{{$status->name}}</option>
                                         @endforeach
                                 </select></li><br>
-							<li><button type="submit" class="genric-btn primary small" action="{{route('order.update', $order->id)}}">Simpan</button></li>
+							<li><button type="submit" class="genric-btn primary small" action="{{route('order.update', $order->id)}}">Simpan</button></li> -->
 	
               				  </form>
 							@else
@@ -57,6 +57,15 @@
 						</ul>
 					</div>
 				</div>
+			</div>
+			
+			<div class="row order_d_inner">
+				<div class="col-md-2">No Resi:</div>
+				<div class="col-md-4"><input type="text" class="form-control" id="no_resi" name="no_resi" value="{{$order->no_resi}}"></div>
+			</div>
+			<div class="row order_d_inner">
+				<div class="col-md-2">No Resi:</div>
+				<div class="col-md-4"><input type="text" class="form-control" id="no_resi" name="no_resi" value="{{$order->no_resi}}"></div>
 			</div>
 			<div class="order_details_table">
 				<h2>Detail Order</h2>

@@ -14,7 +14,7 @@
         <div class="container">
 					@if(Cart::count()>0)
             <div class="billing_details">
-							<form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="contactForm" role="form">
+							<form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form">
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
@@ -85,7 +85,11 @@
                             <ul class="list list_2">
                                 <li><a href="#">Total <span id=total>{{$item->model->formatCart($item->total)}}</span></a></li>
                             </ul>
-														<button type="submit" class="primary-btn">Proses Order</button>
+                            @foreach($type_payment as $type)
+                            <input type="radio" name="type_bayar" value="{{$type->id}}">{{$type->name}}<br>
+                            @endforeach
+                            <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Launch modal</button>
+														<!-- <button type="submit" class="primary-btn">Proses Order</button> -->
                         </div>
                     </div>
                 </div>
@@ -96,101 +100,66 @@
 						<h5 class="center">Your Cart is Empty</h5>
 						@endif
         </div>
-    </section>
 
+    </section>
+	
+	@endsection
+
+	@section('modals')
+	<!-- Button trigger modal-->
+
+
+<!-- Modal: modalCart -->
+<div class="modal fade" data-backdrop="false" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <!--Body-->
+      <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action=""enctype="multipart/form-data">
+      <!-- <form class="row contact_form" action="#" method="post" id="checkOutPaidForm" role="form" enctype="multipart/form-data"> -->
+      <div class="modal-body">
+        {{ csrf_field() }}
+        <h2 class="w3-text-blue">Payment Form</h2>
+        <p>Silahkan verifikasi Pembayaran</p>
+        <p>      
+        <label class="w3-text-blue"><b>Nama</b></label>
+        <input type="text" class="form-control" name="name" required></p>  
+        <label class="w3-text-blue"><b>No. Rek</b></label>
+        <input type="number" class="form-control" name="no_rekening" required></p>   
+        <label class="w3-text-blue"><b>Total</b></label>
+        <input type="number" class="form-control" name="total" required></p>
+        <label class="w3-text-blue"><b>Upload Gambar</b></label>
+        <input type="file" name="file" required>
+      
+
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button id="submitOrder" type="button" class="btn btn-outline-primary" data-dismiss="modal">Bayar Nanti</button>
+        <button id="submitPaid" class="btn btn-primary">Bayar Sekarang</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal: modalCart -->
 	@endsection
 
 	@section('extrajs')
 	<!-- {{-- <script src="{{ URL::asset('js/main.js') }}"></script> --}} -->
+<!-- 	
+	<script src="https://www.paypal.com/sdk/js?client-id=sb"></script>
+	<script>paypal.Buttons().render('body');</script> -->
 	<script>
 	var url = "{{ route("checkout.get_city") }}"
 	var url_cek = "{{ route("checkout.get_ongkir") }}"
 	</script>
 	<script src="{{ URL::asset('js/checkout.js') }}"></script>
-	<!-- <script>
-	$(function() {
-		$('.province_select').on('change', function(){
-			$province = this.value
-			var url = '{{ route("checkout.get_city") }}';
-			var url_cek = '{{ route("checkout.get_ongkir") }}';
-			console.log(url);
-			$.ajax({
-				type: 'GET',
-				url: url,
-				data: {
-					province : this.value
-				},
-				success: function(data){
-							$('.city_select').empty();
-							var cities = data.cities;
-							$.each(cities, function(key, value) {
-						$('.city_select')
-							.append($("<option></option>")
-												.attr("value", value.id)
-												.text(value.name));
-												
-							
-							});
-							$('select').niceSelect('update');
-				},
-				error: function(xhr){
-					console.log(xhr.responseText);
-				}
-			});
-			})
-	});
-	</script>
-	<script>
-	(function(){
-		const classname = document.querySelectorAll('.city_select')
-		Array.from(classname).forEach(function(element){
-			element.addEventListener('change', function(){
-				var courir = $('.courir_select option:selected').val();
-				var city = this.value;
-				var url_cek = '{{ route("checkout.get_ongkir") }}';
-				$.ajax({
-						type: 'GET',
-						url: url_cek,
-						data: {
-							destination : city,
-							courir : courir
-						},
-						success: function(data){
-							var ongkir = data.ongkir;
-							var sum = data.sum;
-								document.getElementById("ongkir").innerHTML = ongkir;
-								 $('#total').empty();
-								$('#total').append('<p>' + sum + '</p>');
-						},
-						error: function(xhr){
-								console.log(xhr.responseText);
-						}
-				});
-			})
-		})
-	})();
-	</script> --}}
-		 <script>
-		(function(){
-			const cityname = document.querySelectorAll('.city_select')
-			Array.from(cityname).forEach(function(el2){
-				el2.addEventListener('change', function(){
-					var courir = $('.courir_select option:selected').val()
-					console.log(courir, this.value)
-					axios.post('/checkout/get_ongkir', {
-						destination : this.value,
-						courir : courir
-					})
-					.then(function(response){
-						var ongkir = response.data.ongkir[0].costs[1].cost[0].value;
-							document.getElementById("ongkir").innerHTML = ongkir;
-							console.log(ongkir);
-					})
-					.catch(function(error){
-						console.log(error);
-					});
-				})
-			})
-		})();	
-		</script> -->
-		@endsection
+	@endsection

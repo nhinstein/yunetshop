@@ -48,6 +48,7 @@
 
 
   @yield('content')
+  @yield('modals')
 
 	<!-- start footer Area -->
 	<footer class="footer-area section_gap">
@@ -80,6 +81,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
   <script src="{{ URL::asset('js/main.js') }}"></script>
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	
 	@yield('extrajs')
 </body>
 

@@ -19,15 +19,15 @@
      <section class="cart_area">
          <div class="container">
                         <nav>
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <ul class="nav nav-tabs" id="nav-tab" role="tablist">
                                 @foreach($array as $status => $orders)
-                                <a class="nav-item nav-link" id="nav-{{$status}}-tab" data-toggle="tab" href="#nav-{{$status}}" role="tab" aria-controls="nav-{{$status}}" aria-selected="false">{{$status}}</a>
+                                <li><a class="nav-item nav-link {{$status == 'All' ? 'active' : ''}}" id="nav-{{$status}}-tab" data-toggle="tab" href="#nav-{{$status}}" role="tab" aria-controls="nav-{{$status}}" aria-selected={{$status == 'All' ? 'true' : 'false'}}>{{$status}}</a></li>
                                 @endforeach
-                            </div>
+                            </ul>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             @foreach($array as $status => $orders)
-                            <div class="tab-pane fade" id="nav-{{$status}}" role="tabpanel" aria-labelledby="nav-{{$status}}-tab">
+                            <div class="tab-pane fade {{$status == 'All' ? 'show active' : ''}}" id="nav-{{$status}}" role="tabpanel" aria-labelledby="nav-{{$status}}-tab">
                             @if($orders->count()>0)
                             <table class="table">
                          <thead>
@@ -43,7 +43,7 @@
 													 @foreach($orders as $order)
                              <tr>
                                  <td>
-                                    <a href="{{route('order.show', $order->id)}}"><p>{{$order->invoice}}</p></a>
+                                    <a href="{{route('order.show', $order->id)}}"><p>{{$order->invoice->kode}}</p></a>
                                  </td>
                                  <td>
                                     <p>{{$order->created_at}}</p>
@@ -55,7 +55,10 @@
                                      <h5>{{$order->total}}</h5>
                                  </td>
                                  <td>
-                                     <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a>
+                                     <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
+                                     @if($order->invoice->status=='pending')
+                                     <a href="{{route('invoice.show', $order->id)}}">Bayar Sekarang</a>
+                                     @endif
                                  </td>
                              </tr>
                                                          @endforeach

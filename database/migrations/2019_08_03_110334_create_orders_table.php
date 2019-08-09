@@ -16,9 +16,9 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')
-                  ->onUpdate('cascade')->onDelete('set null');
+            $table->string('order_code')->unique();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('billing_email');
             $table->string('billing_name');
             $table->string('courier');
@@ -29,7 +29,6 @@ class CreateOrdersTable extends Migration
             $table->integer('total')->unsigned();
             $table->string('address', 200);
             $table->string('error')->nullable();
-            $table->string('invoice');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('city');
             $table->integer('province_id')->unsigned();

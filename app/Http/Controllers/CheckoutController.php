@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisterController;
 use App\User;
 use App\Province;
+use App\Invoice;
 use App\City;
 use App\Order;
 use App\OrderProduct;
+use App\TypePayment;
 use Mail;
 use App\Mail\EmailOrder;
 use App\Mail\RegisterGuestMail;
@@ -154,8 +156,10 @@ class CheckoutController extends Controller
     {
         $provinces = Province::all();
         $courierlist = $this->courierList;
+        $type_payment = TypePayment::all();
         return view('checkout')->with(['provinces'=> $provinces,
-        'courierlist' => $courierlist]);
+        'courierlist' => $courierlist,
+        'type_payment'=>$type_payment]);
     }
 
     public function get_province(Request $request)
@@ -208,9 +212,40 @@ class CheckoutController extends Controller
         
         $order = $this->addOrderTable($request);
         // auth()->user()->notify(new OrderAccept($order));
+        $kode_inv = 'INV-'.str_random(20);
+
+        Invoice::create([
+          'kode'=>$kode_inv,
+          'order_id'=>$order->id,
+          'status'=>'pending'
+        ]);
+
         Mail::send(new EmailOrder($order));
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
+
+    }
+
+    public function addTransaction(Request $request, $id)
+    {
+      $file = $request->file('file');
+      $extension = $file->getClientOriginalExtension();
+      $filename = $file->getClientOriginalName().'.'.$extension;
+      $path = 'img/img/'.$filename;
+      $save = file_put_contents($path, $file);
+      $bukti = BuktiTransfer::create(['order_id' => $id, 'src'=>$path]);
+      Transaction::create([
+        'order_id'=>$id,
+        'type_id'=>1,
+        'name'=>$request->name,
+        'no_rekening'=>$request->no_rekening,
+        'total'=>$request->total,
+        'bukti_id'
+      ]);
+
+      Mail::send(new EmailOrder($order));
+      Cart::instance('default')->destroy();
+      return redirect()->route('confirmation');
 
     }
 
@@ -237,12 +272,13 @@ class CheckoutController extends Controller
       // Session::put('login',TRUE);
 
       $order = Order::create([
+        'order_code'=>str_random(20),
         'user_id'=>$user->id,
         'billing_email'=> $request->email,
         'billing_name'=> $request->name,
         'city_id'=> $request->city,
         'province_id'=> $request->province,
-        'courier' => $request->courir,
+        'courier' => $this->courierList[$request->courir],
         'ongkir'=> $data_ongkir,
         'billing_phone' => $request->number,
         'postalcode' => $request->zip,
@@ -250,7 +286,7 @@ class CheckoutController extends Controller
         'total' => Cart::total(),
         'address' => $request->alamat,
         'error' => null,
-        'invoice' => 'INV-'.str_random(20),
+        // 'invoice' => 'INV-'.str_random(20),
         'status_id' => 1,
         'total_order' => Cart::total()+$data_ongkir,   
       ]);

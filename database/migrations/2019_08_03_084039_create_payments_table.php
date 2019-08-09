@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusOrdersTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateStatusOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('status_order', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('item_number');
+            $table->string('transaction_id');
+            $table->string('currency_code');
+            $table->string('payment_status');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateStatusOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_order');
+        Schema::dropIfExists('payments');
     }
 }

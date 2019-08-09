@@ -66,10 +66,14 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::where('id', $id)->firstOrFail();
+        
+        if(auth()->user()->isAdmin() or $order->user_id==auth()->user()->id){
         $status_list = StatusOrder::all();
         return view('order\detail')->with([
             'order'=> $order,
             'status_list'=> $status_list]);
+        }
+        abort(404);
     }
 
     /**

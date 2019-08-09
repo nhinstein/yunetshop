@@ -13,7 +13,7 @@
 					<div class="head">Browse Categories</div>
 					@foreach($categories as $category)
 					<ul class="main-categories">
-						<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
+						<li class="main-nav-list"><a  href="{{route('shop.index')}}/?category={{$category->slug}}" aria-expanded="false" aria-controls="fruitsVegetable"><span
 								 class="lnr lnr-arrow-right"></span>{{$category->name}}<span class="number">({{$category->products->count()}})</span></a>
 						</li>
 					</ul>

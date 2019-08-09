@@ -25,7 +25,7 @@
                                     {{-- <img src="images/logo2.png" style="width:150px; height:auto" alt=""> --}}
                                 </td>
                                 <td>
-                                    No Invoice: {{$order->invoice}}<br>
+                                    No Invoice: {{$order->invoice->kode}}<br>
                                     Created: {{$order->created_at}}<br>
                                 </td>
                             </tr>

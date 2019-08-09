@@ -6,11 +6,12 @@ $.ajaxSetup({
     });
     $('.wrapper').on('change', function (){
         var qty =  $("#qty").val();
-        console.log(url_cart);
+        var dataID = $("#qty").attr("data-id");
+        console.log(url_cart+"/"+dataID);
         $.ajax({
         type: 'PATCH',
         
-        url: `/cart/${this.value}`,
+        url: url_cart+"/"+dataID,
         data: {
             qty : qty,
         },

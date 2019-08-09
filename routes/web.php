@@ -68,6 +68,11 @@ Route::get('/checkout', 'CheckoutController@index')
 Route::post('/checkout', 'CheckoutController@store')
 ->middleware('not_admin')
 ->name('checkout.store');
+
+Route::post('/checkout/{order}', 'CheckoutController@addTransaction')
+->middleware('not_admin')
+->name('checkout.addTransaction');
+
 Route::get('/shipping', 'ShippingController@index')->name('shipping.index');
 Route::get('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
@@ -78,6 +83,7 @@ Route::get('/akun-saya', 'UsersController@edit')->name('users.edit');
 Auth::routes();
 
 Route::get('/shop', 'ShopController@index')->name('shop.index');
+Route::get('/shop/{categories}', 'ShopController@categories')->name('shop.categories');
 
 Route::get('/admin', 'AdminController@admin')
     ->middleware('is_admin')

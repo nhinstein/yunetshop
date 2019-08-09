@@ -82,5 +82,10 @@ $(".wrapper2").on('change', 'select', function() {
     getOngkir();
   });
 
+
+$("#submitOrder").click(function(e){
+    $("#checkOutForm").submit();
+});
+
 });
 

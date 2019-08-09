@@ -13,10 +13,17 @@ class ShopController extends Controller
     //
     public function index()
     {
-      // code...
+      if(request()->category){
+        $category = Category::where('slug', request()->category)->firstOrFail();
+        $products = Product::where('category_id', $category->id)
+        ->inRandomOrder()->take(12)->paginate(12);
+
+    }
+    else{
       $products = Product::inRandomOrder()->take(12)->paginate(12);
-      $dealsofweek = Product::dealsOfWeek()->get();
+    }
       $categories = Category::all();
+      $dealsofweek = Product::dealsOfWeek()->get();
       return view('shop/index')->with(['products'=> $products,
                                       'dealsofweek'=>$dealsofweek,
                                       'categories'=>$categories]);
