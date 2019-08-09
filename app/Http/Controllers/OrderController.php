@@ -19,16 +19,30 @@ class OrderController extends Controller
         if(auth()->user()->isAdmin()){
             $array = ['All'=>Order::take(10)->paginate(10), ];
             foreach($status_list as $status){
-                $array[$status->name] = Order::where('status_id', $status->id)->
-                take(10)->paginate(10);
+                $orders = Order::where('status_id', $status->id)->get();
+                if($orders->count()>0){
+                    $array[$status->name] = Order::where('status_id', $status->id)->
+                    take(10)->paginate(10);
+                }
+                else{
+                    
+                    $array[$status->name] = $orders;
+                }
             }
         }
         else if(auth()->user()->isCustomer()){
             $orders = Order::where('user_id', auth()->user()->id);
             $array = ['All'=>$orders->take(10)->paginate(10), ];
             foreach($status_list as $status){
-                $array[$status->name] = $orders->where('status_id', $status->id)->
-                take(10)->paginate(10);
+                
+                if($orders->count()>0){
+                    $array[$status->name] = Order::where('status_id', $status->id)->
+                    take(10)->paginate(10);
+                }
+                else{
+                    
+                    $array[$status->name] = $orders;
+                }
             }
         }
         // dd($array);

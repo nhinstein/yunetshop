@@ -25,7 +25,7 @@ class Order extends Model
     }
 
     public function transaction(){
-      return $this->belongsTo(Transaction::class);
+      return $this->hasOne(Transaction::class);
     }
 
     public function products(){

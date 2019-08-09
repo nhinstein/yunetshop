@@ -13,8 +13,8 @@ class StatusOrdersTableSeeder extends Seeder
     public function run()
     {
         
-    $list_status = ['Menunggu Konfirmasi', 'Sedang Diproses', 'Sudah Dikirim', 
-    'Sudah Diterima'];
+    $list_status = ['Pending', 'Paid', 'Delivery', 
+    'Completed'];
 
     foreach($list_status as $status){
     StatusOrder::create([

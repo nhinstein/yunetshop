@@ -53,11 +53,15 @@
                                  </td>
                                  <td>
                                      <h5>{{$order->total}}</h5>
+                                     {{-- {{$order->transaction}} --}}
                                  </td>
                                  <td>
                                      <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
-                                     @if($order->invoice->status=='pending')
+                                     @if(!$order->transaction and auth()->user->isCustomer())
                                      <a href="{{route('invoice.show', $order->id)}}">Bayar Sekarang</a>
+                                     @endif
+                                     @if(auth()->user()->isAdmin() and $order->transaction and $order->status_id==1)
+                                     <a href="{{route('invoice.show', $order->id)}}">Validasi</a>
                                      @endif
                                  </td>
                              </tr>

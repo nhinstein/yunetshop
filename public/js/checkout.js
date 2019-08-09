@@ -83,14 +83,14 @@ $(".wrapper2").on('change', 'select', function() {
   });
 
 
-$("#submitOrder").click(function(e){
-    $("#checkOutForm").submit();
-});
+// $("#submitOrder").click(function(e){
+//     $("#checkOutForm").submit();
+// });
 
-$("#submitPaid").click(function(e){
-    $("#checkOutForm").submit();
-    $("#checkOutPaidForm").submit();
-});
+// $("#submitPaid").click(function(e){
+//     $("#checkOutForm").submit();
+//     $("#checkOutPaidForm").submit();
+// });
 
 });
 

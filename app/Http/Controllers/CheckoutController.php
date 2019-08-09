@@ -12,6 +12,7 @@ use App\Order;
 use App\OrderProduct;
 use App\TypePayment;
 use App\BuktiTrasfer;
+use App\Transaction;
 use Mail;
 use App\Mail\EmailOrder;
 use App\Mail\RegisterGuestMail;
@@ -211,7 +212,9 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        
+
+      if($request->get('btnSubmit') == 'btn1') {
+
         $order = $this->addOrderTable($request);
         $this->order_obj = $order;
         // auth()->user()->notify(new OrderAccept($order));
@@ -226,12 +229,17 @@ class CheckoutController extends Controller
         Mail::send(new EmailOrder($order));
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
+    
+      } else if($request->get('btnSubmit') == 'btn2') {
+        $this->addTransaction($request);
+      }
 
     }
 
-    public function addTransaction(Request $request, Order $order)
+    public function addTransaction(Request $request)
     {
-        $file = $request->file('file');
+        $order = $this->addOrderTable($request);
+        $file = $request->file('t_file');
         $extension = $file->getClientOriginalExtension();
         $filename = $file->getClientOriginalName().'.'.$extension;
         $path = 'img/img/'.$filename;
@@ -240,18 +248,23 @@ class CheckoutController extends Controller
         Transaction::create([
           'order_id'=>$order->id,
           'type_id'=>1,
-          'name'=>$request->name,
-          'no_rekening'=>$request->no_rekening,
-          'total'=>$request->total,
-          'bukti_id'
+          'name'=>$request->t_name,
+          'no_rekeking'=>$request->t_norek,
+          'total'=>$request->t_total,
+          'bukti_id'=>$bukti->id,
+        ]);
+        
+        $kode_inv = 'INV-'.str_random(20);
+
+        Invoice::create([
+          'kode'=>$kode_inv,
+          'order_id'=>$order->id,
+          'status'=>'pending'
         ]);
   
         Mail::send(new EmailOrder($order));
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
-
-      
-
     }
 
     public function addOrderTable($request){

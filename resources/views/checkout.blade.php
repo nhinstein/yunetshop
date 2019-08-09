@@ -1,7 +1,10 @@
 @extends('base.app')
 
-	<!-- Start Banner Area -->
-	@section('content')
+    <!-- Start Banner Area -->
+    
+        @section('content')
+        <form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form" enctype="multipart/form-data">
+            {{ csrf_field() }}
 
 	<!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">
@@ -14,12 +17,12 @@
         <div class="container">
 					@if(Cart::count()>0)
             <div class="billing_details">
-							<form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form">
+							{{-- <form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form"> --}}
                 <div class="row">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
 
-													{{ csrf_field() }}
+													
                             <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required>
                             </div>
@@ -61,7 +64,7 @@
                                 <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required>
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>
+                                <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>
                             </div>
                     </div>
                     <div class="col-lg-4">
@@ -94,7 +97,7 @@
                     </div>
                 </div>
 
-								</form>
+								{{-- </form> --}}
             </div>
 						@else
 						<h5 class="center">Your Cart is Empty</h5>
@@ -102,15 +105,8 @@
         </div>
 
     </section>
-	
-	@endsection
 
-	@section('modals')
-	<!-- Button trigger modal-->
-
-
-<!-- Modal: modalCart -->
-<div class="modal fade" data-backdrop="false" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" data-backdrop="false" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -122,7 +118,7 @@
         </button>
       </div>
       <!--Body-->
-      <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action="{{route('checkout.addTransaction')}}" enctype="multipart/form-data">
+      {{-- <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action="{{route('checkout.addTransaction')}}" enctype="multipart/form-data"> --}}
       <!-- <form class="row contact_form" action="#" method="post" id="checkOutPaidForm" role="form" enctype="multipart/form-data"> -->
       <div class="modal-body">
         {{ csrf_field() }}
@@ -130,27 +126,38 @@
         <p>Silahkan verifikasi Pembayaran</p>
         <p>      
         <label class="w3-text-blue"><b>Nama</b></label>
-        <input type="text" class="form-control" name="name" required></p>  
+        <input type="text" class="form-control" name="t_name"></p>  
         <label class="w3-text-blue"><b>No. Rek</b></label>
-        <input type="number" class="form-control" name="no_rekening" required></p>   
+        <input type="number" class="form-control" name="t_norek"></p>   
         <label class="w3-text-blue"><b>Total</b></label>
-        <input type="number" class="form-control" name="total" required></p>
+        <input type="number" class="form-control" name="t_total"></p>
         <label class="w3-text-blue"><b>Upload Gambar</b></label>
-        <input type="file" name="file" required>
+        <input type="file" name="t_file">
       
 
       </div>
       <!--Footer-->
       <div class="modal-footer">
-        <button id="submitOrder"  type="button" class="btn btn-outline-primary" data-dismiss="modal">Bayar Nanti</button>
-        <button id="submitPaid" action="" type="button" on-click="submitForms()" class="btn btn-primary">Bayar Sekarang</button>
+        <button id="submitOrder" type="submit" name="btnSubmit" class="btn btn-outline-primary" data-dismiss="modal" value="btn1">Bayar Nanti</button>
+        <button id="submitPaid"  type="submit" name="btnSubmit" class="btn btn-primary" value="btn2">Bayar Sekarang</button>
       </div>
-      </form>
     </div>
   </div>
 </div>
-<!-- Modal: modalCart -->
+</form>
+	
 	@endsection
+
+	@section('modals')
+	<!-- Button trigger modal-->
+
+
+<!-- Modal: modalCart -->
+
+<!-- Modal: modalCart -->
+    @endsection
+    
+</form>
 
 	@section('extrajs')
 	<!-- {{-- <script src="{{ URL::asset('js/main.js') }}"></script> --}} -->
