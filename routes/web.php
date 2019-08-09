@@ -69,7 +69,7 @@ Route::post('/checkout', 'CheckoutController@store')
 ->middleware('not_admin')
 ->name('checkout.store');
 
-Route::post('/checkout/{order}', 'CheckoutController@addTransaction')
+Route::post('/checkout/paid', 'CheckoutController@addTransaction')
 ->middleware('not_admin')
 ->name('checkout.addTransaction');
 

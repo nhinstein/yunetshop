@@ -87,5 +87,10 @@ $("#submitOrder").click(function(e){
     $("#checkOutForm").submit();
 });
 
+$("#submitPaid").click(function(e){
+    $("#checkOutForm").submit();
+    $("#checkOutPaidForm").submit();
+});
+
 });
 

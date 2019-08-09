@@ -122,7 +122,7 @@
         </button>
       </div>
       <!--Body-->
-      <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action=""enctype="multipart/form-data">
+      <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action="{{route('checkout.addTransaction')}}" enctype="multipart/form-data">
       <!-- <form class="row contact_form" action="#" method="post" id="checkOutPaidForm" role="form" enctype="multipart/form-data"> -->
       <div class="modal-body">
         {{ csrf_field() }}
@@ -142,8 +142,8 @@
       </div>
       <!--Footer-->
       <div class="modal-footer">
-        <button id="submitOrder" type="button" class="btn btn-outline-primary" data-dismiss="modal">Bayar Nanti</button>
-        <button id="submitPaid" class="btn btn-primary">Bayar Sekarang</button>
+        <button id="submitOrder"  type="button" class="btn btn-outline-primary" data-dismiss="modal">Bayar Nanti</button>
+        <button id="submitPaid" action="" type="button" on-click="submitForms()" class="btn btn-primary">Bayar Sekarang</button>
       </div>
       </form>
     </div>
@@ -161,5 +161,11 @@
 	var url = "{{ route("checkout.get_city") }}"
 	var url_cek = "{{ route("checkout.get_ongkir") }}"
 	</script>
-	<script src="{{ URL::asset('js/checkout.js') }}"></script>
+  <script src="{{ URL::asset('js/checkout.js') }}"></script>
+  <script>
+    submitForms = function(){
+    document.getElementById("checkOutForm").submit();
+    document.getElementById("checkOutPaidForm").submit();
+}
+  </script>
 	@endsection

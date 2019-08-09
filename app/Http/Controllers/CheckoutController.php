@@ -11,6 +11,7 @@ use App\City;
 use App\Order;
 use App\OrderProduct;
 use App\TypePayment;
+use App\BuktiTrasfer;
 use Mail;
 use App\Mail\EmailOrder;
 use App\Mail\RegisterGuestMail;
@@ -28,6 +29,7 @@ class CheckoutController extends Controller
      */
      // private $api_key = Config::get('services.raja_ongkir.key');
      // private $api_key = config('services.raja_ongkir.key');
+     public $order_obj;
      protected $courierList = [
     'jne'       => 'Jalur Nugraha Ekakurir (JNE)',
     'pos'       => 'POS Indonesia (POS)',
@@ -211,6 +213,7 @@ class CheckoutController extends Controller
     {
         
         $order = $this->addOrderTable($request);
+        $this->order_obj = $order;
         // auth()->user()->notify(new OrderAccept($order));
         $kode_inv = 'INV-'.str_random(20);
 
@@ -226,26 +229,28 @@ class CheckoutController extends Controller
 
     }
 
-    public function addTransaction(Request $request, $id)
+    public function addTransaction(Request $request, Order $order)
     {
-      $file = $request->file('file');
-      $extension = $file->getClientOriginalExtension();
-      $filename = $file->getClientOriginalName().'.'.$extension;
-      $path = 'img/img/'.$filename;
-      $save = file_put_contents($path, $file);
-      $bukti = BuktiTransfer::create(['order_id' => $id, 'src'=>$path]);
-      Transaction::create([
-        'order_id'=>$id,
-        'type_id'=>1,
-        'name'=>$request->name,
-        'no_rekening'=>$request->no_rekening,
-        'total'=>$request->total,
-        'bukti_id'
-      ]);
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $file->getClientOriginalName().'.'.$extension;
+        $path = 'img/img/'.$filename;
+        $save = file_put_contents($path, $file);
+        $bukti = BuktiTrasfer::create(['order_id' => $order->id, 'src'=>$path]);
+        Transaction::create([
+          'order_id'=>$order->id,
+          'type_id'=>1,
+          'name'=>$request->name,
+          'no_rekening'=>$request->no_rekening,
+          'total'=>$request->total,
+          'bukti_id'
+        ]);
+  
+        Mail::send(new EmailOrder($order));
+        Cart::instance('default')->destroy();
+        return redirect()->route('confirmation');
 
-      Mail::send(new EmailOrder($order));
-      Cart::instance('default')->destroy();
-      return redirect()->route('confirmation');
+      
 
     }
 
