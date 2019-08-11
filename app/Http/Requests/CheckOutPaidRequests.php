@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckoutRequests extends FormRequest
+class CheckOutPaidRequests extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,17 @@ class CheckoutRequests extends FormRequest
      * @return array
      */
     public function rules()
-    {  
+    {
+        
 
         return [
+            't_name'=> 'required|max:40',
+            't_norek' => 'required',
+            't_file' => 'required',
+            't_total' => 'required',
             'email'=> 'required|max:40|email',
             'name' => 'required|max:60',
             'city' => 'required',
-            'province' => 'required',
             'courir' => 'required',
             'number' => 'required',
             'zip' => 'required',

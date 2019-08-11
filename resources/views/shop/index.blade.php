@@ -98,7 +98,7 @@
 						@foreach($products as $product)
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="{{$product->images->first()->src}}" alt="">
+								<img class="img-fluid" src="{{asset($product->images->first()->src)}}" alt="">
 								<div class="product-details">
 									<a href="{{ route('shop.show', $product->slug )}}">
 										<h6>{{$product->name}}</h6></a>

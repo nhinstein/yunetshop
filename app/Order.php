@@ -47,4 +47,9 @@ class Order extends Model
     public function status(){
       return $this->belongsTo(StatusOrder::class);
     }
+
+    public function bukti()
+    {
+        return $this->hasOne(BuktiTransfer::class);
+    }
 }

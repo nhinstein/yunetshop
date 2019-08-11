@@ -18,11 +18,11 @@ class CreateTransactionsTable extends Migration
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('type_payments');
             $table->integer('bukti_id')->unsigned();
-            $table->foreign('bukti_id')->references('id')->on('bukti_trasfers');
+            $table->foreign('bukti_id')->references('id')->on('bukti_transfers');
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
             $table->string('name');
-            $table->integer('no_rekeking')->unsigned();
+            $table->integer('no_rekening')->unsigned();
             $table->integer('total')->unsigned()->nullable();
             $table->timestamps();
         });

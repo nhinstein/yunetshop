@@ -3,8 +3,8 @@
     <!-- Start Banner Area -->
     
         @section('content')
-        <form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form" enctype="multipart/form-data">
-            {{ csrf_field() }}
+  <form action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form" enctype="multipart/form-data">
+      {{ csrf_field() }}
 
 	<!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">
@@ -18,32 +18,40 @@
 					@if(Cart::count()>0)
             <div class="billing_details">
 							{{-- <form class="row contact_form" action="{{route('checkout.store')}}" method="post" id="checkOutForm" role="form"> --}}
-                <div class="row">
+                <div class="row contact_form">
                     <div class="col-lg-8">
                         <h3>Billing Details</h3>
+                        @if(count( $errors ) > 0)
+                         @foreach ($errors->all() as $error)
+                         
+                         <div class="alert alert-success">
+                         {{ $error }}
+                        </div>
+                         @endforeach
+                       @endif
 
 													
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('name') ? ' has-error' : '' }}">
                                 <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required>
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('number') ? ' has-error' : '' }}">
                                 <input type="number" class="form-control" id="number" name="number" placeholder="No Hp" required>
                             </div>
-													  <div class="col-md-12 form-group p_star">
+													  <div class="col-md-12 form-group p_star {{ $errors->has('email') ? ' has-error' : '' }}">
 															@if(Auth::user())
                                 <input type="email" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
 																@else
 																<input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
 																@endif
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('courier') ? ' has-error' : '' }}">
                                 <select class="courir_select country_select" name="courir" required> 
 																	@foreach($courierlist as $key => $courir)
 																	<option value="{{$key}}">{{$courir}}</option>
 																		@endforeach
                                 </select>
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('province') ? ' has-error' : '' }}">
 							<div class="wrapper1">
 								<select id="province" class="province_select country_select" name="province" required>
 																	@foreach($provinces as $province)
@@ -53,17 +61,17 @@
 							</div>
                                 
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('city') ? ' has-error' : '' }}">
 								
 							<div class="wrapper2">
                                 <select id="city" class="city_select country_select" name="city">
                                 </select>
 							</div>
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                            <div class="col-md-12 form-group p_star {{ $errors->has('alamat') ? ' has-error' : '' }}">
                                 <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required>
                             </div>
-                            <div class="col-md-12 form-group">
+                            <div class="col-md-12 form-group {{ $errors->has('zip') ? ' has-error' : '' }}">
                                 <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>
                             </div>
                     </div>
@@ -91,7 +99,7 @@
                             @foreach($type_payment as $type)
                             <input type="radio" name="type_bayar" value="{{$type->id}}">{{$type->name}}<br>
                             @endforeach
-                            <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Launch modal</button>
+                            <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button>
 														<!-- <button type="submit" class="primary-btn">Proses Order</button> -->
                         </div>
                     </div>
@@ -121,24 +129,34 @@
       {{-- <form class="w3-container w3-display-middle w3-card-4 " method="POST" id="checkOutPaidForm"  action="{{route('checkout.addTransaction')}}" enctype="multipart/form-data"> --}}
       <!-- <form class="row contact_form" action="#" method="post" id="checkOutPaidForm" role="form" enctype="multipart/form-data"> -->
       <div class="modal-body">
-        {{ csrf_field() }}
         <h2 class="w3-text-blue">Payment Form</h2>
         <p>Silahkan verifikasi Pembayaran</p>
-        <p>      
-        <label class="w3-text-blue"><b>Nama</b></label>
-        <input type="text" class="form-control" name="t_name"></p>  
-        <label class="w3-text-blue"><b>No. Rek</b></label>
-        <input type="number" class="form-control" name="t_norek"></p>   
-        <label class="w3-text-blue"><b>Total</b></label>
-        <input type="number" class="form-control" name="t_total"></p>
-        <label class="w3-text-blue"><b>Upload Gambar</b></label>
-        <input type="file" name="t_file">
+        <p>
+          
+        <div class="form-group {{ $errors->has('t_name') ? ' has-error' : '' }}">
+            <label class="w3-text-blue"><b>Nama</b></label>
+            <input type="text" class="form-control" name="t_name"></p> 
+        </div> 
+          
+        <div class="form-group{{ $errors->has('t_norek') ? ' has-error' : '' }}">
+            <label class="w3-text-blue"><b>No. Rek</b></label>
+            <input type="number" class="form-control" name="t_norek"></p>  
+        </div>  
+          
+        <div class="form-group {{ $errors->has('t_total') ? ' has-error' : '' }}">
+            <label class="w3-text-blue"><b>Total</b></label>
+            <input type="number" class="form-control" name="t_total"></p>
+        </div>  
+          
+        <div class="form-group{{ $errors->has('t_file') ? ' has-error' : '' }}">
+            <label class="w3-text-blue"><b>Upload Gambar</b></label>
+            <input type="file" name="t_file">
       
 
       </div>
       <!--Footer-->
       <div class="modal-footer">
-        <button id="submitOrder" type="submit" name="btnSubmit" class="btn btn-outline-primary" data-dismiss="modal" value="btn1">Bayar Nanti</button>
+        <button id="submitOrder" type="submit" name="btnSubmit" class="btn btn-outline-primary" value="btn1">Bayar Nanti</button>
         <button id="submitPaid"  type="submit" name="btnSubmit" class="btn btn-primary" value="btn2">Bayar Sekarang</button>
       </div>
     </div>
@@ -169,10 +187,10 @@
 	var url_cek = "{{ route("checkout.get_ongkir") }}"
 	</script>
   <script src="{{ URL::asset('js/checkout.js') }}"></script>
-  <script>
+  {{-- <script>
     submitForms = function(){
     document.getElementById("checkOutForm").submit();
     document.getElementById("checkOutPaidForm").submit();
 }
-  </script>
+  </script> --}}
 	@endsection

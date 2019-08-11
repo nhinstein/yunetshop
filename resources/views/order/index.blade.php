@@ -57,11 +57,14 @@
                                  </td>
                                  <td>
                                      <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
-                                     @if(!$order->transaction and auth()->user->isCustomer())
-                                     <a href="{{route('invoice.show', $order->id)}}">Bayar Sekarang</a>
+                                     @if(!$order->transaction and auth()->user()->isCustomer())
+                                     <a href="#" data-toggle="modal" class="bayar" data-target="#modalCart" data-orderid="{{$order->id}}">Bayar Sekarang</a>
+                                     {{-- <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button> --}}
                                      @endif
                                      @if(auth()->user()->isAdmin() and $order->transaction and $order->status_id==1)
-                                     <a href="{{route('invoice.show', $order->id)}}">Validasi</a>
+                                     <a href="#" class="validasi" data-toggle="modal" data-target="#modalCart" data-tname="{{$order->transaction->name}}"
+                                            data-trek="{{$order->transaction->no_rekening}}" data-ttotal="{{$order->transaction->total}}"
+                                            data-tsrc="{{asset($order->bukti->src)}}" data-orderid="{{$order->id}}">Validasi</a>
                                      @endif
                                  </td>
                              </tr>
@@ -81,4 +84,20 @@
      <!--================End Cart Area =================-->
      <div class="section_gap">
      </div>
-	@endsection
+     @if(auth()->user()->isAdmin())
+     @include('modals.admin_validate')
+     @else if(auth()->user()->isCustomer())
+     @include('modals.customer_pay')
+     @endif
+
+     
+    @endsection
+    @section('extrajs')
+    <script>
+    var url = "{{ route("order.index") }}"</script>
+    @if(auth()->user()->isAdmin())
+    <script src="{{ URL::asset('js/validasi.js') }}"></script>
+    @else if(auth()->user()->isCustomer())
+    <script src="{{ URL::asset('js/add_transaction.js') }}"></script>
+    @endif
+    @endsection

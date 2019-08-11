@@ -105,6 +105,14 @@ Route::post('/order/{product}', 'OrderController@update')
 ->middleware('is_admin')
 ->name('order.update');
 
+Route::post('/order/status/{product}', 'OrderController@updateStatus')
+->middleware('is_admin')
+->name('order.updateStatus');
+
+Route::post('/order/transaction/{product}', 'OrderController@addTransactionOnly')
+->middleware('is_customer')
+->name('order.transaction');
+
 Route::get('/invoice/{order}', 'InvoiceController@show')
 ->middleware('auth')
 ->name('invoice.show');

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Order;
 use App\StatusOrder;
+use App\TypePayment;
+use App\BuktiTransfer;
+use App\Transaction;
 
 use Illuminate\Http\Request;
 
@@ -15,6 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+        // dd(auth()->user()->name);
         $status_list = StatusOrder::all();
         if(auth()->user()->isAdmin()){
             $array = ['All'=>Order::take(10)->paginate(10), ];
@@ -36,7 +40,7 @@ class OrderController extends Controller
             foreach($status_list as $status){
                 
                 if($orders->count()>0){
-                    $array[$status->name] = Order::where('status_id', $status->id)->
+                    $array[$status->name] = $orders->where('status_id', $status->id)->
                     take(10)->paginate(10);
                 }
                 else{
@@ -115,6 +119,45 @@ class OrderController extends Controller
         $success_message="Berhasil Update Order";
         
         $orders = Order::all();
+        
+        return redirect()->route('order.index')->with([
+            'success_message'=>$success_message,
+        ]);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status_id = 2;
+        $order->save();
+        $success_message="Berhasil Validasi";
+        
+        $orders = Order::all();
+        
+        return redirect()->route('order.index')->with([
+            'success_message'=>$success_message,
+        ]);
+    }
+
+    public function addTransactionOnly(Request $request, $id)
+    {
+        $order = Order::where('id', $id)->firstOrFail();
+        $file = $request->file('t_file');
+        $extension = $file->getClientOriginalExtension();
+        $filename = 'IMG-'.$order->order_code.'.'.$extension;
+        $path = 'img/img/'.$filename;
+        $file->move('img/img/',$filename);
+        // $save = file_put_contents($path, $file);
+        $bukti = BuktiTransfer::create(['order_id' => $order->id, 'src'=>$path]);
+        Transaction::create([
+          'order_id'=>$order->id,
+          'type_id'=>1,
+          'name'=>$request->t_name,
+          'no_rekening'=>$request->t_norek,
+          'total'=>$request->t_total,
+          'bukti_id'=>$bukti->id,
+        ]);
+        $success_message="Berhasil Validasi";
         
         return redirect()->route('order.index')->with([
             'success_message'=>$success_message,

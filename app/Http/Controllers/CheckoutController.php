@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TransactionRequests;
+use App\Http\Requests\CheckOutPaidRequests;
 use App\Http\Controllers\Auth\RegisterController;
 use App\User;
 use App\Province;
@@ -11,7 +13,7 @@ use App\City;
 use App\Order;
 use App\OrderProduct;
 use App\TypePayment;
-use App\BuktiTrasfer;
+use App\BuktiTransfer;
 use App\Transaction;
 use Mail;
 use App\Mail\EmailOrder;
@@ -212,6 +214,7 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
+      // dd($request->get('btnSubmit'));
 
       if($request->get('btnSubmit') == 'btn1') {
 
@@ -236,20 +239,21 @@ class CheckoutController extends Controller
 
     }
 
-    public function addTransaction(Request $request)
+    public function addTransaction($request)
     {
         $order = $this->addOrderTable($request);
         $file = $request->file('t_file');
         $extension = $file->getClientOriginalExtension();
-        $filename = $file->getClientOriginalName().'.'.$extension;
+        $filename = 'IMG-'.$order->order_code.'.'.$extension;
         $path = 'img/img/'.$filename;
-        $save = file_put_contents($path, $file);
-        $bukti = BuktiTrasfer::create(['order_id' => $order->id, 'src'=>$path]);
+        $file->move('img/img/',$filename);
+        // $save = file_put_contents($path, $file);
+        $bukti = BuktiTransfer::create(['order_id' => $order->id, 'src'=>$path]);
         Transaction::create([
           'order_id'=>$order->id,
           'type_id'=>1,
           'name'=>$request->t_name,
-          'no_rekeking'=>$request->t_norek,
+          'no_rekening'=>$request->t_norek,
           'total'=>$request->t_total,
           'bukti_id'=>$bukti->id,
         ]);
@@ -273,12 +277,16 @@ class CheckoutController extends Controller
         return $item->model->slug.','.$item->qty;
       })->values()->toJson();
       $data_ongkir = self::getOngkir($request->city, $request->courir);
+      $email_exists = User::where('email', $request->email)->exists();
       
-      if(!auth()->user()){
+      if(!auth()->user() and !$email_exists){
         $data = self::registerGuest($request);
         $user = $data['user'];
         $password = $data['password'];
         Mail::send(new RegisterGuestMail($user, $password));
+      }
+      if(!auth()->user() and $email_exists){
+        // diharuskan login dulu
       }
       else{
         $user = auth()->user();
