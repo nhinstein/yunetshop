@@ -6,6 +6,12 @@
 	</section>
 	<section class="banner-area organic-breadcrumb">
 	</section>
+	
+	@if(session()->has('alert'))
+		 <div class="alert alert-success">
+			 {{session()->get('alert')}}
+		 </div>
+		 @endif
 	<!-- End Banner Area -->
 
 	<!--================Login Box Area =================-->
@@ -26,8 +32,11 @@
 						<form class="row login_form" action="{{ route('login') }}" method="post" id="contactForm" role="form">
 							{{ csrf_field() }}
 							<div class="col-md-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" value="{{ old('email') }}" required>
-					
+							@if(session()->has('email_account'))
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" value="{{session()->get('email_account')}}" required>
+							@else
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" value="{{ old('email') }}" required>
+							@endif
 							</div>
 							<div class="col-md-12 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
 								<input type="password" class="form-control" id="password" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required>

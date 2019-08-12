@@ -41,6 +41,9 @@
 								@endif
 							</div>
 							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'"required>
+							</div>
+							<div class="col-md-12 form-group">
 								<div class="creat_account">
 								<input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
 									<!-- <input type="checkbox" id="f-option2" name="selector">

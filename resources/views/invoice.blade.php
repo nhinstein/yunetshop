@@ -18,7 +18,7 @@
         <div class="invoice-box">
             <table  >
                 <tr class="top">
-                    <td colspan="2">
+                    <td colspan="3">
                         <table>
                             <tr>
                                 <td class="title">
@@ -33,7 +33,7 @@
                     </td>
                 </tr>
                 <tr class="information">
-                    <td colspan="2">
+                    <td colspan="3">
                         <table>
                             <tr>
                                 <td>
@@ -54,25 +54,38 @@
                         </table>
                     </td>
                 </tr>
+                @if($order->transaction)
                 <tr class="heading">
                     <td>
                         Metode Pembayaran
                     </td>
+                    <td></td>
                     <td>
                         Check #
                     </td>
                 </tr>
                 <tr class="details">
                     <td>
-                        Visa ending **** 4242
+                        @if($order->transaction)
+                        {{$order->transaction->type->name}} {{$order->transaction->no_rekening}}
+                        @endif
                     </td>
+                    <td></td>
                     <td>
+                        @if($order->transaction and $order->status->id!=1 )
                         Check
+                        @else
+                        Pending
+                        @endif
                     </td>
                 </tr>
+                @endif
                 <tr class="heading">
                     <td>
                         Produk
+                    </td>
+                    <td>
+                        Qty
                     </td>
                     <td>
                         Sub Total
@@ -81,7 +94,10 @@
                 @foreach($order->products as $product)
                 <tr class="item">
                     <td>
-                        {{$product->name}} x {{$product->pivot->quantity}}
+                        {{$product->name}}
+                    </td>
+                    <td>
+                        {{$product->pivot->quantity}}
                     </td>
                     <td>
                         {{$order->formatPrice($product->price*$product->pivot->quantity)}}
@@ -92,11 +108,13 @@
                     <td>
                         Ongkir
                     </td>
+                    <td></td>
                     <td>
                         {{$order->formatPrice($order->ongkir)}}
                     </td>
                 </tr>
                 <tr class="total">
+                    <td></td>
                     <td></td>
                     <td style="padding-top:50px;"> 
                         {{$order->formatPrice($order->total_order)}}

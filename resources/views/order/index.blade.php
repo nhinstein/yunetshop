@@ -52,19 +52,20 @@
                                      <p>{{$order->status->name}}</p>
                                  </td>
                                  <td>
-                                     <h5>{{$order->total}}</h5>
+                                     <h5>{{$order->formatPrice($order->total_order)}}</h5>
                                      {{-- {{$order->transaction}} --}}
                                  </td>
                                  <td>
                                      <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
                                      @if(!$order->transaction and auth()->user()->isCustomer())
-                                     <a href="#" data-toggle="modal" class="bayar" data-target="#modalCart" data-orderid="{{$order->id}}">Bayar Sekarang</a>
+                                     <a href="#" data-toggle="modal" class="bayar" data-target="#modalCart" data-orderid="{{$order->id}}" data-totalorder="{{$order->formatPrice($order->total_order)}}">Bayar Sekarang</a>
                                      {{-- <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button> --}}
                                      @endif
                                      @if(auth()->user()->isAdmin() and $order->transaction and $order->status_id==1)
                                      <a href="#" class="validasi" data-toggle="modal" data-target="#modalCart" data-tname="{{$order->transaction->name}}"
                                             data-trek="{{$order->transaction->no_rekening}}" data-ttotal="{{$order->transaction->total}}"
-                                            data-tsrc="{{asset($order->bukti->src)}}" data-orderid="{{$order->id}}">Validasi</a>
+                                            data-tsrc="{{asset($order->bukti->src)}}" data-orderid="{{$order->id}}"
+                                            data-totalorder="{{$order->formatPrice($order->total_order)}}">Validasi</a>
                                      @endif
                                  </td>
                              </tr>
@@ -86,7 +87,7 @@
      </div>
      @if(auth()->user()->isAdmin())
      @include('modals.admin_validate')
-     @else if(auth()->user()->isCustomer())
+     @elseif(auth()->user()->isCustomer())
      @include('modals.customer_pay')
      @endif
 
@@ -97,7 +98,7 @@
     var url = "{{ route("order.index") }}"</script>
     @if(auth()->user()->isAdmin())
     <script src="{{ URL::asset('js/validasi.js') }}"></script>
-    @else if(auth()->user()->isCustomer())
+    @elseif(auth()->user()->isCustomer())
     <script src="{{ URL::asset('js/add_transaction.js') }}"></script>
     @endif
     @endsection

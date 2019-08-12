@@ -13,7 +13,7 @@
 
 Route::get('/', 'ShopController@index')->name('shop.index');
 // Route::get('/login', 'Auth\LoginController@index' )->name('login.form');
-// Route::post('/login', 'Auth\LoginController@loginPost')->name('login');
+Route::post('/login', 'Auth\LoginController@loginPost')->name('login');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 // Route::get('/register', 'Auth\RegisterController@index');
 // Route::post('/register', 'Auth\RegisterController@store');
@@ -85,9 +85,6 @@ Auth::routes();
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 Route::get('/shop/{categories}', 'ShopController@categories')->name('shop.categories');
 
-Route::get('/admin', 'AdminController@admin')
-    ->middleware('is_admin')
-    ->name('admin');
 Route::get('/order', 'OrderController@index')->middleware('auth')
             ->name('order.index');
 Route::get('/order/{order}', 'OrderController@show')->middleware('auth')

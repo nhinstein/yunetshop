@@ -70,7 +70,7 @@
 	.invoice-box table tr.item.last td{
 		border-bottom:none;
 	}
-	.invoice-box table tr.total td:nth-child(2){
+	.invoice-box table tr.total td:nth-child(3){
 		border-top:2px solid #eee;
 		font-weight:bold;
 	}

@@ -22,6 +22,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Notifications\OrderAccept;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 
 class CheckoutController extends Controller
 {
@@ -217,24 +218,37 @@ class CheckoutController extends Controller
       // dd($request->get('btnSubmit'));
 
       if($request->get('btnSubmit') == 'btn1') {
-
         $order = $this->addOrderTable($request);
-        $this->order_obj = $order;
-        // auth()->user()->notify(new OrderAccept($order));
-        $kode_inv = 'INV-'.str_random(20);
+        $email_exists = User::where('email', $request->email)->exists();
+        if(!auth()->user() and $email_exists){
+          Session::put('redirect_url', $request->url());
+          // Input::flash();
+          $request->flash('request',$request);
+          return redirect('login')
+          ->with('alert','Email sudah terdaftar silahkan login untuk melanjutkan !')
+          ->with('email_account',$request->email);
 
-        Invoice::create([
-          'kode'=>$kode_inv,
-          'order_id'=>$order->id,
-          'status'=>'pending'
-        ]);
+        } else{
+          $this->order_obj = $order;
+          // auth()->user()->notify(new OrderAccept($order));
+          $kode_inv = 'INV-'.str_random(20);
 
-        Mail::send(new EmailOrder($order));
-        Cart::instance('default')->destroy();
-        return redirect()->route('confirmation');
+          Invoice::create([
+            'kode'=>$kode_inv,
+            'order_id'=>$order->id,
+            'status'=>'pending'
+          ]);
+
+          Mail::send(new EmailOrder($order));
+          Cart::instance('default')->destroy();
+          return redirect()->route('confirmation');
+
+        }
     
       } else if($request->get('btnSubmit') == 'btn2') {
+        if(auth()->user()){
         $this->addTransaction($request);
+        }
       }
 
     }
@@ -279,23 +293,27 @@ class CheckoutController extends Controller
       $data_ongkir = self::getOngkir($request->city, $request->courir);
       $email_exists = User::where('email', $request->email)->exists();
       
+      
       if(!auth()->user() and !$email_exists){
         $data = self::registerGuest($request);
         $user = $data['user'];
         $password = $data['password'];
+        auth()->login($user);
+        // Session::put('name',$user->email);
+        // Session::put('email',$user->email);
+        // Session::put('login',TRUE);
         Mail::send(new RegisterGuestMail($user, $password));
       }
       if(!auth()->user() and $email_exists){
-        // diharuskan login dulu
+        // dd($email_exists);
+        // Session::put('redirect_url', $request->url());
+        Session::put('redirect_url', $request->url());
+        return redirect('login')->with('alert','Email sudah terdaftar silahkan login untuk melanjutkan !');
       }
       else{
         $user = auth()->user();
       }
-      
-      // auth()->login($user);
-      // Session::put('name',$user->email);
-      // Session::put('email',$user->email);
-      // Session::put('login',TRUE);
+      // dd($user);
 
       $order = Order::create([
         'order_code'=>str_random(20),

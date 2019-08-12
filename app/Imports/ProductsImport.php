@@ -28,7 +28,7 @@ class ProductsImport implements ToCollection
             )
         );
         foreach($rows as $row){
-            $category = Category::where('name', $row[9])->first();
+            $category = Category::where('name', $row[9])->firstOrFail();
             if(!$category){
                 $category=Category::create([
                     'slug' =>'YS-'.str_random(15),

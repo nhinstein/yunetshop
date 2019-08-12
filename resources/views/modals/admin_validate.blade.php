@@ -13,9 +13,8 @@
             {{csrf_field()}}
          <div class="modal-body">
            <h2 class="w3-text-blue">Validasi Pembayaran</h2>
-           <p>Silahkan verifikasi Pembayaran</p>
-           
-           <p>
+           <p>Silahkan verifikasi Pembayaran<br>
+           Total yang harus dibayarkan : <span id="total_order"></span></p>
              
            <div class="form-group {{ $errors->has('t_name') ? ' has-error' : '' }}">
                <label class="w3-text-blue"><b>Nama</b></label>
@@ -38,7 +37,8 @@
 
          <!--Footer-->
          <div class="modal-footer">
-           <button id="submitPaid"  type="submit" name="btnSubmit" class="btn btn-primary" value="btn3">Valid</button>
+         <button id="submitPaid"  type="submit" name="btnSubmit" class="btn btn-primary" value="btnReject">Reject</button>
+           <button id="submitPaid"  type="submit" name="btnSubmit" class="btn btn-primary" value="btnValid">Valid</button>
          </div>
        </div>
     </form>

@@ -13,9 +13,11 @@
          {{csrf_field()}}
             <div class="modal-body">
            <h2 class="w3-text-blue">Payment Form</h2>
-           <p>Silahkan verifikasi Pembayaran</p>
+           <p>Silahkan verifikasi Pembayaran ke :<br>
+           No Rekening BCA : 4682358625<br>
+           Atas nama : Sri Wahyuni<br>
+           Total yang harus dibayarkan : <span id="total_order"></span><br>
            <p>
-             
            <div class="form-group {{ $errors->has('t_name') ? ' has-error' : '' }}">
                <label class="w3-text-blue"><b>Nama</b></label>
                <input type="text" class="form-control" name="t_name"></p> 

@@ -38,15 +38,21 @@ class OrderController extends Controller
             $orders = Order::where('user_id', auth()->user()->id);
             $array = ['All'=>$orders->take(10)->paginate(10), ];
             foreach($status_list as $status){
+                $stat_orders = Order::where([
+                    ['user_id', '=' ,auth()->user()->id],
+                    ['status_id', '=' ,$status->id],
+                    ]);
+                $array[$status->name] = $stat_orders->take(10)->paginate(10);
                 
-                if($orders->count()>0){
-                    $array[$status->name] = $orders->where('status_id', $status->id)->
-                    take(10)->paginate(10);
-                }
-                else{
+                
+                // if($orders->count()>0){
+                //     $array[$status->name] = $orders->where('status_id', $status->id)->
+                //     take(10)->paginate(10);
+                // }
+                // else{
                     
-                    $array[$status->name] = $orders;
-                }
+                //     $array[$status->name] = $orders;
+                // }
             }
         }
         // dd($array);
@@ -128,12 +134,15 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-        $order->status_id = 2;
-        $order->save();
-        $success_message="Berhasil Validasi";
-        
         $orders = Order::all();
-        
+        $success_message="Berhasil Update status";
+        if($request->get('btnSubmit') == 'btnValid') {
+            $order->status_id = 2;
+            $order->save();
+            Mail::send(new EmailOrderPaid($order));
+        }else{
+            Mail::send(new EmailOrderRejected($order));
+        }
         return redirect()->route('order.index')->with([
             'success_message'=>$success_message,
         ]);
@@ -157,7 +166,7 @@ class OrderController extends Controller
           'total'=>$request->t_total,
           'bukti_id'=>$bukti->id,
         ]);
-        $success_message="Berhasil Validasi";
+        $success_message="Berhasil upload Transaksi";
         
         return redirect()->route('order.index')->with([
             'success_message'=>$success_message,

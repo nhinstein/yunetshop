@@ -60,7 +60,7 @@
                                     
                                  </td>
                                  <td>
-                                    <p>{{$product->price}}</p>
+                                    <p>{{$product->formatPrice()}}</p>
                                  </td>
                                  <!-- <td>
                                  </td> -->

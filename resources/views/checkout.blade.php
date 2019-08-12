@@ -32,11 +32,12 @@
 
 													
                             <div class="col-md-12 form-group p_star {{ $errors->has('name') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required>
+                                <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required value="{{auth()->user()? auth()->user()->name: ''}}">
                             </div>
                             <div class="col-md-12 form-group p_star {{ $errors->has('number') ? ' has-error' : '' }}">
                                 <input type="number" class="form-control" id="number" name="number" placeholder="No Hp" required>
                             </div>
+                            {{old('city')}}
 													  <div class="col-md-12 form-group p_star {{ $errors->has('email') ? ' has-error' : '' }}">
 															@if(Auth::user())
                                 <input type="email" class="form-control" id="email" name="email" value="{{auth()->user()->email}}" readonly>
@@ -69,7 +70,7 @@
 							</div>
                             </div>
                             <div class="col-md-12 form-group p_star {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required>
+                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required value="{{ request()->get('alamat') }}">
                             </div>
                             <div class="col-md-12 form-group {{ $errors->has('zip') ? ' has-error' : '' }}">
                                 <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>

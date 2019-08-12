@@ -1,2 +1,13 @@
 https://itsolutionstuff.com/post/laravel-57-import-export-excel-to-database-exampleexample.html
 composer require gloudemans/shoppingcart
+
+
+add confirm password (ada minimumnya)done
+informasi no rek done
+informasi total harga dimodal buat upload transaksi done
+import excel error done
+number format rupiah untuk produk list done
+proteksi stok
+btn valid =>Paid kirim email done
+btn reject =>reject kirim email done
+buat create delete produk

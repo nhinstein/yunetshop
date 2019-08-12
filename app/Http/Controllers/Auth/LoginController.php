@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use AuthenticatesAndRegistersUsers;
+
 
 class LoginController extends Controller
 {
@@ -53,10 +55,12 @@ class LoginController extends Controller
 
         $email = $request->email;
         $password = $request->password;
+        dd($request);
 
         $data = User::where('email',$email)->first();
         if($data){ //apakah email tersebut ada atau tidak
             if(Hash::check($password,$data->password)){
+                dd($data);
                 Session::put('name',$data->name);
                 Session::put('email',$data->email);
                 Session::put('login',TRUE);
@@ -74,5 +78,10 @@ class LoginController extends Controller
     public function logout(){
         Session::flush();
         return redirect('login')->with('alert','Kamu sudah logout');
+    }
+
+    protected function redirectTo()
+    {
+        return url()->previous();
     }
 }

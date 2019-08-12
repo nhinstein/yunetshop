@@ -5,6 +5,8 @@ $(".validasi").on("click",  function () {
     var total = $(this).data('ttotal');
     var tsrc = $(this).data('tsrc');
     var order = $(this).data('orderid');
+    var totalorder = $(this).data('totalorder');
+    $("#total_order").html(totalorder);
     console.log(name);
     $(".modal-body #t_name").val(name);
     $(".modal-body #t_norek").val(rekening);

@@ -5,6 +5,7 @@ use App\City;
 use App\Invoice;
 use App\Province;
 use App\Transaction;
+use App\TypePayment;
 
 use Illuminate\Database\Eloquent\Model;
 
