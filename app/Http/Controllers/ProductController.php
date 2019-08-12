@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use View;
 use App\Product;
 use App\Category;
+use App\Http\Requests\AddProductRequests;
 
 use Illuminate\Http\Request;
 
@@ -35,9 +36,31 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddProductRequests $request)
     {
-        //
+        $slug = 'YS-'.str_random(15);
+                $product = Product::create([
+                 'name' => $request->name,
+                 'description' => $request->description,
+                 'price' => $request->price,
+                 'weight' => $request->weight,
+                 'slug' => $slug,
+                 'stock'=> $request->stock,
+                 'category_id' => $$request->category
+             ]);
+             $product->save();
+
+             
+        $file = $request->file('file');
+        foreach($file as $image){
+            $extension = $image->getClientOriginalExtension();
+            $filename = "{$slug}-{$count}.".$extension;
+            $path = 'img/img/'.$filename;
+            $file->move('img/img/',$filename);
+        }
+        // $save = file_put_contents($path, $file);
+        $bukti = BuktiTransfer::create(['order_id' => $order->id, 'src'=>$path]);
+        
     }
 
     /**

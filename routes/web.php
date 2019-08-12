@@ -94,6 +94,10 @@ Route::get('/product/{product}', 'ProductController@show')
 ->middleware('is_admin')
 ->name('product.show');
 
+Route::get('/product/add', 'ProductController@store')
+->middleware('is_admin')
+->name('product.store');
+
 Route::post('/product/{product}', 'ProductController@update')
 ->middleware('is_admin')
 ->name('product.update');

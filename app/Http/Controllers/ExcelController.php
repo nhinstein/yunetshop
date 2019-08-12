@@ -6,6 +6,7 @@ use App\Imports\ProductsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Product;
+use App\Category;
 
 class ExcelController extends Controller
 {
@@ -14,7 +15,9 @@ class ExcelController extends Controller
 
     {
       $products = Product::inRandomOrder()->take(12)->paginate(12);
-      return view('import')->with(['products'=>$products]);
+      $categories = Category::all();
+      return view('import')->with(['products'=>$products,
+      'categories'=>$categories]);
     }
 
     public function import()

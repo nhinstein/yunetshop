@@ -32,6 +32,7 @@
     </div>
 <section class="cart_area">
          <div class="container">
+                <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Tambah Produk</button>
 					 @if($products->count()>0)
              <div class="cart_inner">
                  <div class="table-responsive">
@@ -89,4 +90,5 @@
             @endif
          </div>
      </section>
+     @include('modals.add_product')
 @endsection
