@@ -22,6 +22,13 @@
 	<!--================Single Product Area =================-->
 	<div class="product_image_area">
 		<div class="container">
+			
+
+				@if(session()->has('errors'))
+				<div class="alert alert-success">
+					{{session()->get('errors')}}
+				</div>
+				@endif
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
@@ -42,7 +49,8 @@
 						</ul>
 						<p>{{ $product->description }}</p>
 						@if(auth()->user() and auth()->user()->isAdmin())
-						@else
+						@else 
+						@if(($product->stock>0))
 						<form action="{{route('cart.store')}}" method="POST">
 							{{ csrf_field() }}
 						<div class="product_count">
@@ -61,6 +69,7 @@
 								<button type="submit" class="primary-btn">Add to Cart</button>
 						</div>
 						</form>
+						@endif
 						@endif
 					</div>
 				</div>

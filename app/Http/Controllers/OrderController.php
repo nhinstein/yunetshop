@@ -6,6 +6,9 @@ use App\StatusOrder;
 use App\TypePayment;
 use App\BuktiTransfer;
 use App\Transaction;
+use Mail;
+use App\Mail\EmailOrderRejected;
+use App\Mail\EmailOrderPaid;
 
 use Illuminate\Http\Request;
 

@@ -7,6 +7,7 @@ $.ajaxSetup({
     $('.wrapper').on('change', function (){
         var qty =  $("#qty").val();
         var dataID = $("#qty").attr("data-id");
+        var stock = $("#qty").attr("data-stock");
         console.log(url_cart+"/"+dataID);
         $.ajax({
         type: 'PATCH',
@@ -14,12 +15,13 @@ $.ajaxSetup({
         url: url_cart+"/"+dataID,
         data: {
             qty : qty,
+            stock: stock
         },
         success: function(data){
             window.location.href =url_cart
         },
         error: function(xhr){
-            console.log(xhr.responseText);
+            window.location.href =url_cart
         }
     })}
     );

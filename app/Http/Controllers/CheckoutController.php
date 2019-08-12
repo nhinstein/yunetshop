@@ -15,6 +15,7 @@ use App\OrderProduct;
 use App\TypePayment;
 use App\BuktiTransfer;
 use App\Transaction;
+use App\Product;
 use Mail;
 use App\Mail\EmailOrder;
 use App\Mail\RegisterGuestMail;
@@ -240,6 +241,7 @@ class CheckoutController extends Controller
           ]);
 
           Mail::send(new EmailOrder($order));
+          $this->updateStock();
           Cart::instance('default')->destroy();
           return redirect()->route('confirmation');
 
@@ -281,6 +283,7 @@ class CheckoutController extends Controller
         ]);
   
         Mail::send(new EmailOrder($order));
+        $this->updateStock();
         Cart::instance('default')->destroy();
         return redirect()->route('confirmation');
     }
@@ -349,6 +352,17 @@ class CheckoutController extends Controller
 
       return $order;
 
+    }
+
+    public function updateStock()
+    {
+      foreach(Cart::content() as $item){
+        $product = Product::where('id', $item->model->id)->first();
+        // dd($product);
+        $product->update([
+          'stock' => $product->stock - $item->qty
+        ]);
+      }
     }
 
     /**

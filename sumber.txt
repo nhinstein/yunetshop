@@ -7,7 +7,7 @@ informasi no rek done
 informasi total harga dimodal buat upload transaksi done
 import excel error done
 number format rupiah untuk produk list done
-proteksi stok
+proteksi stok done
 btn valid =>Paid kirim email done
 btn reject =>reject kirim email done
 buat create delete produk

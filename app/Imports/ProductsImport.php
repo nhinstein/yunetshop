@@ -28,43 +28,57 @@ class ProductsImport implements ToCollection
             )
         );
         foreach($rows as $row){
-            $category = Category::where('name', $row[9])->firstOrFail();
-            if(!$category){
-                $category=Category::create([
-                    'slug' =>'YS-'.str_random(15),
-                    'name' => $row[9]
-                ]);
-            }
 
-            $slug = 'YS-'.str_random(15);
-            $product = Product::create([
-             'name' => $row[0],
-             'description' => $row[3],
-             'price' => $row[1],
-             'weight' => $row[2],
-             'slug' => $slug,
-             'stock'=> $row[10],
-             'category_id' => $category->id
-         ]);
-         $product->save();
+            $category = $this->cekCategory($row[9]);
 
-         for($i=4; $i<9; $i++){
-            $count = $i-3;
-            if(trim($row[$i]) != ''){
-                $extension = pathinfo($row[$i], PATHINFO_EXTENSION);
-                $filename = "{$slug}-{$count}.".$extension;
-                $path = 'img/img/'.$filename;
-                $file = file_get_contents($row[$i], false, stream_context_create($opts));
-                $save = file_put_contents($path, $file);
-                $image = ProductImage::create(['product_id' => $product->id, 'src'=>$path]);
-                if($count===1){
-                    $product->cover=$filename;
-                    $product->save();
+            if($category){
+
+                $slug = 'YS-'.str_random(15);
+                $product = Product::create([
+                 'name' => $row[0],
+                 'description' => $row[3],
+                 'price' => $row[1],
+                 'weight' => $row[2],
+                 'slug' => $slug,
+                 'stock'=> $row[10],
+                 'category_id' => $category->id
+             ]);
+             $product->save();
+    
+             for($i=4; $i<9; $i++){
+                $count = $i-3;
+                if(trim($row[$i]) != ''){
+                    $extension = pathinfo($row[$i], PATHINFO_EXTENSION);
+                    $filename = "{$slug}-{$count}.".$extension;
+                    $path = 'img/img/'.$filename;
+                    $file = file_get_contents($row[$i], false, stream_context_create($opts));
+                    $save = file_put_contents($path, $file);
+                    $image = ProductImage::create(['product_id' => $product->id, 'src'=>$path]);
+                    if($count===1){
+                        $product->cover=$filename;
+                        $product->save();
+                    }
+                    $product->images()->save($image);
                 }
-                $product->images()->save($image);
+             }
+
             }
-         }
         }
         return $rows;
+    }
+
+    public function cekCategory($name){
+        $category = Category::where('name', $name)->first();
+        // dd($category);
+
+        if(!$category and $name){
+            $category=Category::create([
+                'slug' =>'YS-'.str_random(15),
+                'name' => $name
+            ]);
+            $category->save();
+        }
+        return $category;
+
     }
 }

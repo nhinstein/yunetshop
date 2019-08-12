@@ -37,10 +37,15 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        Cart::add($request->id, $request->name, $request->qty, $request->price)
-        ->associate('App\Product');
-        return redirect()->route('cart.index')->with(
-          'success_message', 'Item berhasil ditambahkan');
+        $product = Product::where('id', $request->id)->firstOrFail();
+        if($product->stock >= $request->qty){
+            Cart::add($request->id, $request->name, $request->qty, $request->price)
+            ->associate('App\Product');
+            return redirect()->route('cart.index')->with(
+              'success_message', 'Item berhasil ditambahkan');
+        } else{
+            return \Redirect::route('shop.show', [$product->slug])->with('errors', 'Stock tidak mencukupi');
+        }
     }
 
     /**
@@ -75,8 +80,14 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
       // Cart::update($id, ['qty' => $request->qty]);
-      Cart::update($id, $request->qty);
-      return response()->json(['success' => true]);
+      if($request->stock >= $request->qty){
+        Cart::update($id, $request->qty);
+        return response()->json(['success' => true]);
+      }
+      else{
+        session()->flash('errors', collect(['stok tidak mencukupi']));
+        return response()->json(['success' => false], 400);
+      }
     }
 
     /**

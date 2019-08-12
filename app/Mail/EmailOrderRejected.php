@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Order;
 
 class EmailOrderRejected extends Mailable
 {
@@ -31,6 +32,6 @@ class EmailOrderRejected extends Mailable
     {
         return $this->to($this->order->billing_email, $this->order->billing_name)
                     ->subject('Pembayaran Anda ditolak')
-                    ->markdown('mail.order', ['order'=>$this->order]);
+                    ->markdown('mail.rejected', ['order'=>$this->order]);
     }
 }

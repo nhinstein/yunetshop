@@ -14,6 +14,12 @@
 		 </div>
 		 @endif
 
+		 @if(session()->has('errors'))
+		 <div class="alert alert-success">
+			 {{session()->get('errors')}}
+		 </div>
+		 @endif
+
      <!--================Cart Area =================-->
      <section class="cart_area">
          <div class="container">
@@ -47,7 +53,7 @@
                                  </td>
                                  <td>
                                         <div class="wrapper">
-                                     <select id="qty" class="qty" data-id="{{$item->rowId}}">
+                                     <select id="qty" class="qty" data-id="{{$item->rowId}}" data-stock="{{$item->model->stock}}">
                                         @for($i=1; $i<11; $i++)
                                         <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>
                                         @endfor
@@ -127,8 +133,10 @@
 		Array.from(classname).forEach(function(element){
 			element.addEventListener('change', function(){
 				const dataId = element.getAttribute('data-id')
+				const stock = element.getAttribute('data-stock')
 				axios.patch(`/cart/${dataId}`, {
-					qty : this.value
+                    qty : this.value,
+                    stock = stock
 				})
 				.then(function(response){
 					console.log(response);

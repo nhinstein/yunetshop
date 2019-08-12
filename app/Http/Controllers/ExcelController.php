@@ -20,6 +20,8 @@ class ExcelController extends Controller
     public function import()
     {
         Excel::import(new ProductsImport,request()->file('file'));
-        return back();
+        return back()->with([
+          'success_message'=>'Berhasil menambahkan data',
+      ]);
     }
 }
