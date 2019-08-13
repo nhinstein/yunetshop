@@ -238,24 +238,21 @@ class CheckoutController extends Controller
             $kode_inv = 'INV-'.str_random(20);
   
             Invoice::create([
-              'kodess'=>$kode_inv,
+              'kode'=>$kode_inv,
               'order_id'=>$order->id,
               'status'=>'pending'
             ]);
   
-            Mail::send(new EmailOrder($order));
-            $this->updateStock();
-            Cart::instance('default')->destroy();
-            return redirect()->route('confirmation');
-  
           }
       
         } else if($request->get('btnSubmit') == 'btn2') {
-          if(auth()->user()){
-          $this->addTransaction($request);
-          }
+          $order = $this->addTransaction($request);
         }
+        $this->updateStock();
+        Cart::instance('default')->destroy();
         DB::commit();
+        Mail::send(new EmailOrder($order));
+        return redirect()->route('confirmation');
       } catch (\Exception $e) {
         DB::rollback();
         return $e->getMessage();
@@ -293,10 +290,11 @@ class CheckoutController extends Controller
           'status'=>'pending'
         ]);
   
-        Mail::send(new EmailOrder($order));
-        $this->updateStock();
-        Cart::instance('default')->destroy();
-        return redirect()->route('confirmation');
+        // Mail::send(new EmailOrder($order));
+        // $this->updateStock();
+        // Cart::instance('default')->destroy();
+        // return redirect()->route('confirmation');
+        return $order;
     }
 
     public function addOrderTable($request){

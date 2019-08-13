@@ -7,6 +7,7 @@ use App\TypePayment;
 use App\BuktiTransfer;
 use App\Transaction;
 use Mail;
+use DB;
 use App\Mail\EmailOrderRejected;
 use App\Mail\EmailOrderPaid;
 
@@ -151,7 +152,9 @@ class OrderController extends Controller
 
     public function addTransactionOnly(Request $request, $id)
     {
-        $order = Order::where('id', $id)->firstOrFail();
+        try {
+            DB::beginTransaction();
+            $order = Order::where('id', $id)->firstOrFail();
         $file = $request->file('t_file');
         $extension = $file->getClientOriginalExtension();
         $filename = 'IMG-'.$order->order_code.'.'.$extension;
@@ -168,8 +171,13 @@ class OrderController extends Controller
           'bukti_id'=>$bukti->id,
           'status_id'=>1,
         ]);
-        $success_message="Berhasil upload Transaksi";
+        DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
         
+        $success_message="Berhasil upload Transaksi";
         return redirect()->route('order.index')->with([
             'success_message'=>$success_message,
         ]);
