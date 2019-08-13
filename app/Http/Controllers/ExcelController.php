@@ -16,7 +16,7 @@ class ExcelController extends Controller
     {
       $products = Product::inRandomOrder()->take(12)->paginate(12);
       $categories = Category::all();
-      return view('import')->with(['products'=>$products,
+      return view('product.import')->with(['products'=>$products,
       'categories'=>$categories]);
     }
 

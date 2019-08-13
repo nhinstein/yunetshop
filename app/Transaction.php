@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     public $fillable = [
         'type_id', 'bukti_id', 'order_id', 'no_rekening',
-        'name', 'total'
+        'name', 'total', 'status_id'
     ];
 
     public function type(){

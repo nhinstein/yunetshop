@@ -17,6 +17,7 @@ use App\BuktiTransfer;
 use App\Transaction;
 use App\Product;
 use Mail;
+use DB;
 use App\Mail\EmailOrder;
 use App\Mail\RegisterGuestMail;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -217,41 +218,50 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
       // dd($request->get('btnSubmit'));
-
-      if($request->get('btnSubmit') == 'btn1') {
-        $order = $this->addOrderTable($request);
-        $email_exists = User::where('email', $request->email)->exists();
-        if(!auth()->user() and $email_exists){
-          Session::put('redirect_url', $request->url());
-          // Input::flash();
-          $request->flash('request',$request);
-          return redirect('login')
-          ->with('alert','Email sudah terdaftar silahkan login untuk melanjutkan !')
-          ->with('email_account',$request->email);
-
-        } else{
-          $this->order_obj = $order;
-          // auth()->user()->notify(new OrderAccept($order));
-          $kode_inv = 'INV-'.str_random(20);
-
-          Invoice::create([
-            'kode'=>$kode_inv,
-            'order_id'=>$order->id,
-            'status'=>'pending'
-          ]);
-
-          Mail::send(new EmailOrder($order));
-          $this->updateStock();
-          Cart::instance('default')->destroy();
-          return redirect()->route('confirmation');
-
+      DB::beginTransaction();
+      try {
+        if($request->get('btnSubmit') == 'btn1') {
+        
+          $email_exists = User::where('email', $request->email)->exists();
+          if(!auth()->user() and $email_exists){
+            Session::put('redirect_url', $request->url());
+            // Input::flash();
+            $request->flash('request',$request);
+            return redirect('login')
+            ->with('alert','Email sudah terdaftar silahkan login untuk melanjutkan !')
+            ->with('email_account',$request->email);
+  
+          } else{
+            // $this->order_obj = $order;
+            $order = $this->addOrderTable($request);
+            // auth()->user()->notify(new OrderAccept($order));
+            $kode_inv = 'INV-'.str_random(20);
+  
+            Invoice::create([
+              'kodess'=>$kode_inv,
+              'order_id'=>$order->id,
+              'status'=>'pending'
+            ]);
+  
+            Mail::send(new EmailOrder($order));
+            $this->updateStock();
+            Cart::instance('default')->destroy();
+            return redirect()->route('confirmation');
+  
+          }
+      
+        } else if($request->get('btnSubmit') == 'btn2') {
+          if(auth()->user()){
+          $this->addTransaction($request);
+          }
         }
-    
-      } else if($request->get('btnSubmit') == 'btn2') {
-        if(auth()->user()){
-        $this->addTransaction($request);
-        }
+        DB::commit();
+      } catch (\Exception $e) {
+        DB::rollback();
+        return $e->getMessage();
       }
+
+      
 
     }
 
@@ -272,6 +282,7 @@ class CheckoutController extends Controller
           'no_rekening'=>$request->t_norek,
           'total'=>$request->t_total,
           'bukti_id'=>$bukti->id,
+          'status_id'=>1,
         ]);
         
         $kode_inv = 'INV-'.str_random(20);

@@ -4,7 +4,7 @@
        <div class="modal-content">
          <!--Header-->
          <div class="modal-header">
-           <h4 class="modal-title" id="myModalLabel">Your cart</h4>
+           <h4 class="modal-title" id="myModalLabel">Payment Form</h4>
            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
          </div>
          <!--Body-->

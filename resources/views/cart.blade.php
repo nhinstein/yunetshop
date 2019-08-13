@@ -70,7 +70,7 @@
 																		 <form action="{{route('cart.destroy', $item->rowId)}}" method="POST">
 																			 {{csrf_field()}}
 																			 {{method_field('DELETE')}}
-																			 <button type="submit">Remove</button>
+																			 <button class="genric-btn danger small" type="submit">Remove</button>
 																		 </form>
 	       															 <!-- <form action="{{route('cart.update', $item->rowId)}}" method="POST">
 																				 {{method_field('UPDATE')}}

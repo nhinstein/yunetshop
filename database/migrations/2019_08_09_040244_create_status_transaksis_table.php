@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBuktiTrasfersTable extends Migration
+class CreateStatusTransaksisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateBuktiTrasfersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bukti_transfer', function (Blueprint $table) {
+        Schema::create('status_transaksi', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->string('src');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateBuktiTrasfersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bukti_transfer');
+        Schema::dropIfExists('status_transaksi');
     }
 }

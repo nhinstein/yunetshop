@@ -126,10 +126,8 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->update($request->all());
         $success_message="Berhasil Update Order";
-        
         $orders = Order::all();
-        
-        return redirect()->route('order.index')->with([
+        return redirect()->route('order.show', $order->id)->with([
             'success_message'=>$success_message,
         ]);
     }
@@ -168,6 +166,7 @@ class OrderController extends Controller
           'no_rekening'=>$request->t_norek,
           'total'=>$request->t_total,
           'bukti_id'=>$bukti->id,
+          'status_id'=>1,
         ]);
         $success_message="Berhasil upload Transaksi";
         

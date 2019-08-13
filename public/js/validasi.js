@@ -15,3 +15,18 @@ $(".validasi").on("click",  function () {
     var url_update = url +"/status/" +  order;
     var action = $('#validasiForm').attr('action', url_update );
 });
+
+
+
+
+$(".delete-product").on("click",  function () {
+    var name = $(this).data('pname');
+    var productId = $(this).data('pid');
+    console.log('oiii', name, productId);
+    $("#dataProduk").html(name);
+    var url_update = url +"/" +  productId;
+    var action = $('#deleteForm').attr('action', url_update );
+    $("#submitHapus").on('click', function(){
+        $("#deleteForm").submit();
+    });
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use View;
 use App\Product;
+use App\ProductImage;
 use App\Category;
 use App\Http\Requests\AddProductRequests;
 
@@ -36,31 +37,50 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddProductRequests $request)
+    public function store(Request $request)
     {
+        $product = $this->addProduct($request);
+        // dd($product);
+        $file = $request->file('file');
+        for($i=0; $i<count($file);$i++){
+            $count = $i+1;
+            $image = $file[$i];
+            $extension = $image->getClientOriginalExtension();
+            $filename = "{$product->slug}-{$count}.".$extension;
+            $path = 'img/img/'.$filename;
+            $image->move('img/img/',$filename);
+            $image = ProductImage::create(['product_id' => $product->id, 'src'=>$path]);
+            if($count===1){
+                $product->cover=$filename;
+                $product->save();
+            }
+            $product->images()->save($image);
+        }
+        $products = Product::inRandomOrder()->take(12)->paginate(12);
+        $success_message="Berhasil Menambah produk";
+        return redirect()->route('import.show')->with([
+           'products'=>$products,
+           'success_message'=>$success_message,
+       ]);
+        
+    }
+
+    private function addProduct($request){
+        
         $slug = 'YS-'.str_random(15);
-                $product = Product::create([
-                 'name' => $request->name,
-                 'description' => $request->description,
-                 'price' => $request->price,
-                 'weight' => $request->weight,
-                 'slug' => $slug,
-                 'stock'=> $request->stock,
-                 'category_id' => $$request->category
+            $product = Product::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'weight' => $request->weight,
+                'slug' => $slug,
+                'stock'=> $request->stock,
+                'category_id' => $request->category
              ]);
              $product->save();
 
-             
-        $file = $request->file('file');
-        foreach($file as $image){
-            $extension = $image->getClientOriginalExtension();
-            $filename = "{$slug}-{$count}.".$extension;
-            $path = 'img/img/'.$filename;
-            $file->move('img/img/',$filename);
-        }
-        // $save = file_put_contents($path, $file);
-        $bukti = BuktiTransfer::create(['order_id' => $order->id, 'src'=>$path]);
-        
+
+             return $product;
     }
 
     /**
@@ -116,6 +136,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::where('id',$id)->delete();
+        return back()->with('success_message', 'Produk berhasil dihapus');
     }
 }

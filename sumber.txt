@@ -10,4 +10,13 @@ number format rupiah untuk produk list done
 proteksi stok done
 btn valid =>Paid kirim email done
 btn reject =>reject kirim email done
-buat create delete produk
+buat create delete produk done
+
+
+package yang digunakan
+
+untuk url - Guzle Http
+upload gambar - intervention image
+queue - horizon jalanin di terminal, install redis-cli, transaksi atau proses yg lama
+
+- DB::Begintransaction try catch

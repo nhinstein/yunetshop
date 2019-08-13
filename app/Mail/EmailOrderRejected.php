@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Order;
 
-class EmailOrderRejected extends Mailable
+class EmailOrderRejected extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $order;
