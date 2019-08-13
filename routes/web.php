@@ -127,3 +127,5 @@ Route::get('/mailable', function(){
     $order = App\Order::find(1);
     return new App\Mail\EmailOrder($order);
 });
+
+Route::get('/api/get_ongkir', 'ApiController@getOngkir2')->name('api.get_ongkir');
