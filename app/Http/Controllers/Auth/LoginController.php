@@ -88,7 +88,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if(session()->get('redirect_url')){
-            return redirect(session()->get('redirect_url'))->withInput();
+            return redirect(session()->get('redirect_url'));
         }
     }
 }
