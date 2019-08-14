@@ -35,7 +35,7 @@
                                 <input type="text" class="form-control" id="first" name="name" placeholder="Nama Lengkap" required value="{{auth()->user()? auth()->user()->name: ''}}">
                             </div>
                             <div class="col-md-12 form-group p_star {{ $errors->has('number') ? ' has-error' : '' }}">
-                                <input type="number" class="form-control" id="number" name="number" placeholder="No Hp" required>
+                                <input type="number" class="form-control" id="number" name="number" placeholder="No Hp" required value="{{ session()->get('number')}}"> 
                             </div>
                             {{old('city')}}
 													  <div class="col-md-12 form-group p_star {{ $errors->has('email') ? ' has-error' : '' }}">
@@ -48,7 +48,7 @@
                             <div class="col-md-12 form-group p_star {{ $errors->has('courier') ? ' has-error' : '' }}">
                                 <select class="courir_select country_select" name="courir" required> 
 																	@foreach($courierlist as $key => $courir)
-																	<option value="{{$key}}">{{$courir}}</option>
+																	<option value="{{$key}}" {{ session()->get('courir')==$key ? 'selected':''}}>{{$courir}}</option>
 																		@endforeach
                                 </select>
                             </div>
@@ -56,7 +56,7 @@
 							<div class="wrapper1">
 								<select id="province" class="province_select country_select" name="province" required>
 																	@foreach($provinces as $province)
-																	<option value="{{$province->id}}">{{$province->name}}</option>
+																	<option value="{{$province->id}}" {{ session()->get('province')==$province->id ? 'selected':''}}>{{$province->name}}</option>
 																		@endforeach
                                 </select>
 							</div>
@@ -70,10 +70,10 @@
 							</div>
                             </div>
                             <div class="col-md-12 form-group p_star {{ $errors->has('alamat') ? ' has-error' : '' }}">
-                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required value="{{ request()->get('alamat') }}">
+                                <input type="text" class="form-control" id="add1" name="alamat" placeholder="Alamat" required value="{{ session()->get('alamat')}}">
                             </div>
                             <div class="col-md-12 form-group {{ $errors->has('zip') ? ' has-error' : '' }}">
-                                <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required>
+                                <input type="number" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP" required value="{{ session()->get('zip')}}">
                             </div>
                     </div>
                     <div class="col-lg-4">

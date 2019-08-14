@@ -53,4 +53,22 @@ class Order extends Model
     {
         return $this->hasOne(BuktiTransfer::class);
     }
+
+    public function setPaid()
+    {
+        $this->attributes['status_id'] = 2;
+        self::save();
+    }
+
+    public function setDelivery()
+    {
+        $this->attributes['status_id'] = 3;
+        self::save();
+    }
+
+    public function setCompleted()
+    {
+        $this->attributes['status_id'] = 4;
+        self::save();
+    }
 }

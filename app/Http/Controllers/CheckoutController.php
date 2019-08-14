@@ -101,8 +101,14 @@ class CheckoutController extends ApiController
           $email_exists = User::where('email', $request->email)->exists();
           if(!auth()->user() and $email_exists){
             Session::put('redirect_url', $request->url());
-            // Input::flash();
-            $request->flash('request',$request);
+            Session::put('alamat', $request->alamat);
+            Session::put('zip', $request->zip);
+            Session::put('number', $request->number);
+            Session::put('courir', $request->courir);
+            Session::put('province', $request->province);
+            Session::put('city', $request->city);
+            Input::flash();
+            // $request->flash('request',$request);
             return redirect('login')
             ->with('alert','Email sudah terdaftar silahkan login untuk melanjutkan !')
             ->with('email_account',$request->email);

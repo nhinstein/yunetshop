@@ -27,4 +27,16 @@ class Transaction extends Model
       return $this->belongsTo(Order::class);
     }
 
+    public function setAccepted()
+    {
+        $this->attributes['status_id'] = 2;
+        self::save();
+    }
+
+    public function setRejected()
+    {
+        $this->attributes['status_id'] = 3;
+        self::save();
+    }
+
 }
