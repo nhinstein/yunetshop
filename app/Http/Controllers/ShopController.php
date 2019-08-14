@@ -24,15 +24,12 @@ class ShopController extends Controller
     }
       $categories = Category::all();
       $dealsofweek = Product::dealsOfWeek()->get();
-      return view('shop/index')->with(['products'=> $products,
-                                      'dealsofweek'=>$dealsofweek,
-                                      'categories'=>$categories]);
+      return view('shop/index', compact('products', 'categories', 'dealsofweek'));
     }
 
     public function show($slug){
       $product = Product::where('slug', $slug)->firstOrFail();
       $dealsofweek = Product::where('slug', '!=', $slug)->dealsOfWeek()->get();
-      return view('shop/single_product')->with(['product'=> $product,
-                                                'dealsofweek'=>$dealsofweek]);
+      return view('shop/single_product', compact('product', 'dealsofweek'));
     }
 }

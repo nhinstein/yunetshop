@@ -47,7 +47,7 @@
                                    
                                     <div class="media">
                                          <div class="d-flex">
-                                             <img width=100 hegight=100 src="img/img/{{$product->cover}}" alt="">
+                                             <img width=100 height=100 src="img/img/{{$product->cover}}" alt="">
                                          </div>
                                          <div class="media-body">
                                             <a href="{{route('product.show',$product->slug)}}"><p>{{$product->name}}</p></a>

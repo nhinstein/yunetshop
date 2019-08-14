@@ -22,7 +22,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // dd(auth()->user()->name);
         $status_list = StatusOrder::all();
         if(auth()->user()->isAdmin()){
             $array = ['All'=>Order::take(10)->paginate(10), ];
@@ -60,7 +59,7 @@ class OrderController extends Controller
             }
         }
         // dd($array);
-        return view('order\index')->with([
+        return view('order.index')->with([
         'status_list'=>$status_list, 'array'=>$array]);
     }
 
@@ -97,9 +96,7 @@ class OrderController extends Controller
         
         if(auth()->user()->isAdmin() or $order->user_id==auth()->user()->id){
         $status_list = StatusOrder::all();
-        return view('order\detail')->with([
-            'order'=> $order,
-            'status_list'=> $status_list]);
+        return view('order.detail', compact('order', 'status_list'));
         }
         abort(404);
     }

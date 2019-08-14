@@ -93,9 +93,7 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $product = Product::where('slug', $slug)->firstOrFail();
-        return view('product/admin_single_product')->with([
-            'product'=> $product,
-            'categories'=> $categories]);
+        return view('product/admin_single_product', compact('product','categories'));
     }
 
     /**

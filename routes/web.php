@@ -73,7 +73,6 @@ Route::post('/checkout/paid', 'CheckoutController@addTransaction')
 ->middleware('not_admin')
 ->name('checkout.addTransaction');
 
-Route::get('/shipping', 'ShippingController@index')->name('shipping.index');
 Route::get('/checkout/get_province', 'CheckoutController@get_province')->name('checkout.get_province');
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
 Route::get('/checkout/get_ongkir', 'CheckoutController@get_ongkir')->name('checkout.get_ongkir');
@@ -123,9 +122,12 @@ Route::get('/invoice/{order}', 'InvoiceController@show')
 ->middleware('auth')
 ->name('invoice.show');
 
+Route::get('/transaksi', 'TransaksiController@index')->middleware('auth')
+            ->name('transaksi.index');
+
 Route::get('/mailable', function(){
     $order = App\Order::find(1);
     return new App\Mail\EmailOrder($order);
 });
 
-Route::get('/api/get_ongkir', 'ApiController@getOngkir2')->name('api.get_ongkir');
+Route::get('/api/test', 'ApiController@getAllCity')->name('api.get_ongkir');

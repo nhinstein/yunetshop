@@ -20,59 +20,48 @@
          <div class="container">
                         <nav>
                             <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                                @foreach($array as $status => $orders)
+                                @foreach($array as $status => $transactions)
                                 <li><a class="nav-item nav-link {{$status == 'All' ? 'active' : ''}}" id="nav-{{$status}}-tab" data-toggle="tab" href="#nav-{{$status}}" role="tab" aria-controls="nav-{{$status}}" aria-selected={{$status == 'All' ? 'true' : 'false'}}>{{$status}}</a></li>
                                 @endforeach
                             </ul>
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
-                            @foreach($array as $status => $orders)
+                            @foreach($array as $status => $transactions)
                             <div class="tab-pane fade {{$status == 'All' ? 'show active' : ''}}" id="nav-{{$status}}" role="tabpanel" aria-labelledby="nav-{{$status}}-tab">
-                            @if($orders->count()>0)
+                            @if($transactions->count()>0)
                             <table class="table">
                          <thead>
                              <tr>
-                                 <th scope="col">Invoice</th>
-                                 <th scope="col">Tanggal</th>
+                                 <th scope="col">Kode</th>
+                                 <th scope="col">Order</th>
+                                 <th scope="col">No Rek</th>
+                                 <th scope="col">Nama</th>
                                  <th scope="col">Status</th>
-                                 <th scope="col">Total</th>
-                                 <th scope="col">Aksi</th>
                              </tr>
                          </thead>
                          <tbody>
-													 @foreach($orders as $order)
+													 @foreach($transactions as $transaction)
                              <tr>
                                  <td>
-                                    <a href="{{route('order.show', $order->id)}}"><p>{{$order->invoice->kode}}</p></a>
+                                    <p>{{$transaction->id}}</p>
                                  </td>
                                  <td>
-                                    <p>{{$order->created_at}}</p>
+                                    <p>{{$transaction->order->invoice->kode}}</p>
                                  </td>
                                  <td>
-                                     <p>{{$order->status->name}}</p>
+                                     <p>{{$transaction->no_rekening}}</p>
                                  </td>
                                  <td>
-                                     <h5>{{$order->formatPrice($order->total_order)}}</h5>
-                                     {{-- {{$order->transaction}} --}}
+                                     <p>{{$transaction->name}}</p>
                                  </td>
                                  <td>
-                                     <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
-                                     @if(!$order->transaction and auth()->user()->isCustomer())
-                                     <a href="#" data-toggle="modal" class="bayar" data-target="#modalCart" data-orderid="{{$order->id}}" data-totalorder="{{$order->formatPrice($order->total_order)}}">Bayar Sekarang</a>
-                                     {{-- <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button> --}}
-                                     @endif
-                                     @if(auth()->user()->isAdmin() and $order->transaction and $order->status_id==1)
-                                     <a href="#" class="validasi" data-toggle="modal" data-target="#modalCart" data-tname="{{$order->transaction->name}}"
-                                            data-trek="{{$order->transaction->no_rekening}}" data-ttotal="{{$order->transaction->total}}"
-                                            data-tsrc="{{asset($order->bukti->src)}}" data-orderid="{{$order->id}}"
-                                            data-totalorder="{{$order->formatPrice($order->total_order)}}">Validasi</a>
-                                     @endif
+                                     <p>{{$transaction->status->name}}</p>
                                  </td>
                              </tr>
                                                          @endforeach
                          </tbody>
                      </table>
-                     {{$orders->links()}}
+                     {{-- {{$orders->links()}} --}}
                      @else
                     <h5 class="center">Tidak ada order</h5>
                     @endif
@@ -85,14 +74,14 @@
      <!--================End Cart Area =================-->
      <div class="section_gap">
      </div>
-     @if(auth()->user()->isAdmin())
+     {{-- @if(auth()->user()->isAdmin())
      @include('modals.admin_validate')
      @elseif(auth()->user()->isCustomer())
      @include('modals.customer_pay')
-     @endif
+     @endif --}}
 
      
-    @endsection
+    {{-- @endsection
     @section('extrajs')
     <script>
     var url = "{{ route("order.index") }}"</script>
@@ -101,4 +90,4 @@
     @elseif(auth()->user()->isCustomer())
     <script src="{{ URL::asset('js/add_transaction.js') }}"></script>
     @endif
-    @endsection
+    @endsection --}}

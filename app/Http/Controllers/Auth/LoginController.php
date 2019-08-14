@@ -84,4 +84,11 @@ class LoginController extends Controller
     {
         return url()->previous();
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if(session()->get('redirect_url')){
+            return redirect(session()->get('redirect_url'));
+        }
+    }
 }

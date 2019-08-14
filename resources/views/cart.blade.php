@@ -14,9 +14,11 @@
 		 </div>
 		 @endif
 
-		 @if(session()->has('errors'))
-		 <div class="alert alert-success">
-			 {{session()->get('errors')}}
+         @if(session()->has('errors'))
+		 <div class="alert alert-danger">
+         @foreach(session()->get('errors') as $error)
+             {{$error}}<br>
+         @endforeach
 		 </div>
 		 @endif
 
@@ -41,7 +43,7 @@
                                  <td>
                                      <div class="media">
                                          <div class="d-flex">
-                                             <img width=100 hegight=100 src="img/img/{{$item->model->cover}}" alt="">
+                                             <img width=100 height=100 src="img/img/{{$item->model->cover}}" alt="">
                                          </div>
                                          <div class="media-body">
                                              <a href="{{route('shop.show', $item->model->slug)}}"><p>{{$item->model->name}}</p></a>
