@@ -97,10 +97,16 @@
                             <ul class="list list_2">
                                 <li><a href="#">Total <span id=total>{{$item->model->formatCart($item->total)}}</span></a></li>
                             </ul>
-                            @foreach($type_payment as $type)
-                            <input type="radio" name="type_bayar" value="{{$type->id}}">{{$type->name}}<br>
-                            @endforeach
-                            <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button>
+                            <div class="button-group-area">
+                              <button class="genric-btn success" id="bankTransfer" data-toggle="modal" data-target="#modalCart"><i class="fa fa-home"></i> Bank Transfer</button>
+                            </div>
+                            <div class="button-group-area">
+                              <button class="genric-btn primary" data-toggle="modal" data-target="#modalPaypal"><i class="fa fa-paypal"></i> Paypal</button>
+                            </div>
+                            {{-- @foreach($type_payment as $type)
+                            <input type="radio" name="type_bayar" value="{{$type->id}}" {{$type->id==1 ? 'checked': ''}}>{{$type->name}}<br>
+                            @endforeach --}}
+                            {{-- <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button> --}}
 														<!-- <button type="submit" class="primary-btn">Proses Order</button> -->
                         </div>
                     </div>
@@ -165,16 +171,8 @@
 </div>
 </form>
 	
-	@endsection
-
-	@section('modals')
-	<!-- Button trigger modal-->
-
-
-<!-- Modal: modalCart -->
-
-<!-- Modal: modalCart -->
-    @endsection
+  @endsection
+  @include('modals.paypal')
     
 </form>
 
@@ -186,6 +184,7 @@
 	<script>
 	var url = "{{ route("checkout.get_city") }}"
 	var url_cek = "{{ route("checkout.get_ongkir") }}"
+  document.getElementById('#bankTransfer').disabled = !cansubmit;
 	</script>
   <script src="{{ URL::asset('js/checkout.js') }}"></script>
   {{-- <script>

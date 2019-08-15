@@ -131,3 +131,8 @@ Route::get('/mailable', function(){
 });
 
 Route::get('/api/test', 'ApiController@getAllCity')->name('api.get_ongkir');
+
+
+Route::post('paypal', 'PaymentController@payWithpaypal')->name('paypal');
+// route for check status of the payment
+Route::get('status', 'PaymentController@getPaymentStatus')->name('status');
