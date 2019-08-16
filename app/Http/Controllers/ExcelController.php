@@ -14,7 +14,7 @@ class ExcelController extends Controller
     public function importExportView()
 
     {
-      $products = Product::inRandomOrder()->take(12)->paginate(12);
+      $products = Product::orderBy('created_at', 'desc')->take(12)->paginate(12);
       $categories = Category::all();
       return view('product.import')->with(['products'=>$products,
       'categories'=>$categories]);

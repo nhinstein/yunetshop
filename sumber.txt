@@ -20,3 +20,5 @@ upload gambar - intervention image
 queue - horizon jalanin di terminal, install redis-cli, transaksi atau proses yg lama
 
 - DB::Begintransaction try catch
+
+input masking (no rekening pakai string regex)

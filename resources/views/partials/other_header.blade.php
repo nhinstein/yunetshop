@@ -17,7 +17,12 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="nav-item"><a href="{{route('cart.index')}}" class="cart">
-              <span class="ti-bag"></span><span>{{Cart::instance('default')->count()}}</span></a></li>
+              <span class="ti-bag"></span><span>{{Cart::instance('default')->count()}}</span></a>
+            </li>
+
+            <li class="nav-item"><a href="" class="cart">
+                <span class="ti-search"></span><span></span></a>
+              </li>
           </ul>
         </div>
       </div>

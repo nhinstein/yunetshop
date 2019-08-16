@@ -56,7 +56,7 @@
                                      {{-- {{$order->transaction}} --}}
                                  </td>
                                  <td>
-                                     <a href="{{route('invoice.show', $order->id)}}">Lihat Invoice</a><br>
+                                     <a href="{{route('invoice.show', $order->id)}}" target="_blank">Lihat Invoice</a><br>
                                      @if(!$order->transaction and auth()->user()->isCustomer())
                                      <a href="#" data-toggle="modal" class="bayar" data-target="#modalCart" data-orderid="{{$order->id}}" data-totalorder="{{$order->formatPrice($order->total_order)}}">Bayar Sekarang</a>
                                      {{-- <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button> --}}

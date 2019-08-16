@@ -98,7 +98,7 @@
 						@foreach($products as $product)
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="{{asset($product->images->first()->src)}}" alt="">
+								<img class="img-fluid" src="{{asset(@$product->images->first()->src)}}" alt="">
 								<div class="product-details">
 									<a href="{{ route('shop.show', $product->slug )}}">
 										<h6>{{$product->name}}</h6></a>
@@ -181,7 +181,7 @@
 						@foreach ($dealsofweek as $item)
 						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
 							<div class="single-related-product d-flex">
-								<a href="#"><img width=70 height=70 src="img/img/{{$item->cover}}" alt=""></a>
+								<a href="#"><img width=70 height=70 src="{{asset(@$item->images->first()->src)}}" alt=""></a>
 								<div class="desc">
 									<a href="{{ route('shop.show', $item->slug )}}" class="title">{{$item->name}}</a>
 									<div class="price">

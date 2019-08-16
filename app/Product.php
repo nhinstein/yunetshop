@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Product extends Model
 {
     //
@@ -44,5 +45,10 @@ class Product extends Model
     public function totalWeight($qty){
       $totalweight = ($qty*$this->weight)/1000;
       return $totalweight;
+    }
+
+    public function scopeSearch($query)
+    {
+        return $query->where('votes', '>', 100);
     }
 }

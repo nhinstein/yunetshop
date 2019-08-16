@@ -90,7 +90,7 @@ class PaymentController extends Controller
         }
         foreach ($payment->getLinks() as $link) {
         if ($link->getRel() == 'approval_url') {
-        $redirect_url = $link->getHref();
+        $redirect_url = $link->getHref();       
                         break;
         }
         }

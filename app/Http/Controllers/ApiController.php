@@ -84,7 +84,6 @@ class ApiController extends Controller
         $hasil = json_decode($response, true);
         if($status==200){
           return json_decode($response, true)['rajaongkir']['results'][0]['costs'][0]['cost'][0]['value'];
-
         }
     }
 }
