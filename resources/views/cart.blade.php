@@ -45,8 +45,8 @@
                                          <div class="d-flex">
                                              <img width=100 height=100 src="img/img/{{$item->model->cover}}" alt="">
                                          </div>
-                                         <div class="media-body">
-                                             <a href="{{route('shop.show', $item->model->slug)}}"><p>{{$item->model->name}}</p></a>
+                                         <div class="">
+                                                <a href="{{route('shop.show', $item->model->slug)}}"><p>{{ str_limit($item->model->name, $limit = 20, $end = '...') }}</p></a>
                                          </div>
                                      </div>
                                  </td>
@@ -59,12 +59,9 @@
                                         @for($i=1; $i<11; $i++)
                                         <option {{$item->qty == $i ? 'selected' : ''}}>{{$i}}</option>
                                         @endfor
-
-																			
-								
-                                                                         </select>
-                                                                         </div
-                                 </td>
+                                    </select>
+                                </div>
+                                </td>
                                  <td>
                                      <h5>{{$item->model->formatCart($item->subtotal)}}</h5>
                                  </td>
@@ -129,26 +126,4 @@
     <script>
     var url_cart = "{{route('cart.index')}}"</script>
     <script src="{{ URL::asset('js/cart_add.js') }}"></script>
-	{{-- <script>
-	(function(){
-		const classname = document.querySelectorAll('.qty')
-		Array.from(classname).forEach(function(element){
-			element.addEventListener('change', function(){
-				const dataId = element.getAttribute('data-id')
-				const stock = element.getAttribute('data-stock')
-				axios.patch(`/cart/${dataId}`, {
-                    qty : this.value,
-                    stock = stock
-				})
-				.then(function(response){
-					console.log(response);
-					window.location.href ="{{route('cart.index')}}"
-				})
-				.catch(function(error){
-					console.log(error);
-				});
-			})
-		})
-	})();
-	</script> --}}
 	@endsection

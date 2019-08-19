@@ -2,9 +2,55 @@
 
 	<!-- Start Banner Area -->
 	@section('content')
-
 	<section class="banner-area organic-breadcrumb">
+		</section>
+	<section class="features-area section_gap">
+		<div class="container">
+			<div class="row features-inner">
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('img/features/f-icon1.png')}}" alt="">
+						</div>
+						<h6>Pengiriman</h6>
+						<p>Menjangkau seluruh wilayah Indonesia</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('img/features/f-icon2.png')}}" alt="">
+						</div>
+						<h6>Pengembalian</h6>
+						<p>Penukaran barang jika barang rusak</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('img/features/f-icon3.png')}}" alt="">
+						</div>
+						<h6>24/7 Support</h6>
+						<p>Admin support</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('img/features/f-icon4.png')}}" alt="">
+						</div>
+						<h6>Transaksi Aman</h6>
+						<p>100% terpercaya dan aman</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
+
 	<!-- End Banner Area -->
 	<div class="container">
 		<div class="row">

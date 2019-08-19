@@ -103,9 +103,28 @@
                             {{-- {{-- <div class="button-group-area">
                               <button class="genric-btn primary" data-toggle="modal" data-target="#modalPaypal"><i class="fa fa-paypal"></i> Paypal</button>
                             </div> --}}
-                            @foreach($type_payment as $type)
+                            <div class="payment_item">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="selector" value=1 checked>
+                                    <label for="f-option5">Bank Transfer</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>Please send a check to Store Name, Store Street, Store Town, Store State / County,
+                                    Store Postcode.</p>
+                            </div>
+                            <div class="payment_item active">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="selector" value=1>
+                                    <label for="f-option6">Paypal </label>
+                                    <img src="img/product/card.jpg" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                    account.</p>
+                            </div>
+                            {{-- @foreach($type_payment as $type)
                             <input type="radio" name="type_bayar" value="{{$type->id}}" {{$type->id==1 ? 'checked': ''}}>{{$type->name}}<br>
-                            @endforeach
+                            @endforeach --}}
                             <button type="button" class="primary-btn" data-toggle="modal" data-target="#modalCart">Checkout</button>
 														<!-- <button type="submit" class="primary-btn">Proses Order</button> -->
                         </div>
@@ -158,8 +177,6 @@
         <div class="form-group{{ $errors->has('t_file') ? ' has-error' : '' }}">
             <label class="w3-text-blue"><b>Upload Gambar</b></label>
             <input type="file" name="t_file">
-      
-
       </div>
       <!--Footer-->
       <div class="modal-footer">

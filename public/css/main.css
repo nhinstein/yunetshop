@@ -1208,7 +1208,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../img/banner/banner-bg.jpg) center no-repeat;
+  /* background: url(../img/banner/banner-bg.jpg) center no-repeat; */
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {
@@ -1286,7 +1286,7 @@ h1, h2, h3, h4, h5, h6 {
 .organic-breadcrumb {
   background: url(../img/banner/common-banner.jpg) center no-repeat;
   background-size: cover;
-  padding-top: 130px; }
+  padding-top: 160px; }
   @media (max-width: 991px) {
     .organic-breadcrumb {
       padding-top: 80px; } }

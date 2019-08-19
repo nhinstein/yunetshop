@@ -84,7 +84,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6 text-center">
 					<div class="section-title">
-						<h1>Produk Terrkait</h1>
+						<h1>Produk Terkait</h1>
 					</div>
 				</div>
 			</div>
