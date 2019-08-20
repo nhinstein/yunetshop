@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all()->take(10)->paginate(10);
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -45,7 +46,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        return view('profile')->with('user', auth()->user());
+        //
     }
 
     /**
@@ -54,9 +55,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('my-profile')->with('user', auth()->user());
+        //
     }
 
     /**

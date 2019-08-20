@@ -196,14 +196,15 @@
 						</select>
 					</div> -->
 					<!-- <div class="pagination"> -->
-						{{$products->render()}}
+						{{-- {{$products->render()}} --}}
+						{{ $products->appends(request()->input())->links() }}
 						<!-- <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
 						<a href="#" class="active">1</a>
 						<a href="#">2</a>
 						<a href="#">3</a>
 						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
 						<a href="#">6</a>
-						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> -->
+						<a href="#" class="next-arrow"><i class="fa fa-lon	g-arrow-right" aria-hidden="true"></i></a> -->
 					<!-- </div> -->
 				</div>
 				<!-- End Filter Bar -->

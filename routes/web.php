@@ -77,7 +77,7 @@ Route::get('/checkout/get_province', 'CheckoutController@get_province')->name('c
 Route::get('/checkout/get_city/', 'CheckoutController@get_city')->name('checkout.get_city');
 Route::get('/checkout/get_ongkir', 'CheckoutController@get_ongkir')->name('checkout.get_ongkir');
 Route::get('/empty', function(){Cart::destroy();});
-Route::get('/akun-saya', 'UsersController@edit')->name('users.edit');
+Route::get('/user/{user}', 'UsersController@show')->middleware('auth')->name('users.show');
 
 Auth::routes();
 
@@ -136,3 +136,7 @@ Route::get('/api/test', 'ApiController@getAllCity')->name('api.get_ongkir');
 Route::post('paypal', 'PaymentController@payWithpaypal')->name('paypal');
 // route for check status of the payment
 Route::get('status', 'PaymentController@getPaymentStatus')->name('status');
+
+Route::post('/category', 'CategoryController@index')
+->middleware('is_admin')
+->name('category.index');
